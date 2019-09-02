@@ -18,3 +18,5 @@ phpunit.dusk.xml
 .vapor/
 .env.production
 .env.staging
+.env.container
+.env.local
