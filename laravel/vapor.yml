@@ -1,0 +1,18 @@
+id: 594
+name: astrify
+environments:
+    production:
+        memory: 1024
+        cli-memory: 512
+        build:
+            - 'composer install --no-dev --classmap-authoritative'
+            - 'php artisan event:cache'
+            - 'yarn install && yarn run prod && rm -rf node_modules'
+    staging:
+        domain: staging.kaboodle.dev
+        memory: 1024
+        cli-memory: 512
+        build:
+            - 'composer install --classmap-authoritative'
+            - 'php artisan event:cache'
+            - 'yarn install && yarn run prod && rm -rf node_modules'

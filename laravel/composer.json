@@ -1,7 +1,7 @@
 {
-    "name": "cretueusebiu/laravel-vue-spa",
-    "description": "A Laravel-Vue SPA starter project template.",
-    "keywords": ["spa", "laravel", "vue"],
+    "name": "benbjurstrom/astrify",
+    "description": "Simple stellar.toml file hosting",
+    "keywords": ["stellar", "toml"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -11,6 +11,7 @@
         "laravel/framework": "5.8.*",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
+        "laravel/vapor-core": "^1.0",
         "tymon/jwt-auth": "^1.0.0-rc.4.1"
     },
     "require-dev": {
