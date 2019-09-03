@@ -1,9 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Notifications\VerifyEmail;
 use App\Notifications\ResetPassword;
+use Dyrynda\Database\Support\GeneratesUuid;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,7 +12,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, GeneratesUuid;
+
+    protected $uuidVersion = 'ordered';
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +45,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'uuid' => 'uuid'
     ];
 
     /**
