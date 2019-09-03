@@ -54,7 +54,7 @@ services:
     # The php api runtime
     laravel:
       container_name: astrify-laravel
-      image: benbjurstrom/php-laravel:latest
+      image: local-php-fpm-mysql:latest
       environment:
        APP_MODE: api
        DB_HOST: astrify-mysql

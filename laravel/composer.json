@@ -4,16 +4,27 @@
     "keywords": ["stellar", "toml"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MatanYadaev/jwt-auth"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jessarcher/laravel-model-uuid"
+        }
+    ],
     "require": {
-        "php": "^7.1.3",
-        "dyrynda/laravel-model-uuid": "^4.1",
+        "php": "^7.3",
+        "dyrynda/laravel-model-uuid": "dev-master",
         "fideloper/proxy": "^4.0",
         "laravel/dusk": "^5.1",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "^6.0",
+        "laravel/helpers": "^1.1",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "laravel/vapor-core": "^1.0",
-        "tymon/jwt-auth": "^1.0.0-rc.4.1"
+        "tymon/jwt-auth": "dev-feature/laravel-6-support"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
