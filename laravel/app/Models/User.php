@@ -44,8 +44,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'uuid' => 'uuid'
+        'email_verified_at' => 'datetime'
     ];
 
     /**

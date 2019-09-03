@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6b571908fa9f1c65c5c4d164291dd23b",
+    "content-hash": "639ce09b0a1bbb1e6c8eb5bc4f27332f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -304,49 +304,6 @@
                 "schedule"
             ],
             "time": "2019-03-31T00:38:28+00:00"
-        },
-        {
-            "name": "dyrynda/laravel-efficient-uuid",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/michaeldyrynda/laravel-efficient-uuid.git",
-                "reference": "f02e6a3abc093a6991100fe514e326e584eacb6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/michaeldyrynda/laravel-efficient-uuid/zipball/f02e6a3abc093a6991100fe514e326e584eacb6e",
-                "reference": "f02e6a3abc093a6991100fe514e326e584eacb6e",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/container": "~5.4",
-                "illuminate/database": "~5.4",
-                "php": ">=5.6.4"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9.4",
-                "phpunit/phpunit": "~5.7"
-            },
-            "type": "utility",
-            "autoload": {
-                "psr-4": {
-                    "Dyrynda\\Database\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dyrynda",
-                    "email": "michael@dyrynda.com.au",
-                    "homepage": "https://dyrynda.com.au"
-                }
-            ],
-            "description": "A package to override Laravel migrations to more efficiently store UUID fields in your database",
-            "time": "2019-03-14T23:33:53+00:00"
         },
         {
             "name": "dyrynda/laravel-model-uuid",

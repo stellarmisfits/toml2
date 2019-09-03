@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use App\Models\User ;
 use Tests\TestCase;
 use App\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\URL;
@@ -16,7 +16,7 @@ class VerificationTest extends TestCase
     public function can_verify_email()
     {
         $user = factory(User::class)->create(['email_verified_at' => null]);
-        $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->id]);
+        $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->uuid]);
 
         Event::fake();
 
@@ -33,7 +33,7 @@ class VerificationTest extends TestCase
     public function can_not_verify_if_already_verified()
     {
         $user = factory(User::class)->create();
-        $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->id]);
+        $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->uuid]);
 
         $this->postJson($url)
             ->assertStatus(400)
@@ -45,7 +45,7 @@ class VerificationTest extends TestCase
     {
         $user = factory(User::class)->create(['email_verified_at' => null]);
 
-        $this->postJson("/api/email/verify/{$user->id}")
+        $this->postJson("/api/email/verify/{$user->uuid}")
             ->assertStatus(400)
             ->assertJsonFragment(['status' => 'The verification link is invalid.']);
     }
