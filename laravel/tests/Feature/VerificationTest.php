@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Notification;
 class VerificationTest extends TestCase
 {
     /** @test */
-    public function can_verify_email()
+    public function canVerifyEmail()
     {
         $user = factory(User::class)->create(['email_verified_at' => null]);
         $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->uuid]);
@@ -30,7 +30,7 @@ class VerificationTest extends TestCase
     }
 
     /** @test */
-    public function can_not_verify_if_already_verified()
+    public function canNotVerifyIfAlreadyVerified()
     {
         $user = factory(User::class)->create();
         $url = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), ['user' => $user->uuid]);
@@ -41,7 +41,7 @@ class VerificationTest extends TestCase
     }
 
     /** @test */
-    public function can_not_verify_if_url_has_invalid_signature()
+    public function canNotVerifyIfUrlHasInvalidSignature()
     {
         $user = factory(User::class)->create(['email_verified_at' => null]);
 
@@ -51,7 +51,7 @@ class VerificationTest extends TestCase
     }
 
     /** @test */
-    public function resend_verification_notification()
+    public function resendVerificationNotification()
     {
         $user = factory(User::class)->create(['email_verified_at' => null]);
 
@@ -64,7 +64,7 @@ class VerificationTest extends TestCase
     }
 
     /** @test */
-    public function can_not_resend_verification_notification_if_email_does_not_exist()
+    public function canNotResendVerificationNotificationIfEmailDoesNotExist()
     {
         $this->postJson('/api/email/resend', ['email' => 'foo@bar.com'])
             ->assertStatus(422)
@@ -72,7 +72,7 @@ class VerificationTest extends TestCase
     }
 
     /** @test */
-    public function can_not_resend_verification_notification_if_email_already_verified()
+    public function canNotResendVerificationNotificationIfEmailAlreadyVerified()
     {
         $user = factory(User::class)->create();
 

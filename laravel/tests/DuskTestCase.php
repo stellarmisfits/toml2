@@ -10,14 +10,6 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-Browser::macro('assertPageIs', function ($page) {
-    if (! $page instanceof Page) {
-        $page = new $page;
-    }
-    // waiting for location before asserting, because window.location.pathname may be updated asynchronously
-    return $this->waitForLocation($page->url())->assertPathIs($page->url());
-});
-
 abstract class DuskTestCase extends BaseTestCase
 {
     use DatabaseMigrations;
@@ -47,9 +39,19 @@ abstract class DuskTestCase extends BaseTestCase
         ]);
 
         return RemoteWebDriver::create(
-            'http://localhost:9515', DesiredCapabilities::chrome()->setCapability(
-                ChromeOptions::CAPABILITY, $options
+            'http://localhost:9515',
+            DesiredCapabilities::chrome()->setCapability(
+                ChromeOptions::CAPABILITY,
+                $options
             )
         );
     }
 }
+
+Browser::macro('assertPageIs', function ($page) {
+    if (! $page instanceof Page) {
+        $page = new $page;
+    }
+    // waiting for location before asserting, because window.location.pathname may be updated asynchronously
+    return $this->waitForLocation($page->url())->assertPathIs($page->url());
+});

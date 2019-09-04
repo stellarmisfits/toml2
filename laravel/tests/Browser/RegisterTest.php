@@ -17,7 +17,7 @@ class RegisterTest extends DuskTestCase
     }
 
     /** @test */
-    public function register_with_valid_data()
+    public function registerWithValidData()
     {
         $this->browse(function ($browser) {
             $browser->visit(new Register)
@@ -32,7 +32,7 @@ class RegisterTest extends DuskTestCase
     }
 
     /** @test */
-    public function can_not_register_with_the_same_twice()
+    public function canNotRegisterWithTheSameTwice()
     {
         $user = factory(User::class)->create();
 

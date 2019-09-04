@@ -87,6 +87,5 @@ class AccountTest extends TestCase
 
         $this->assertCount(1, $results);
         $this->assertEquals($account1->id, $results[0]->id);
-
     }
 }

@@ -17,7 +17,7 @@ class SettingsTest extends TestCase
     }
 
     /** @test */
-    public function update_profile_info()
+    public function updateProfileInfo()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user)
@@ -36,7 +36,7 @@ class SettingsTest extends TestCase
     }
 
     /** @test */
-    public function update_password()
+    public function updatePassword()
     {
         $user = factory(User::class)->create(['password' => bcrypt('123')]);
         $this->actingAs($user)

@@ -33,7 +33,8 @@ class Account extends BaseModel
      *
      * @return BelongsToMany
      */
-    public function users(): BelongsToMany {
+    public function users(): BelongsToMany
+    {
         return $this->belongsToMany(User::class, 'account_users');
     }
 
@@ -43,7 +44,8 @@ class Account extends BaseModel
      *
      * @return BelongsTo
      */
-    public function organization(): BelongsTo {
+    public function organization(): BelongsTo
+    {
         return $this->belongsTo(Organization::class);
     }
 
@@ -52,7 +54,8 @@ class Account extends BaseModel
      *
      * @return HasMany
      */
-    public function assets(): HasMany {
+    public function assets(): HasMany
+    {
         return $this->hasMany(Asset::class);
     }
 
@@ -66,13 +69,14 @@ class Account extends BaseModel
 
     /**
      * @param Builder $query
-     * @param string $public_key
+     * @param string $publicKey
      * @return Builder
      */
-    public function scopePublicKeyFilter($query, string $public_key = null) {
+    public function scopePublicKeyFilter($query, string $publicKey = null)
+    {
 
-        if(!empty($public_key)){
-            $query->where('public_key', $public_key->id);
+        if (!empty($publicKey)) {
+            $query->where('public_key', $publicKey->id);
         }
 
         return $query;
@@ -83,9 +87,10 @@ class Account extends BaseModel
      * @param Organization $organization
      * @return Builder
      */
-    public function scopeOrganizationFilter($query, Organization $organization) {
+    public function scopeOrganizationFilter($query, Organization $organization)
+    {
 
-        if(!empty($organization)){
+        if (!empty($organization)) {
             $query->where('organization_id', $organization->id);
         }
 
@@ -94,13 +99,14 @@ class Account extends BaseModel
 
     /**
      * @param Builder $query
-     * @param string $organization_id
+     * @param string $organizationId
      * @return Builder
      */
-    public function scopeOrganizationIdFilter($query, string $organization_id = null) {
+    public function scopeOrganizationIdFilter($query, string $organizationId = null)
+    {
 
-        if(!empty($organization_id)){
-            $query->where('organization_id', $organization_id);
+        if (!empty($organizationId)) {
+            $query->where('organization_id', $organizationId);
         }
 
         return $query;
@@ -111,10 +117,11 @@ class Account extends BaseModel
      * @param Asset $asset
      * @return Builder
      */
-    public function scopeAssetFilter($query, Asset $asset) {
+    public function scopeAssetFilter($query, Asset $asset)
+    {
 
-        if(!empty($asset)){
-            $query->whereHas('assets', function($query) use($asset) {
+        if (!empty($asset)) {
+            $query->whereHas('assets', function ($query) use ($asset) {
                 $query->where('assets.id', $asset->id);
             });
         }
@@ -127,12 +134,13 @@ class Account extends BaseModel
      * @param User $user
      * @return Builder
      */
-    public function scopeVerifiedFilter($query,  ?User $user) {
+    public function scopeVerifiedFilter($query, ?User $user)
+    {
 
         $query->where(function ($query) use ($user) {
             $query->where('verified', true);
 
-            if($user){
+            if ($user) {
                 $query->orWhere('user_id', $user->id);
             }
         });

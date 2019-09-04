@@ -78,7 +78,6 @@ class AssetTest extends TestCase
 
         $this->assertCount(1, $results);
         $this->assertEquals($asset1->id, $results[0]->id);
-
     }
 
     /**
@@ -101,5 +100,4 @@ class AssetTest extends TestCase
         $this->assertCount(1, $results);
         $this->assertEquals($asset1->id, $results[0]->id);
     }
-
 }

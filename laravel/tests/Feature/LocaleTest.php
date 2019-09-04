@@ -7,7 +7,7 @@ use Tests\TestCase;
 class LocaleTest extends TestCase
 {
     /** @test */
-    public function set_locale_from_header()
+    public function setLocaleFromHeader()
     {
         $this->withHeaders(['Accept-Language' => 'zh-CN'])
             ->postJson('/api/login');
@@ -16,7 +16,7 @@ class LocaleTest extends TestCase
     }
 
     /** @test */
-    public function set_locale_from_header_short()
+    public function setLocaleFromHeaderShort()
     {
         $this->withHeaders(['Accept-Language' => 'en-US'])
             ->postJson('/api/login');

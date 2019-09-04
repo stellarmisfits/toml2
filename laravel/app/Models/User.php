@@ -114,7 +114,8 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      *
      * @return BelongsToMany
      */
-    public function accounts(): BelongsToMany {
+    public function accounts(): BelongsToMany
+    {
         return $this->belongsToMany(Account::class, 'account_users');
     }
 
@@ -123,7 +124,8 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      *
      * @return BelongsToMany
      */
-    public function organizations(): BelongsToMany {
+    public function organizations(): BelongsToMany
+    {
         return $this->belongsToMany(Organization::class, 'organization_users');
     }
 

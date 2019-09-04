@@ -30,7 +30,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    public function redirect_to_provider()
+    public function redirectToProvider()
     {
         $this->mockSocialite('github');
 
@@ -40,7 +40,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    public function create_user_and_return_token()
+    public function createUserAndReturnToken()
     {
         $this->mockSocialite('github', [
             'id' => '123',
@@ -71,7 +71,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    public function update_user_and_return_token()
+    public function updateUserAndReturnToken()
     {
         $user = factory(User::class)->create(['email' => 'test@example.com']);
         $user->oauthProviders()->create([
@@ -98,7 +98,7 @@ class OAuthTest extends TestCase
     }
 
     /** @test */
-    public function can_not_create_user_if_email_is_taken()
+    public function canNotCreateUserIfEmailIsTaken()
     {
         factory(User::class)->create(['email' => 'test@example.com']);
 

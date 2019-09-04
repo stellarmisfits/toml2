@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Builder;
+
 // use Spatie\Image\Manipulations;
 // use Spatie\MediaLibrary\Models\Media;
 // use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -89,7 +90,8 @@ class Organization extends BaseModel // implements HasMedia
      *
      * @return BelongsToMany
      */
-    public function users(): BelongsToMany {
+    public function users(): BelongsToMany
+    {
         return $this->belongsToMany(User::class, 'organization_users');
     }
 
@@ -98,7 +100,8 @@ class Organization extends BaseModel // implements HasMedia
      *
      * @return HasMany
      */
-    public function accounts(): HasMany {
+    public function accounts(): HasMany
+    {
         return $this->hasMany(Account::class);
     }
 
@@ -107,7 +110,8 @@ class Organization extends BaseModel // implements HasMedia
      *
      * @return HasMany
      */
-    public function principals(): HasMany {
+    public function principals(): HasMany
+    {
         return $this->hasMany(Principal::class);
     }
 
@@ -116,7 +120,8 @@ class Organization extends BaseModel // implements HasMedia
      *
      * @return HasManyThrough
      */
-    public function assets(): HasManyThrough {
+    public function assets(): HasManyThrough
+    {
         return $this->hasManyThrough(Asset::class, Account::class);
     }
 
@@ -133,9 +138,10 @@ class Organization extends BaseModel // implements HasMedia
      * @param User $user
      * @return Builder
      */
-    public function scopeUserFilter($query, User $user) {
+    public function scopeUserFilter($query, User $user)
+    {
 
-        if(!empty($user)){
+        if (!empty($user)) {
             $query->whereHas('users', function ($query) use ($user) {
                 $query->where('users.id', $user->id);
             });
@@ -149,9 +155,10 @@ class Organization extends BaseModel // implements HasMedia
      * @param string $slug
      * @return Builder
      */
-    public function scopeSlugFilter($query, $slug) {
+    public function scopeSlugFilter($query, $slug)
+    {
 
-        if(!empty($slug)){
+        if (!empty($slug)) {
             $query->where('slug', $slug);
         }
 
@@ -163,12 +170,13 @@ class Organization extends BaseModel // implements HasMedia
      * @param User $user
      * @return Builder
      */
-    public function scopePublishedFilter($query, ?User $user) {
+    public function scopePublishedFilter($query, ?User $user)
+    {
 
         $query->where(function ($query) use ($user) {
             $query->where('published', true);
 
-            if($user){
+            if ($user) {
                 $query->orWhereHas('users', function ($query) use ($user) {
                     $query->where('users.id', $user->id);
                 });

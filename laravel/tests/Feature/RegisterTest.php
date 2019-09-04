@@ -8,7 +8,7 @@ use Tests\TestCase;
 class RegisterTest extends TestCase
 {
     /** @test */
-    public function can_register()
+    public function canRegister()
     {
         $this->postJson('/api/register', [
             'name' => 'Test User',
@@ -21,7 +21,7 @@ class RegisterTest extends TestCase
     }
 
     /** @test */
-    public function can_not_register_with_existing_email()
+    public function canNotRegisterWithExistingEmail()
     {
         factory(User::class)->create(['email' => 'test@test.app']);
 

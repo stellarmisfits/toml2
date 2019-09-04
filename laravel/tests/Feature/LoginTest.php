@@ -30,7 +30,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function fetch_the_current_user()
+    public function fetchTheCurrentUser()
     {
         $this->actingAs($this->user)
             ->getJson('/api/user')
@@ -39,7 +39,7 @@ class LoginTest extends TestCase
     }
 
     /** @test */
-    public function log_out()
+    public function logOut()
     {
         $token = $this->postJson('/api/login', [
             'email' => $this->user->email,
