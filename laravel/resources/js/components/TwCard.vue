@@ -17,7 +17,7 @@ export default {
   props: {
     title: { type: String, default: null },
     image: { type: String, default: null },
-    imageAlt: { type: String, default: null },
+    imageAlt: { type: String, default: null }
   }
 }
 </script>

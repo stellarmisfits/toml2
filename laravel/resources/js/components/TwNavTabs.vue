@@ -9,9 +9,8 @@
   </ul>
 </template>
 
-
 <script>
-//import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'TwNavTabs',
@@ -20,7 +19,7 @@ export default {
     tabs: {
       type: Array,
       default: null
-    },
+    }
   }
 }
 </script>

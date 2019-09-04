@@ -1,7 +1,7 @@
 <template>
   <ul class="locale-switcher">
     <li v-for="(value, key) in locales" :key="key">
-      <a href="" @click.prevent="setLocale(key)" :class="value === locales[locale] ? 'is-active-locale' : ''">
+      <a href="" :class="value === locales[locale] ? 'is-active-locale' : ''" @click.prevent="setLocale(key)">
         {{ value }}
       </a>
     </li>

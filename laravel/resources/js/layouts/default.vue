@@ -1,7 +1,7 @@
 <template>
-  <div class="main-layout">
+  <div class="min-h-screen flex flex-col font-sans">
     <tw-navbar />
-    <main>
+    <main class="flex-grow p-8">
       <child />
     </main>
     <locale-switcher />

@@ -24,5 +24,21 @@ module.exports = {
     chunkFilename: 'dist/js/[chunkhash].js',
     path: mix.config.hmr ? '/' : path.resolve(__dirname, './public/build'),
     publicPath: ASSET_URL
-  }
+  },
+  module: {
+    rules: [
+      {
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+          emitError: true,
+          emitWarning: true,
+          failOnError: true,
+          failOnWarning: true
+        }
+      },
+    ],
+  },
 }

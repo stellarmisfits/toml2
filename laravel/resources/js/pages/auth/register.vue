@@ -7,7 +7,6 @@
     </tw-card>
     <tw-card v-else :title="$t('register')">
       <form @submit.prevent="register" @keydown="form.onKeydown($event)">
-
         <!-- Name -->
         <div class="mt-4">
           <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>

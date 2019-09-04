@@ -1,13 +1,11 @@
 <template>
   <div class="container mx-auto">
-    
     <tw-card :title="$t('settings')" class="settings-card">
-      <tw-nav-tabs :tabs="tabs"></tw-nav-tabs>
+      <tw-nav-tabs :tabs="tabs" />
       <transition name="fade" mode="out-in">
         <router-view />
       </transition>
     </tw-card>
-    
   </div>
 </template>
 
