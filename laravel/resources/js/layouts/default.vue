@@ -1,21 +1,23 @@
 <template>
   <div class="main-layout">
-    <navbar />
-
-    <div class="container mt-4">
+    <tw-navbar />
+    <main>
       <child />
-    </div>
+    </main>
+    <locale-switcher />
   </div>
 </template>
 
 <script>
-import Navbar from '~/components/Navbar'
+import TwNavbar from '~/components/TwNavbar'
+import LocaleSwitcher from '~/components/LocaleSwitcher'
 
 export default {
   name: 'MainLayout',
 
   components: {
-    Navbar
+    TwNavbar,
+    LocaleSwitcher
   }
 }
 </script>

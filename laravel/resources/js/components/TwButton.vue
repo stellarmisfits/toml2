@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'VButton',
+  name: 'TwButton',
 
   props: {
     type: {

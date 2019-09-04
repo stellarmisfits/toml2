@@ -5,7 +5,7 @@
       :name="name"
       :checked="internalValue"
       type="checkbox"
-      class="custom-control-input"
+      class="form-checkbox"
       @click="handleClick"
     >
     <label :for="id || name" class="custom-control-label my-auto">
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'Checkbox',
+  name: 'TwCheckbox',
 
   props: {
     id: { type: String, default: null },
