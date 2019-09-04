@@ -12,6 +12,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/jessarcher/laravel-model-uuid"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/benbjurstrom/stellar-api"
         }
     ],
     "require": {
@@ -24,7 +28,8 @@
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "laravel/vapor-core": "^1.0",
-        "tymon/jwt-auth": "dev-feature/laravel-6-support"
+        "tymon/jwt-auth": "dev-feature/laravel-6-support",
+        "zulucrypto/stellar-api": "^0.7.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

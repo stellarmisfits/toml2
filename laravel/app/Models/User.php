@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\VerifyEmail;
 use App\Notifications\ResetPassword;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -56,6 +57,14 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
         'photo_url',
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Mutators
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
     /**
      * Get the profile photo URL attribute.
      *
@@ -67,6 +76,30 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     }
 
     /**
+     * @return int
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    /**
      * Get the oauth providers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -75,6 +108,40 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     {
         return $this->hasMany(OAuthProvider::class);
     }
+
+    /**
+     * User->Accounts relationship
+     *
+     * @return BelongsToMany
+     */
+    public function accounts(): BelongsToMany {
+        return $this->belongsToMany(Account::class, 'account_users');
+    }
+
+    /**
+     * User->Organizations relationship
+     *
+     * @return BelongsToMany
+     */
+    public function organizations(): BelongsToMany {
+        return $this->belongsToMany(Organization::class, 'organization_users');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scopes
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Other Methods
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
 
     /**
      * Send the password reset notification.
@@ -95,21 +162,5 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail);
-    }
-
-    /**
-     * @return int
-     */
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * @return array
-     */
-    public function getJWTCustomClaims()
-    {
-        return [];
     }
 }

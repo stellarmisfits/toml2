@@ -14,14 +14,13 @@ class SettingsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->user = factory(User::class)->create();
     }
 
     /** @test */
     public function update_profile_info()
     {
-        $this->actingAs($this->user)
+        $user = factory(User::class)->create();
+        $this->actingAs($user)
             ->patchJson('/api/settings/profile', [
                 'name' => 'Test User',
                 'email' => 'test@test.app',
@@ -30,7 +29,7 @@ class SettingsTest extends TestCase
             ->assertJsonStructure(['id', 'name', 'email']);
 
         $this->assertDatabaseHas('users', [
-            'id' => $this->user->id,
+            'id' => $user->id,
             'name' => 'Test User',
             'email' => 'test@test.app',
         ]);
@@ -39,13 +38,15 @@ class SettingsTest extends TestCase
     /** @test */
     public function update_password()
     {
-        $this->actingAs($this->user)
+        $user = factory(User::class)->create(['password' => bcrypt('123')]);
+        $this->actingAs($user)
             ->patchJson('/api/settings/password', [
                 'password' => 'updated',
                 'password_confirmation' => 'updated',
-            ])
+                'old_password' => '123',
+            ])->dump()
             ->assertSuccessful();
 
-        $this->assertTrue(Hash::check('updated', $this->user->password));
+        $this->assertTrue(Hash::check('updated', $user->password));
     }
 }
