@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs-extra')
 const mix = require('laravel-mix')
 const tailwindcss = require('tailwindcss')
+const config = require('./webpack.config')
+
 require('laravel-mix-versionhash')
 require('laravel-mix-purgecss')
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
@@ -20,26 +22,13 @@ if (mix.inProduction()) {
     .purgeCss() // Remove CSS that we are not using with `laravel-mix-purgecss`
     // .extract() // Disabled until resolved: https://github.com/JeffreyWay/laravel-mix/issues/1889
     // .version() // Use `laravel-mix-versionhash` for the generating correct Laravel Mix manifest file.
-    .versionHash()
+    // .versionHash()
 } else {
   mix.sourceMaps()
 }
 
-mix.webpackConfig({
-  plugins: [
-    // new BundleAnalyzerPlugin()
-  ],
-  resolve: {
-    extensions: ['.js', '.json', '.vue'],
-    alias: {
-      '~': path.join(__dirname, './resources/js')
-    }
-  },
-  output: {
-    chunkFilename: 'dist/js/[chunkhash].js',
-    path: mix.config.hmr ? '/' : path.resolve(__dirname, './public/build')
-  }
-})
+// webpack.config.js
+mix.webpackConfig(config)
 
 mix.then(() => {
   if (!mix.config.hmr) {
