@@ -11,6 +11,6 @@
 |
 */
 
-Route::group(['domain' => '{slug}.toml.astrify.com'], function() {
+Route::group(['domain' => '{slug}.astrify.com'], function() {
     Route::get('/.well-known/stellar.toml', 'TomlController@show');
 });

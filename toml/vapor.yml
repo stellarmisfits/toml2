@@ -2,6 +2,8 @@ id: 594
 name: astrify
 environments:
     toml:
+        domain: '*.astrify.com'
+        balancer: kaboodle
         memory: 128
         cli-memory: 128
         database: kaboodle
