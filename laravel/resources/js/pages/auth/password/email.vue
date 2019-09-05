@@ -1,25 +1,23 @@
 <template>
   <div class="container mx-auto flex justify-center items-center">
-    <tw-card :title="$t('reset_password')">
+    <tw-card class="max-w-md" :title="$t('reset_password')">
       <form @submit.prevent="send" @keydown="form.onKeydown($event)">
         <alert-success :form="form" :message="status" />
 
         <!-- Email -->
         <div class="mt-4">
-          <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-          <div class="col-md-7">
-            <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-input" type="email" name="email">
-            <has-error :form="form" field="email" />
-          </div>
+          <label class="uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
+            {{ $t('email') }}
+          </label>
+          <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-input mt-2 mb-4 w-full" type="email" name="email">
+          <has-error :form="form" field="email" />
         </div>
 
         <!-- Submit Button -->
         <div class="mt-4">
-          <div class="col-md-9 ml-md-auto">
-            <tw-button :loading="form.busy">
-              {{ $t('send_password_reset_link') }}
-            </tw-button>
-          </div>
+          <tw-button :loading="form.busy">
+            {{ $t('send_password_reset_link') }}
+          </tw-button>
         </div>
       </form>
     </tw-card>

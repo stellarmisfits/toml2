@@ -1,28 +1,28 @@
 <template>
   <div class="container mx-auto flex justify-center items-center">
-    <tw-card :title="$t('login')" class="max-w-md">
+    <tw-card class="max-w-md">
       <form @submit.prevent="login" @keydown="form.onKeydown($event)">
         <!-- Email -->
-        <div class="mt-4">
-          <label class="col-md-3 col-form-label text-md-right mb-2" for="email">{{ $t('email') }}</label>
-          <div class="col-md-7">
-            <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-input" type="email" name="email" placeholder="username@example.com" required autocomplete="email">
-            <has-error :form="form" field="email" />
-          </div>
+        <div class="w-full">
+          <label class="uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
+            {{ $t('email') }}
+          </label>
+          <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" name="email" class="form-input mt-2 mb-4 w-full" type="email" required autocomplete="email" placeholder="username@example.com">
+          <has-error :form="form" field="email" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-          <label class="col-md-3 col-form-label text-md-right" for="password">{{ $t('password') }}</label>
-          <div class="col-md-7">
-            <input id="password" v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-input" type="password" name="password" required autocomplete="current-password">
-            <has-error :form="form" field="password" />
-          </div>
+        <div class="w-full">
+          <label class="uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="password">
+            {{ $t('password') }}
+          </label>
+          <input id="password" v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" name="password" class="form-input mt-2 mb-4 w-full" type="password" placeholder="******************">
+          <has-error :form="form" field="password" />
         </div>
 
         <!-- Remember Me -->
-        <div class="mt-4">
-          <div class="flex items-center justify-between">
+        <div>
+          <div class="flex items-center justify-between uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
             <tw-checkbox v-model="remember" name="remember">
               {{ $t('remember_me') }}
             </tw-checkbox>
@@ -35,7 +35,7 @@
             {{ $t('login') }}
           </tw-button>
           <div class="ml-0 md:ml-2 mb-2">
-            <router-link :to="{ name: 'password.request' }" class="align-baseline font-bold text-gray-600 text-sm no-underline">
+            <router-link :to="{ name: 'password.request' }" class="align-baseline uppercase tracking-wide text-grey-darker text-xs no-underline">
               {{ $t('forgot_password') }}
             </router-link>
           </div>

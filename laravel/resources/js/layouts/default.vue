@@ -1,23 +1,23 @@
 <template>
-  <div class="min-h-screen flex flex-col font-sans">
+  <div class="bg-gray-700 min-h-screen flex flex-col font-sans">
     <tw-navbar />
     <main class="flex-grow p-8">
       <child />
     </main>
-    <locale-switcher />
+    <Footer />
   </div>
 </template>
 
 <script>
 import TwNavbar from '~/components/TwNavbar'
-import LocaleSwitcher from '~/components/LocaleSwitcher'
+import Footer from '~/components/Footer'
 
 export default {
   name: 'MainLayout',
 
   components: {
     TwNavbar,
-    LocaleSwitcher
+    Footer
   }
 }
 </script>

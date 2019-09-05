@@ -25,6 +25,7 @@ if (mix.inProduction()) {
     // .versionHash()
 } else {
   mix.sourceMaps()
+    .browserSync('localhost:8000')
 }
 
 // webpack.config.js

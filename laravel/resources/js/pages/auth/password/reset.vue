@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto flex justify-center items-center">
-    <tw-card :title="$t('reset_password')">
+    <tw-card class="max-w-md" :title="$t('reset_password')">
       <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
         <alert-success :form="form" :message="status" />
 
