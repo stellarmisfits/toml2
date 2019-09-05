@@ -1,0 +1,10 @@
+id: 594
+name: astrify
+environments:
+    toml:
+        memory: 128
+        cli-memory: 128
+        database: kaboodle
+        build:
+            - 'composer install --no-dev --classmap-authoritative'
+            - 'php artisan event:cache'
