@@ -1,8 +1,8 @@
 const mix = require('laravel-mix')
 
 var ASSET_URL = "/";
-if(process.env.NODE_ENV === "production" && process.env.ASSET_URL){
-  ASSET_URL = process.env.ASSET_URL + "/";
+if (process.env.NODE_ENV === 'production' && process.env.ASSET_URL) {
+  ASSET_URL = process.env.ASSET_URL + '/'
 }
 const path = require('path')
 const webpack = require('webpack')
@@ -38,7 +38,7 @@ module.exports = {
           failOnError: true,
           failOnWarning: true
         }
-      },
-    ],
-  },
+      }
+    ]
+  }
 }
