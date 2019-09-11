@@ -1,36 +1,55 @@
 <template>
-  <tw-card :title="$t('your_info')">
-    <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('info_updated')" />
-
-      <!-- Name -->
-      <div class="mt-4">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
-        <div class="col-md-7">
-          <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-input" type="text" name="name">
-          <has-error :form="form" field="name" />
-        </div>
+  <div class="flex -mx-2">
+    <div class="w-1/3 px-2">
+      <h3 class="text-md font-semibold">
+        Contact Information
+      </h3>
+      <div class="mt-2 text-sm text-gray-800">
+        Update your account's name and email address.
       </div>
+    </div>
+    <div class="w-2/3 px-2">
+      <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
+          <alert-success :form="form" :message="$t('info_updated')" />
+          <label class="block"><span class="form-label">Name</span>
+            <input
+              v-model="form.name"
+              :class="{ 'is-invalid': form.errors.has('name') }"
+              type="text"
+              name="name"
+              required="required"
+              class="form-input mt-1"
+            >
+            <has-error :form="form" field="name" />
+          </label>
+          <label class="block">
+            <span class="form-label">Email</span>
+            <input
+              v-model="form.email"
+              :class="{ 'is-invalid': form.errors.has('email') }"
+              type="email"
+              name="email"
+              required="required"
+              class="form-input mt-1"
+            >
+            <has-error :form="form" field="email" />
+          </label>
 
-      <!-- Email -->
-      <div class="mt-4">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-        <div class="col-md-7">
-          <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-input" type="email" name="email">
-          <has-error :form="form" field="email" />
-        </div>
+          <!-- Submit Button -->
+          <div class="text-right">
+            <a-button
+              :loading="form.busy"
+              type="white"
+              class="btn-white"
+            >
+              Save
+            </a-button>
+          </div>
+        </form>
       </div>
-
-      <!-- Submit Button -->
-      <div class="mt-4">
-        <div class="col-md-9 ml-md-auto">
-          <tw-button :loading="form.busy">
-            {{ $t('update') }}
-          </tw-button>
-        </div>
-      </div>
-    </form>
-  </tw-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -57,9 +76,11 @@ export default {
 
   created () {
     // Fill the form with user data.
+    let data = {}
     this.form.keys().forEach(key => {
-      this.form[key] = this.user[key]
+      data[key] = this.user[key]
     })
+    this.form = new Form(data)
   },
 
   methods: {

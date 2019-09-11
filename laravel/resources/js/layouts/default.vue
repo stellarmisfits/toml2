@@ -1,23 +1,30 @@
 <template>
-  <div class="bg-gray-700 min-h-screen flex flex-col font-sans">
-    <tw-navbar />
-    <main class="flex-grow p-8">
-      <child />
-    </main>
-    <Footer />
+  <div id="app2">
+    <div class="min-h-screen flex bg-gray-200">
+      <Sidebar />
+      <div class="flex-grow flex flex-col">
+        <Header />
+        <div class="flex-grow flex flex-col">
+          <child />
+        </div>
+      </div>
+    </div>
+    <portal-target name="modal" />
   </div>
 </template>
 
 <script>
-import TwNavbar from '~/components/TwNavbar'
-import Footer from '~/components/Footer'
+import Sidebar from '~/components/nav/Sidebar'
+import Header from '~/components/nav/Header'
+// import Footer from '~/components/Footer'
 
 export default {
-  name: 'MainLayout',
+  name: 'DashboardLayout',
 
   components: {
-    TwNavbar,
-    Footer
+    Sidebar,
+    Header
+    // Footer
   }
 }
 </script>

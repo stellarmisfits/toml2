@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import PortalVue from 'portal-vue'
 import store from '~/store'
 import router from '~/router'
 import i18n from '~/plugins/i18n'
@@ -16,3 +17,4 @@ new Vue({
   router,
   ...App
 })
+Vue.use(PortalVue)

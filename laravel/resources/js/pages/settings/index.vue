@@ -1,35 +1,30 @@
 <template>
-  <div class="container mx-auto">
-    <tw-card :title="$t('settings')" class="settings-card">
-      <tw-nav-tabs :tabs="tabs" />
+  <div class="flex-grow">
+    <a-breadcrumbs :tabs="tabs">
+      <span slot="title">Account Settings</span>
+    </a-breadcrumbs>
+    <div class="px-12 py-8 mx-auto max-w-4xl">
       <transition name="fade" mode="out-in">
         <router-view />
       </transition>
-    </tw-card>
+    </div>
   </div>
 </template>
 
 <script>
-import TwNavTabs from '~/components/TwNavTabs'
-
+import ABreadcrumbs from '~/components/Breadcrumbs'
 export default {
+  components: { ABreadcrumbs },
   middleware: 'auth',
-
-  components: {
-    TwNavTabs
-  },
-
   computed: {
     tabs () {
       return [
         {
-          icon: 'user',
-          name: this.$t('profile'),
+          name: 'Profile',
           route: 'settings.profile'
         },
         {
-          icon: 'lock',
-          name: this.$t('password'),
+          name: 'Password',
           route: 'settings.password'
         }
       ]

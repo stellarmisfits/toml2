@@ -8,7 +8,8 @@
       'btn-lg': large,
       'btn-loading': loading
     }"
-    class="btn"
+    class="relative transition-all btn"
+    @click="$emit('click')"
   >
     <slot />
   </button>
@@ -16,7 +17,7 @@
 
 <script>
 export default {
-  name: 'VButton',
+  name: 'AButton',
 
   props: {
     type: {

@@ -1,18 +1,35 @@
 .btn {
-  @apply text-gray-800 shadow-md rounded font-semibold leading-tight px-4 py-3 uppercase text-sm;
+  @apply px-4 py-2 border text-sm rounded tracking-widest font-semibold uppercase ;
+  &:hover{
+    @apply bg-gray-200;
+  }
+  &:focus{
+    @apply shadow-outline outline-none;
+  }
+  &:disabled{
+    @apply opacity-50;
+  }
 }
-.btn:hover {
-  @apply bg-gray-200;
+
+.btn-sm {
+  @apply px-2 py-1 text-xs;
 }
-.btn:focus {
-  @apply shadow-outline outline-none;
+
+.btn-white {
+  @apply border border-gray-300 text-gray-600 shadow bg-white;
+  &:disabled {
+    @apply shadow-inner;
+    &:hover{
+      @apply bg-white;
+    }
+  }
 }
 
 .btn-primary {
   @apply text-white bg-purple-600;
-}
-.btn-primary:hover {
-  @apply bg-purple-700;
+  &:hover {
+    @apply bg-transparent bg-purple-700;
+  }
 }
 
 .btn-loading {

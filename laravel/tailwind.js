@@ -6,28 +6,37 @@ module.exports = {
     customForms: theme => ({
       default: {
         'input, textarea, multiselect, select': {
+          width: theme('width.full'),
           borderRadius: theme('borderRadius.default'),
-          borderColor: theme('colors.gray.400'),
+          borderColor: theme('colors.gray.300'),
+          backgroundColor: theme('colors.white'),
           '&:focus': {
             backgroundColor: theme('colors.white')
           }
         },
-        'input, textarea, multiselect': {
-          backgroundColor: theme('colors.gray.200')
-        },
-        select: {
-          backgroundColor: theme('colors.gray.200')
-        },
         checkbox: {
           borderColor: theme('colors.gray.300')
         }
-      },
+      }
     }),
+    // https://github.com/benface/tailwindcss-transforms
+    scale: { // defaults to {}
+      '75': '0.75',
+      '100': '1'
+    },
+    // https://github.com/benface/tailwindcss-transitions
+    transitionDuration: {
+      'default': '50ms',
+      '0': '0ms',
+      '25': '25ms',
+      '50': '50ms',
+      '100': '100ms'
+    },
     screens: {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1280px',
+      xl: '1280px'
     },
     colors: {
       transparent: 'transparent',
@@ -241,6 +250,8 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'Nunito',
+        'Ubuntu',
         '-apple-system',
         'BlinkMacSystemFont',
         '"Segoe UI"',
@@ -501,10 +512,14 @@ module.exports = {
     whitespace: ['responsive'],
     width: ['responsive'],
     wordBreak: ['responsive'],
-    zIndex: ['responsive'],
+    zIndex: ['responsive']
   },
   corePlugins: {},
   plugins: [
-    require('@tailwindcss/custom-forms')
-  ],
+    require('@tailwindcss/custom-forms'),
+    require('tailwindcss-transitions')(),
+    require('tailwindcss-transforms')({
+      '3d': false, // defaults to false
+    })
+  ]
 }

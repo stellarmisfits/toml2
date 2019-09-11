@@ -1,7 +1,7 @@
 @import 'variables';
 @import '~sweetalert2/src/sweetalert2';
 
-@import url('https://fonts.googleapis.com/css?family=Ruda|Roboto+Slab');
+@import url('https://fonts.googleapis.com/css?family=Nunito|Ubuntu|Roboto+Slab');
 
 /**
  * This injects Tailwind's base styles, which is a combination of
@@ -69,8 +69,16 @@
 @import 'tailwind/alerts';
 @import 'tailwind/buttons';
 @import 'tailwind/nav';
+@import 'tailwind/forms';
+@import 'tailwind/spacing';
 @import 'elements/transitions';
 
-label {
-  @apply text-gray-700 font-bold mb-2;
+.dropdown-item {
+  @apply block w-full px-4 py-2 text-sm;
+  &:focus {
+    @apply outline-none;
+  }
+  &:hover {
+    @apply bg-gray-300;
+  }
 }

@@ -31,9 +31,9 @@
 
         <div class="mt-4 flex flex-col md:flex-row items-start md:items-center justify-between">
           <!-- Submit Button -->
-          <tw-button :loading="form.busy">
+          <a-button :loading="form.busy">
             {{ $t('login') }}
-          </tw-button>
+          </a-button>
           <div class="ml-0 md:ml-2 mb-2">
             <router-link :to="{ name: 'password.request' }" class="align-baseline uppercase tracking-wide text-grey-darker text-xs no-underline">
               {{ $t('forgot_password') }}
