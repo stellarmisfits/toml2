@@ -26,7 +26,7 @@ class SettingsTest extends TestCase
                 'email' => 'test@test.app',
             ])
             ->assertSuccessful()
-            ->assertJsonStructure(['id', 'name', 'email']);
+            ->assertJsonStructure(['uuid', 'name', 'email']);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,

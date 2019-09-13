@@ -153,15 +153,32 @@ class Organization extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param User $user
+     * @param Account $account
      * @return Builder
      */
-    public function scopeUserFilter($query, User $user)
+    public function scopeAccountFilter($query, Account $account)
     {
 
-        if (!empty($user)) {
-            $query->whereHas('users', function ($query) use ($user) {
-                $query->where('users.id', $user->id);
+        if (!empty($account)) {
+            $query->whereHas('accounts', function ($query) use ($account) {
+                $query->where('accounts.id', $account->id);
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param Asset $asset
+     * @return Builder
+     */
+    public function scopeAssetFilter($query, Asset $asset)
+    {
+
+        if (!empty($asset)) {
+            $query->whereHas('assets', function ($query) use ($asset) {
+                $query->where('assets.id', $asset->id);
             });
         }
 

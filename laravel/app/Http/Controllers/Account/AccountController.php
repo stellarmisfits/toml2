@@ -53,7 +53,7 @@ class AccountController extends Controller
     public function store(Request $request, AccountRepository $ac): AccountResource
     {
         $data = $request->validate([
-            'alias'        => ['required', 'string', 'max:50'],
+            'alias'        => 'nullable|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
             'public_key'   => ['required', 'string', 'size:56', new PublicKey, Rule::unique('accounts', 'public_key')]
         ]);
 

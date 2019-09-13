@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Organization;
+use App\Repositories\OrganizationRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -45,18 +46,12 @@ class OrganizationTest extends TestCase
     */
 
     /**
-     * A basic test example.
+     *
      */
-    public function testUsersRelationship()
+    public function testTeamRelationship()
     {
-        $org = factory(Organization::class)->create();
-        $user = $this->seeder->seedUser();
-
-        $org->users()->attach($user);
-        $result = $org->users->first();
-
-        $this->assertCount(1, $org->users);
-        $this->assertEquals($user->id, $result->id);
+        $org = $this->seeder->seedOrganization();
+        $this->assertEquals($org->team_id, $org->team->id);
     }
 
     /*
@@ -68,20 +63,47 @@ class OrganizationTest extends TestCase
     */
 
     /**
-     * A basic test example.
+     *
      */
-    public function testUsersFilter()
+    public function testAccountFilter()
     {
-        $org1 = factory(Organization::class)->create();
-        $user1 = $this->seeder->seedUser();
-        $org1->users()->attach($user1);
+        $team = $this->seeder->seedTeam();
+        $org1 = $this->seeder->seedOrganization($team);
+        $org2 = $this->seeder->seedOrganization($team);
 
-        $org2 = factory(Organization::class)->create();
-        $user2 = $this->seeder->seedUser();
-        $org2->users()->attach($user2);
+        $account1 = $this->seeder->seedAccount($team);
+        $account2 = $this->seeder->seedAccount($team);
 
+        $or = new OrganizationRepository();
+        $or->addAccount($org1, $account1);
+        $or->addAccount($org2, $account2);
 
-        $results = (new Organization)->userFilter($user1)->get();
+        $this->assertCount(2, $team->organizations);
+
+        $results = (new Organization)->accountFilter($account1)->get();
+        $this->assertCount(1, $results);
+        $this->assertEquals($org1->id, $results[0]->id);
+    }
+
+    /**
+     *
+     */
+    public function testAssetFilter()
+    {
+        $team = $this->seeder->seedTeam();
+        $org1 = $this->seeder->seedOrganization($team);
+        $org2 = $this->seeder->seedOrganization($team);
+
+        $asset1 = $this->seeder->seedAsset($team);
+        $asset2 = $this->seeder->seedAsset($team);
+
+        $or = new OrganizationRepository();
+        $or->addAsset($org1, $asset1);
+        $or->addAsset($org2, $asset2);
+
+        $this->assertCount(2, $team->organizations);
+
+        $results = (new Organization)->assetFilter($asset1)->get();
         $this->assertCount(1, $results);
         $this->assertEquals($org1->id, $results[0]->id);
     }

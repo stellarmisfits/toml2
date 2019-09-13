@@ -14,17 +14,16 @@ $config = [
 
   <title>{{ config('app.name') }}</title>
 
-  <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
+  <link rel="stylesheet" href="{{ asset(mix('dist/css/app.css')) }}">
 </head>
-<body>
-  <div id="app"></div>
-
+<body class="font-sans font-sans text-gray-900 antialiased">
+  <div id="app" />
   {{-- Global configuration object --}}
   <script>
     window.config = @json($config);
   </script>
 
   {{-- Load the application scripts --}}
-  <script src="{{ asset('dist/js/app.js') }}"></script>
+  <script src="{{ asset(mix('dist/js/app.js')) }}"></script>
 </body>
 </html>

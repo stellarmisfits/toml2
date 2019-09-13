@@ -25,7 +25,7 @@ $factory->define(App\Models\Account::class, function (Faker $faker) {
     ];
 
     return [
-        'alias' => strtolower(str_slug($faker->country)),
+        'alias' => substr(str_slug(str_random(15)), 0, 15),
         'public_key' => $faker->unique()->randomElement($public_keys),
         'verified' => false
     ];

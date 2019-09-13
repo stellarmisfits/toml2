@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Models;
 
+use App\Repositories\OrganizationRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 use App\Models\Account;
@@ -31,14 +32,12 @@ class AccountTest extends TestCase
     /**
      *
      */
-    public function testUsersRelationship()
+    public function testTeamRelationship()
     {
-        $user = $this->seeder->seedUser();
         $account = $this->seeder->seedAccount();
-        $account->users()->attach($user);
 
-        $result = $account->users->first();
-        $this->assertEquals($user->id, $result->id);
+        $result = $account->team;
+        $this->assertEquals($account->team_id, $result->id);
     }
 
     /**
@@ -46,10 +45,13 @@ class AccountTest extends TestCase
      */
     public function testOrganizationRelationship()
     {
-        $org = $this->seeder->seedOrganization();
-        $account = $this->seeder->seedAccount(null, $org);
+        $account = $this->seeder->seedAccount();
+        $org = $this->seeder->seedOrganization($account->team);
 
-        $this->assertEquals($org->id, $account->organization->id);
+        $or = new OrganizationRepository();
+        $or->addAccount($org, $account);
+
+        $this->assertEquals($org->id, $account->organizations->first()->id);
     }
 
     /**
@@ -58,8 +60,8 @@ class AccountTest extends TestCase
     public function testAssetsRelationship()
     {
         $account = $this->seeder->seedAccount();
-        $asset1 = $this->seeder->seedAsset($account);
-        $asset2 = $this->seeder->seedAsset($account);
+        $asset1 = $this->seeder->seedAsset($account->team, $account);
+        $asset2 = $this->seeder->seedAsset($account->team, $account);
 
         $this->assertCount(2, $account->assets);
     }
@@ -77,11 +79,16 @@ class AccountTest extends TestCase
      */
     public function testOrganizationScope()
     {
-        $org1 = $this->seeder->seedOrganization();
-        $org2 = $this->seeder->seedOrganization();
+        $team = $this->seeder->seedTeam();
+        $org1 = $this->seeder->seedOrganization($team);
+        $org2 = $this->seeder->seedOrganization($team);
 
-        $account1 = $this->seeder->seedAccount(null, $org1);
-        $account2 = $this->seeder->seedAccount(null, $org2);
+        $account1 = $this->seeder->seedAccount($team);
+        $account2 = $this->seeder->seedAccount($team);
+
+        $or = new OrganizationRepository();
+        $or->addAccount($org1, $account1);
+        $or->addAccount($org2 , $account2);
 
         $results = Account::organizationFilter($org1)->get();
 

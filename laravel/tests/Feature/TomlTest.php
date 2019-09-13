@@ -37,6 +37,7 @@ class TomlTest extends TestCase
 
         $ts = new TomlService($org);
 
-        dd($ts->generateToml()->getTomlString());
+        // dd($ts->generateToml()->getTomlString());
+        $this->assertTrue(true);
     }
 }

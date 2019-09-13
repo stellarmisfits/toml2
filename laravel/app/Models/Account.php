@@ -90,9 +90,10 @@ class Account extends BaseModel
      */
     public function scopeOrganizationFilter($query, Organization $organization)
     {
-
         if (!empty($organization)) {
-            $query->where('organization_id', $organization->id);
+            return $query->whereHas('organizations', function ($query) use ($organization) {
+                $query->where('organizations.id', $organization->id);
+            });
         }
 
         return $query;

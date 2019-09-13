@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Organization;
 
 use App\Http\Resources\Organization as OrganizationResource;
 use App\Models\Organization;
+use App\Repositories\OrganizationRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -36,30 +37,17 @@ class OrganizationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  OrganizationRepository  $or
      * @return OrganizationResource
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $request): OrganizationResource
+    public function store(Request $request, OrganizationRepository $or): OrganizationResource
     {
-        $this->authorize('create', Organization::class);
-
-        $request->validate([
-            'name'         => 'nullable|string|max:50',
-            'slug'         => 'nullable|string|max:15|regex:/^[a-z-].*$/|unique:organizations',
+        $data = $request->validate([
+            'name'         => 'required|string|max:50',
+            'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:organizations',
         ]);
 
-        $org = \DB::transaction(function () use ($request) {
-            $org = new Organization;
-            $org->name        = $request->name;
-            $org->slug        = $request->slug ?? strtolower(str_random(15));
-            $org->save();
-
-            $user = $request->user();
-            $user->organizations()->attach($org, ['id' => Uuid::uuid4()]);
-
-            return $org;
-        });
-
+        $org = $or->create(auth()->user(),  $data);
 
         return new OrganizationResource($org);
     }

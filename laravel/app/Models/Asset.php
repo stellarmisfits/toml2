@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 // use Spatie\Image\Manipulations;
 // use Spatie\MediaLibrary\Models\Media;
@@ -65,6 +66,19 @@ class Asset extends BaseModel // implements HasMedia
         return $this->belongsTo(Account::class);
     }
 
+    /**
+     * Get all of the organizations that the asset belongs to.
+     */
+    public function organizations(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Organization::class,
+            'organization_assets',
+            'asset_id',
+            'organization_id'
+        )->orderBy('name', 'asc');
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -76,16 +90,13 @@ class Asset extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param User $user
+     * @param Team $team
      * @return Builder
      */
-    public function scopeUserFilter(Builder $query, User $user = null)
+    public function scopeTeamFilter(Builder $query, Team $team = null)
     {
-
-        if (!empty($user)) {
-            $query->whereHas('account.users', function ($query) use ($user) {
-                $query->where('users.id', $user->id);
-            });
+        if (!empty($team)) {
+            $query->where('team_id', $team->id);
         }
 
         return $query;
@@ -93,14 +104,13 @@ class Asset extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param string $accountId
+     * @param Account $account
      * @return Builder
      */
-    public function scopeAccountIdFilter(Builder $query, $accountId)
+    public function scopeAccountFilter(Builder $query, Account $account)
     {
-
-        if (!empty($accountId)) {
-            $query->where('account_id', $accountId);
+        if (!empty($account)) {
+            $query->where('account_id', $account->id);
         }
 
         return $query;
@@ -115,7 +125,7 @@ class Asset extends BaseModel // implements HasMedia
     {
 
         if (!empty($organization)) {
-            $query->whereHas('account', function ($query) use ($organization) {
+            $query->whereHas('organizations', function ($query) use ($organization) {
                 $query->where('organization_id', $organization->id);
             });
         }

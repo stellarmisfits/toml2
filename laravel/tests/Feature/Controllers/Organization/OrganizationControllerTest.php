@@ -39,34 +39,22 @@ class OrganizationControllerTest extends TestCase
      */
     public function testOrganizationControllerStore()
     {
-        $name = str_random(15);
-        $slug = strtolower(str_random(15));
 
-        $this->assertDatabaseMissing('organization_users', [
-            'user_id' => $this->user->id
+        $user = $this->seeder->seedUserWithTeam();
+        $this->actingAs($user);
+        $org = factory(Organization::class)->make([
+            'team_id' => $user->currentTeam()->id,
         ]);
 
         $this->assertDatabaseMissing('organizations', [
-            'name' => $name,
-            'slug' => $slug
+            'team_id' => $user->currentTeam()->id,
         ]);
 
-        $response = $this->postJson(
-            route('organizations.store'),
-            [
-                'name' => $name,
-                'slug' => $slug
-            ]
-        );
-        $response->assertStatus(201);
-
-        $this->assertDatabaseHas('organization_users', [
-            'user_id' => $this->user->id
-        ]);
+        $response = $this->postJson(route('organizations.store'), $org->toArray())
+            ->assertStatus(201);
 
         $this->assertDatabaseHas('organizations', [
-            'name' => $name,
-            'slug' => $slug
+            'team_id' => $user->currentTeam()->id
         ]);
     }
 

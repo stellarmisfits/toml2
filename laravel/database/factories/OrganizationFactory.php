@@ -16,6 +16,6 @@ use Faker\Generator as Faker;
 $factory->define(App\Models\Organization::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'alias' => strtolower(str_slug($faker->company)),
+        'alias' => substr(str_slug(str_random(15)), 0, 15),
     ];
 });
