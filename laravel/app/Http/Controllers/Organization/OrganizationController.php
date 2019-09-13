@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organization;
 use App\Http\Resources\Organization as OrganizationResource;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
+use App\Rules\ValidateUuid;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -21,12 +22,20 @@ class OrganizationController extends Controller
     {
         $request->validate([
             'slug'       => 'nullable|string|max:15|regex:/^[a-z-].*$/|exists:organizations,slug',
+            'linked_account_uuid'   =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
+            'unlinked_account_uuid' =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
+            'linked_asset_uuid'     =>  ['nullable', new ValidateUuid, 'exists:assets,uuid'],
+            'unlinked_asset_uuid'   =>  ['nullable', new ValidateUuid, 'exists:assets,uuid'],
         ]);
 
         $org = auth()
             ->user()
             ->currentTeam()
             ->organizations()
+            ->accountUuidFilter($request->linked_account_uuid)
+            ->accountMissingUuidFilter($request->unlinked_account_uuid)
+            ->assetUuidFilter($request->linked_asset_uuid)
+            ->assetMissingUuidFilter($request->asset_missing)
             // ->slugFilter($request->slug)
             ->paginate(20);
 
@@ -63,5 +72,25 @@ class OrganizationController extends Controller
     {
         $this->authorize('view', $organization);
         return new OrganizationResource($organization);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Organization  $organization
+     * @return \Illuminate\Http\Response
+     * @throws
+     */
+    public function destroy(Organization $organization)
+    {
+        \DB::transaction(function () use ($organization) {
+            $organization->accounts()->detach();
+            $organization->assets()->detach();
+            $organization->principals()->detach();
+            $organization->validators()->detach();
+            $organization->delete();
+        });
+
+        return response()->json(null, 204);
     }
 }

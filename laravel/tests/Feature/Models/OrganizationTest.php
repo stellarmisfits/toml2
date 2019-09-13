@@ -80,9 +80,28 @@ class OrganizationTest extends TestCase
 
         $this->assertCount(2, $team->organizations);
 
-        $results = (new Organization)->accountFilter($account1)->get();
+        $results = (new Organization)->accountUuidFilter($account1->uuid)->get();
         $this->assertCount(1, $results);
         $this->assertEquals($org1->id, $results[0]->id);
+    }
+
+    /**
+     *
+     */
+    public function testAccountMissingFilter()
+    {
+        $or = new OrganizationRepository();
+
+        $team = $this->seeder->seedTeam();
+        $org1 = $this->seeder->seedOrganization($team);
+        $org2 = $this->seeder->seedOrganization($team);
+
+        $account = $this->seeder->seedAccount($team);
+        $or->addAccount($org1, $account);
+
+        $results = (new Organization)->accountMissingUuidFilter($account->uuid)->get();
+        $this->assertCount(1, $results);
+        $this->assertEquals($org2->id, $results[0]->id);
     }
 
     /**
@@ -93,18 +112,31 @@ class OrganizationTest extends TestCase
         $team = $this->seeder->seedTeam();
         $org1 = $this->seeder->seedOrganization($team);
         $org2 = $this->seeder->seedOrganization($team);
+        $asset = $this->seeder->seedAsset($team);
 
-        $asset1 = $this->seeder->seedAsset($team);
-        $asset2 = $this->seeder->seedAsset($team);
+        $this->assertCount(0, (new Organization)->assetUuidFilter($asset->uuid)->get());
 
         $or = new OrganizationRepository();
-        $or->addAsset($org1, $asset1);
-        $or->addAsset($org2, $asset2);
+        $or->addAsset($org1, $asset);
 
-        $this->assertCount(2, $team->organizations);
+        $this->assertCount(1, (new Organization)->assetUuidFilter($asset->uuid)->get());
+    }
 
-        $results = (new Organization)->assetFilter($asset1)->get();
+    /**
+     *
+     */
+    public function testAssetMissingFilter()
+    {
+        $team = $this->seeder->seedTeam();
+        $org1 = $this->seeder->seedOrganization($team);
+        $org2 = $this->seeder->seedOrganization($team);
+
+        $or = new OrganizationRepository();
+        $asset = $this->seeder->seedAsset($team);
+        $or->addAsset($org1, $asset);
+
+        $results = (new Organization)->assetMissingUuidFilter($asset->uuid)->get();
         $this->assertCount(1, $results);
-        $this->assertEquals($org1->id, $results[0]->id);
+        $this->assertEquals($org2->id, $results[0]->id);
     }
 }

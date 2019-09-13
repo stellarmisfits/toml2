@@ -42,14 +42,18 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
+    Route::group(['namespace' => 'Account'], function () {
+        Route::resource('accounts', 'AccountController');
+    });
+
+    Route::group(['namespace' => 'Asset'], function () {
+        Route::resource('assets', 'AssetController');
+    });
+
     Route::group(['namespace' => 'Organization'], function () {
         // Route::get('organizations', 'OrganizationController@index')->name('organizations.index');
         Route::resource('organizations', 'OrganizationController');
         Route::get('organizations/{organization}/toml', 'TomlController@show');
-    });
-
-    Route::group(['namespace' => 'Account'], function () {
-        Route::resource('accounts', 'AccountController');
     });
 
 });

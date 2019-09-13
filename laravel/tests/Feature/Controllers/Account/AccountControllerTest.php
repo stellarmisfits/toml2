@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Feature\Controllers\Api\User\Account;
+namespace Tests\Feature\Controllers\Account;
 
 use App\Models\Account;
 use App\Models\Asset;
 use App\Models\User;
+use App\Repositories\OrganizationRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
@@ -30,7 +31,7 @@ class AccountControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJsonFragment((new AccountResource($account1))->toArray())
             ->assertJsonMissing([
-                'uuid'      => $account2->id
+                'uuid'      => $account2->uuid
             ]);
     }
 
@@ -72,5 +73,24 @@ class AccountControllerTest extends TestCase
             ]))
             ->assertStatus(200)
             ->assertJsonFragment((new AccountResource($account))->toArray());
+    }
+
+    /**
+     * DELETE Resource
+     */
+    public function testAccountControllerDelete()
+    {
+        $account = $this->seeder->seedAccount();
+        $org = $this->seeder->seedOrganization($account->team);
+        $user = $this->seeder->seedUserWithTeam($account->team);
+        $this->actingAs($user);
+
+        $or = new OrganizationRepository();
+        $or->addAccount($org, $account);
+
+        $this->deleteJson(route('accounts.destroy', [
+                $account->uuid
+            ]))
+            ->assertStatus(204);
     }
 }

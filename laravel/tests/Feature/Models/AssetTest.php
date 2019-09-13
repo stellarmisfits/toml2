@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Account;
+use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
@@ -53,37 +54,29 @@ class AssetTest extends TestCase
     /**
      *
      */
-    public function testAccountScope()
+    public function testAccountUuidFilter()
     {
         $account = $this->seeder->seedAccount();
         $asset = $this->seeder->seedAsset($account->team, $account);
 
-        $result = $asset::accountFilter($account)->first();
+        $result = $asset::accountUuidFilter($account)->first();
         $this->assertEquals($asset->id, $result->id);
     }
 
     /**
      *
      */
-    public function testOrganizationScope()
+    public function testOrganizationUuidFilter()
     {
-        $team = $this->seeder->seedTeam();
-        $org1 = $this->seeder->seedOrganization($team);
-        $org2 = $this->seeder->seedOrganization($team);
-
-        $account1 = $this->seeder->seedAccount($team);
-        $account2 = $this->seeder->seedAccount($team);
-        $asset1 = $this->seeder->seedAsset($team, $account1);
-        $asset2 = $this->seeder->seedAsset($team, $account2);
+        $team  = $this->seeder->seedTeam();
+        $asset1 = $this->seeder->seedAsset($team);
+        $asset2= $this->seeder->seedAsset($team);
+        $org   = $this->seeder->seedOrganization($team);
 
         $or = new OrganizationRepository();
-        $or->addAsset($org1, $asset1);
-        $or->addAsset($org2, $asset2);
+        $or->addAsset($org, $asset1);
 
-        $results = $assets = Asset::with(['account'])
-            ->organizationFilter($org1)
-            ->get();
-
+        $results = (new Asset())->organizationUuidFilter($org->uuid)->get();
         $this->assertCount(1, $results);
         $this->assertEquals($asset1->id, $results[0]->id);
     }

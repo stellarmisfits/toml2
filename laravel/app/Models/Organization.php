@@ -153,15 +153,14 @@ class Organization extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param Account $account
+     * @param string $account_uuid
      * @return Builder
      */
-    public function scopeAccountFilter($query, Account $account)
+    public function scopeAccountUuidFilter($query, string $account_uuid = null)
     {
-
-        if (!empty($account)) {
-            $query->whereHas('accounts', function ($query) use ($account) {
-                $query->where('accounts.id', $account->id);
+        if (!empty($account_uuid)) {
+            $query->whereHas('accounts', function ($query) use ($account_uuid) {
+                $query->where('accounts.uuid', $account_uuid);
             });
         }
 
@@ -170,15 +169,46 @@ class Organization extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param Asset $asset
+     * @param string $account_uuid
      * @return Builder
      */
-    public function scopeAssetFilter($query, Asset $asset)
+    public function scopeAccountMissingUuidFilter($query, string $account_uuid = null)
     {
+        if (!empty($account_uuid)) {
+            $query->whereDoesntHave('accounts', function ($query) use ($account_uuid) {
+                $query->where('accounts.uuid', $account_uuid);
+            });
+        }
 
-        if (!empty($asset)) {
-            $query->whereHas('assets', function ($query) use ($asset) {
-                $query->where('assets.id', $asset->id);
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $asset_uuid
+     * @return Builder
+     */
+    public function scopeAssetUuidFilter($query, string $asset_uuid = null)
+    {
+        if (!empty($asset_uuid)) {
+            $query->whereHas('assets', function ($query) use ($asset_uuid) {
+                $query->where('assets.uuid', $asset_uuid);
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $asset_uuid
+     * @return Builder
+     */
+    public function scopeAssetMissingUuidFilter($query, string $asset_uuid = null)
+    {
+        if (!empty($asset_uuid)) {
+            $query->whereDoesntHave('assets', function ($query) use ($asset_uuid) {
+                $query->where('assets.uuid', $asset_uuid);
             });
         }
 

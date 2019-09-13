@@ -93,11 +93,15 @@ class AccountController extends Controller
      *
      * @param  Account  $account
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws
      */
     public function destroy(Account $account)
     {
-        $this->authorize('delete', $account);
-        abort(404);
+        \DB::transaction(function () use ($account) {
+            $account->organizations()->detach();
+            $account->delete();
+        });
+
+        return response()->json(null, 204);
     }
 }

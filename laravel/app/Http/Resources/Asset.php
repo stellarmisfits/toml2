@@ -15,8 +15,8 @@ class Asset extends JsonResource
     public function toArray($request = null)
     {
         return [
-            'id'                => $this->id,
-            'account_id'        => $this->account_id,
+            'uuid'              => $this->uuid,
+            'account_uuid'      => $this->account->uuid,
             'code'              => $this->code,
             'display_decimals'  => $this->display_decimals,
             'name'              => $this->name,

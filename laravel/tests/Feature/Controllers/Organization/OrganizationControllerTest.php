@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers\Organization;
 
 use App\Models\Organization;
 use App\Models\User;
+use App\Repositories\OrganizationRepository;
 use Ramsey\Uuid\Uuid;
 use Tests\TestCase;
 
@@ -74,5 +75,25 @@ class OrganizationControllerTest extends TestCase
             ->assertJsonFragment([
                 'uuid' => $org->uuid
             ]);
+    }
+
+    /**
+     * DELETE Resource
+     */
+    public function testAccountControllerDelete()
+    {
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $account    = $this->seeder->seedAccount($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $or = new OrganizationRepository();
+        $or->addAccount($org, $account);
+
+        $this->deleteJson(route('accounts.destroy', [
+                $account->uuid
+            ]))
+            ->assertStatus(204);
     }
 }

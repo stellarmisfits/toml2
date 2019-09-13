@@ -57,6 +57,16 @@ class Asset extends BaseModel // implements HasMedia
     */
 
     /**
+     * Asset->Team relationship
+     *
+     * @return BelongsTo
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    /**
      * Asset->Account relationship
      *
      * @return BelongsTo
@@ -104,13 +114,15 @@ class Asset extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param Account $account
+     * @param string $account_uuid
      * @return Builder
      */
-    public function scopeAccountFilter(Builder $query, Account $account)
+    public function scopeAccountUuidFilter(Builder $query, string $account_uuid = null)
     {
         if (!empty($account)) {
-            $query->where('account_id', $account->id);
+            $query->whereHas('account', function ($query) use ($account_uuid) {
+                $query->where('accounts.uuid', $account_uuid);
+            });
         }
 
         return $query;
@@ -118,15 +130,15 @@ class Asset extends BaseModel // implements HasMedia
 
     /**
      * @param Builder $query
-     * @param Organization $organization
+     * @param string $organization_uuid
      * @return Builder
      */
-    public function scopeOrganizationFilter(Builder $query, Organization $organization)
+    public function scopeOrganizationUuidFilter(Builder $query, string $organization_uuid = null)
     {
 
-        if (!empty($organization)) {
-            $query->whereHas('organizations', function ($query) use ($organization) {
-                $query->where('organization_id', $organization->id);
+        if (!empty($organization_uuid)) {
+            $query->whereHas('organizations', function ($query) use ($organization_uuid) {
+                $query->where('organizations.uuid', $organization_uuid);
             });
         }
 
@@ -140,7 +152,6 @@ class Asset extends BaseModel // implements HasMedia
      */
     public function scopeCodeFilter(Builder $query, $code)
     {
-
         if (!empty($code)) {
             $query->where('code', $code);
         }
