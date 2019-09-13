@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Principal;
+use App\Models\Validator;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Team;
@@ -43,6 +45,12 @@ class FixturesSeeder extends Seeder
      * @param Team $team
      */
     public function seedLottoGelato(Team $team) {
+        $account = factory(Account::class)->create([
+            'team_id'           => $team->id,
+            'alias'             => 'second-account',
+            'public_key'        => 'GC4FWA3O7WTLYPTIOK73JN5JBBRAPJBKKZBLS27SIT5OFFIQNFSVFXVV',
+        ]);
+
         $account = factory(Account::class)->create([
             'team_id'           => $team->id,
             'alias'             => 'coupon-issuer',
@@ -111,6 +119,14 @@ class FixturesSeeder extends Seeder
         // set image
         // $image = storage_path('fixtures/free-scoop.jpg');
         // $asset1->addMedia($image)->preservingOriginal()->toMediaCollection('image');
+
+        $principal = factory(Principal::class)->create([
+            'team_id'                   => $team->id
+        ]);
+
+        $validator = factory(Validator::class)->create([
+            'team_id'                   => $team->id
+        ]);
     }
 
     /**

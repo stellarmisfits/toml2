@@ -18,7 +18,7 @@ $factory->define(Validator::class, function (Faker $faker) {
     $country = $faker->country;
     return [
         'name' => $country,
-        'alias' => strtolower(str_slug($country)),
+        'alias' => substr(str_slug(str_random(15)), 0, 15),
         'host' => $faker->url,
         'history' => $faker->url,
     ];

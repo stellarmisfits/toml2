@@ -51,9 +51,18 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::group(['namespace' => 'Organization'], function () {
-        // Route::get('organizations', 'OrganizationController@index')->name('organizations.index');
         Route::resource('organizations', 'OrganizationController');
-        Route::get('organizations/{organization}/toml', 'TomlController@show');
+        Route::get('organizations/{organization}/toml', 'TomlController@show')->name('organizations.toml');
+        Route::post('organizations/{organization}/link', 'LinkResourceController@store')->name('organizations.link');
+        Route::delete('organizations/{organization}/link', 'LinkResourceController@destroy')->name('organizations.unlink');
+    });
+
+    Route::group(['namespace' => 'Principal'], function () {
+        Route::resource('principals', 'PrincipalController');
+    });
+
+    Route::group(['namespace' => 'Validator'], function () {
+        Route::resource('validators', 'ValidatorController');
     });
 
 });
