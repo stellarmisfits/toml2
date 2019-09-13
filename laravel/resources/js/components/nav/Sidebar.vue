@@ -36,7 +36,7 @@
         <ul class="mt-3">
           <li v-for="org in orgs" :key="org.uuid" class="mt-3 text-white">
             <router-link
-              :to="{ name: 'org.details', params: { slug: org.slug }}"
+              :to="{ name: 'org.details', params: { uuid: org.uuid }}"
               active-class="underline"
             >
               {{ org.name }}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Team;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -24,3 +25,14 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->state(User::class, 'withTeam', [])
+    ->afterCreatingState(User::class, 'withTeam', function ($user, $faker) {
+
+        $team = factory(Team::class)
+            ->create([
+                'owner_id' => $user->id
+            ]);
+
+        $team->users()->attach($user, ['role' => 'OWNER']);
+    });

@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('{path}', function () {
-    return view('index');
-})->where('path', '(.*)');
-
 Route::get('/clear', function () {
     return (string) opcache_reset();
 });
+
+Route::get('/toml/{key}/.well-known/stellar.toml', 'TomlController@show');
+
+Route::get('{path}', function () {
+    return view('index');
+})->where('path', '^(?!api).*$');

@@ -1,7 +1,7 @@
 <template>
   <a-well>
     <router-link
-      :to="{ name: 'org.details', params: { slug: org.slug }}"
+      :to="{ name: 'org.details', params: { uuid: org.uuid }}"
       class="flex justify-between items-center px-6 py-6 hover:bg-gray-100 cursor-pointer"
     >
       <div class="flex-grow">

@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->boolean('enabled')->default(true);
+            $table->tinyInteger('uses_two_factor_auth')->default(0);
+            $table->string('two_factor_reset_code', 100)->nullable();
+            $table->integer('current_team_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Team;
+use App\Models\Validator;
 use Illuminate\Database\Seeder;
 use App\Models\Account;
 use App\Models\User;
@@ -22,9 +24,10 @@ class TestCaseSeeder extends Seeder
         //
     }
 
+
     /*
     |--------------------------------------------------------------------------
-    | User Seeders
+    | Simple Seeders
     |--------------------------------------------------------------------------
     |
     |
@@ -39,174 +42,136 @@ class TestCaseSeeder extends Seeder
     }
 
     /**
-     * @param Account $account
+     * @param Team
      * @return User
-     * @throws
      */
-    public function seedUserWithAccount(Account $account = null): User {
-        if(!$account){
-            $account = $this->seedAccount();
+    public function seedTeam(User $user = null): Team {
+        if(!$user){
+            $user = $this->seedUser();
         }
 
-        $user = $this->seedUser();
-        $account->users()->attach($user, ['id' => Uuid::uuid4()]);
-
-        return $user;
-    }
-
-    /**
-     * @param Organization $org
-     * @return User
-     * @throws
-     */
-    public function seedUserWithOrganization(Organization $org = null): User {
-        $user = $this->seedUser();
-
-        if(!$org){
-            $org = $this->seedOrganization();
-        }
-
-        $user->organizations()->attach($org);
-
-        return $user;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Account Seeders
-    |--------------------------------------------------------------------------
-    |
-    |
-    */
-
-    /**
-     * @param Organization $org
-     * @param Keypair $keypair
-     * @return Account
-     */
-    public function seedAccount(Keypair $keypair = null, Organization $org = null): Account {
-        if(!$org) {
-            $org = $this->seedOrganization();
-        }
-
-        if(!$keypair){
-            $keypair = Keypair::newFromRawSeed(str_random(32));
-        }
-
-        $account = factory(Account::class)->create([
-            'public_key' => $keypair->getAccountId(),
-            'organization_id' => $org->id,
+        $team = factory(Team::class)->create([
+            'owner_id' => $user->id
         ]);
 
-        return $account->fresh();
+        $team->users()->attach($user, ['role' => 'OWNER']);
+        return $team;
     }
 
     /**
-     * @param Asset $asset
-     * @param Keypair $keypair
-     * @return Account
-     */
-    public function seedAccountWithAsset(Asset $asset = null, Keypair $keypair = null): Account {
-        $account = $this->seedAccount($keypair);
-
-        if(!$asset){
-            $asset = $this->seedAsset($account);
-        }
-
-        return $account->fresh();
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Organization Seeders
-    |--------------------------------------------------------------------------
-    |
-    |
-    */
-
-    /**
+     * @param Team $team
      * @return Organization
      */
-    public function seedOrganization(): Organization {
-        $org = factory(Organization::class)->create();
-
-        return $org->fresh();
-    }
-
-    /**
-     * @param Account $account
-     * @return Organization
-     * @throws
-     */
-    public function seedOrganizationWithAccount(Account $account = null): Organization {
-        $org = factory(Organization::class)->create();
-
-        if(!$account){
-            $this->seedAccount(null, $org);
+    public function seedOrganization(Team $team = null): Organization {
+        if(!$team){
+            $team = $this->seedTeam();
         }
 
-        return $org->fresh();
-    }
-
-    /**
-     * @param Account $account
-     * @return Organization
-     * @throws
-     */
-    public function seedOrganizationWithPrincipal(Principal $principal = null): Organization {
-        $org = factory(Organization::class)->create();
-
-        if(!$principal){
-            $principal = $this->seedPrincipal($org);
-        }
+        $org = factory(Organization::class)->create([
+            'team_id' => $team->id
+        ]);
 
         return $org;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Asset Seeders
-    |--------------------------------------------------------------------------
-    |
-    |
-    */
+    /**
+     * @param Team $team
+     * @param Keypair $keypair
+     * @return Account
+     */
+    public function seedAccount(Team $team = null, Keypair $keypair = null): Account {
+        if(!$team){
+            $team = $this->seedTeam();
+        }
+
+        if(!$keypair){
+            // $keypair = Keypair::newFromRawSeed(str_random(32));
+        }
+
+        $account = factory(Account::class)->create([
+            'team_id' => $team->id,
+            // 'public_key' => $keypair->getAccountId()
+        ]);
+
+        return $account;
+    }
 
     /**
      * @param Account $account
      * @return Asset
      */
-    public function seedAsset(Account $account = null): Asset {
+    public function seedAsset(Team $team = null, Account $account = null): Asset {
+        if(!$team){
+            $team = $this->seedTeam();
+        }
+
         if(!$account){
-            $account = $this->seedAccount();
+            $account = $this->seedAccount($team);
         }
 
         $asset = factory(Asset::class)->create([
+            'team_id' => $team->id,
             'account_id' => $account->id
         ]);
 
         return $asset->fresh();
     }
 
+    /**
+     * @param Team $team
+     * @return Validator
+     */
+    public function seedValidator(Team $team = null): Validator {
+        if(!$team){
+            $team = $this->seedTeam();
+        }
+
+        $validator = factory(Validator::class)->create([
+            'team_id' => $team->id,
+            'account_id' => $this->seedAccount($team)->id
+        ]);
+
+        return $validator;
+    }
+
+    /**
+     * @param Team $team
+     * @return Principal
+     */
+    public function seedPrincipal(Team $team = null): Principal {
+        if(!$team){
+            $team = $this->seedTeam();
+        }
+
+        $principal = factory(Principal::class)->create([
+            'team_id' => $team->id
+        ]);
+
+        return $principal;
+    }
+
     /*
     |--------------------------------------------------------------------------
-    | Principal Seeders
+    | Compound Seeders
     |--------------------------------------------------------------------------
     |
     |
     */
 
     /**
-     * @param Organization $org
-     * @return Principal
+     * @param Team $team
+     * @return User
+     * @throws
      */
-    public function seedPrincipal(Organization $org): Principal {
-        if(!$org){
-            $org = $this->seedOrganization();
+    public function seedUserWithTeam(Team $team = null): User {
+        $user = $this->seedUser();
+
+        if(!$team){
+            $team = $this->seedTeam($user);
+        }else{
+            $team->users()->attach($user, ['role' => 'OWNER']);
         }
 
-        $principal = factory(Principal::class)->create([
-            'organization_id' => $org->id
-        ]);
-        return $principal->fresh();
+        return $user->fresh(['teams']);
     }
 }

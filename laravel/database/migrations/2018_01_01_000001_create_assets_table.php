@@ -16,6 +16,7 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid');
+            $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('account_id');
             $table->boolean('published')->default(false);
 
@@ -47,6 +48,7 @@ class CreateAssetsTable extends Migration
             $table->unique('code');
             $table->index('code');
             $table->index('account_id');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
     }

@@ -12,6 +12,7 @@ class ProfileController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws
      */
     public function update(Request $request)
     {

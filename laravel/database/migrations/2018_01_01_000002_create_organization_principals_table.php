@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrganizationUsersTable extends Migration
+class CreateOrganizationPrincipalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateOrganizationUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('organization_users', function (Blueprint $table) {
+        Schema::create('organization_principals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organization_id');
+            $table->unsignedBigInteger('principal_id');
             $table->timestamps();
 
-            $table->unique(['user_id', 'organization_id']);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unique(['principal_id', 'organization_id']);
+            $table->foreign('principal_id')->references('id')->on('principals');
             $table->foreign('organization_id')->references('id')->on('organizations');
         });
     }
@@ -32,6 +32,6 @@ class CreateOrganizationUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organization_users');
+        Schema::dropIfExists('organization_principals');
     }
 }

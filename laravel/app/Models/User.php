@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
-    use Notifiable, GeneratesUuid;
+    use Notifiable, GeneratesUuid, CanJoinTeams;
 
     protected $uuidVersion = 'ordered';
     public function getRouteKeyName()
@@ -36,7 +36,7 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'id', 'password', 'remember_token',
     ];
 
     /**

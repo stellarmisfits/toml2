@@ -11,10 +11,8 @@
           <span>edit button</span>
         </div>
       </div>
-      <div>
-        <a-well class="flex justify-between items-center px-6 py-6 mt-4">
-          Some content
-        </a-well>
+      <div class="mt-4">
+        <account-list-item :account="account" />
       </div>
     </div>
     <div class="px-12 py-8 mx-auto max-w-4xl">
@@ -41,13 +39,19 @@
 </template>
 
 <script>
+import AccountListItem from '~/components/accounts/ListItem'
 import OrganizationList from '~/components/orgs/List'
 
 export default {
   middleware: 'auth',
 
   components: {
-    OrganizationList
+    OrganizationList,
+    AccountListItem
+  },
+
+  props: {
+    account: { type: Object, required: true }
   },
 
   metaInfo () {

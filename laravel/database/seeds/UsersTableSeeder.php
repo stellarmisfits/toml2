@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
@@ -13,10 +14,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user = factory(User::class)
-            // ->states(['withRoles'])
             ->create([
-                'email' => 'user@test.com',
+                'email' => 'user@example.com',
                 'password' => bcrypt('123')
             ]);
+
+        $team = factory(Team::class)->create([
+            'owner_id' => $user->id
+        ]);
+
+        $team->users()->attach($user, ['role' => 'OWNER']);
     }
 }

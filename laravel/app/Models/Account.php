@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Account extends BaseModel
 {
+    protected $casts = ['verified' => 'boolean'];
 
     /*
     |--------------------------------------------------------------------------
@@ -29,24 +30,24 @@ class Account extends BaseModel
     */
 
     /**
-     * Account->Users relationship
-     *
-     * @return BelongsToMany
+     * Get the team that owns the validaccountator.
      */
-    public function users(): BelongsToMany
+    public function team(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'account_users');
+        return $this->belongsTo(Team::class, 'team_id');
     }
 
-
     /**
-     * Account->Organization relationship
-     *
-     * @return BelongsTo
+     * Get all of the organizations that the account belongs to.
      */
-    public function organization(): BelongsTo
+    public function organizations(): BelongsToMany
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsToMany(
+            Organization::class,
+            'organization_accounts',
+            'account_id',
+            'organization_id'
+        )->orderBy('name', 'asc');
     }
 
     /**

@@ -45,6 +45,9 @@ export default {
   },
   computed: {
     ...mapGetters('account', ['accounts'])
+  },
+  created () {
+    this.$store.dispatch('account/fetchAccounts')
   }
 }
 </script>

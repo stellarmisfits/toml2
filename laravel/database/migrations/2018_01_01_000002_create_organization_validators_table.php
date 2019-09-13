@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountsTable extends Migration
+class CreateOrganizationValidatorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('organization_validators', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('uuid');
-            $table->string('public_key', 56)->unique()->index();
             $table->unsignedBigInteger('organization_id');
-            $table->string('name')->nullable();
-            $table->boolean('verified')->default(false);
+            $table->unsignedBigInteger('validator_id');
             $table->timestamps();
 
-
+            $table->unique(['validator_id', 'organization_id']);
+            $table->foreign('validator_id')->references('id')->on('validators');
             $table->foreign('organization_id')->references('id')->on('organizations');
         });
     }
@@ -34,6 +32,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('organization_validators');
     }
 }

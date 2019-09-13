@@ -25,7 +25,7 @@ export default [
   /**
    * Organizations
    */
-  { path: '/app/orgs/:slug',
+  { path: '/app/orgs/:uuid',
     name: 'org',
     component: page('orgs/index.vue'),
     children: [
@@ -39,7 +39,7 @@ export default [
    * Accounts
    */
   { path: '/app/accounts', name: 'accounts', component: page('accounts/index.vue') },
-  { path: '/app/accounts/:slug',
+  { path: '/app/accounts/:uuid',
     name: 'account',
     component: page('accounts/show.vue'),
     children: [

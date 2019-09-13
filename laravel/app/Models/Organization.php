@@ -86,6 +86,14 @@ class Organization extends BaseModel // implements HasMedia
     */
 
     /**
+     * Get the team that owns the validator.
+     */
+    public function team()
+    {
+        return $this->belongsTo(Team::class, 'team_id');
+    }
+
+    /**
      * Organization->Users relationship
      *
      * @return BelongsToMany
@@ -98,31 +106,41 @@ class Organization extends BaseModel // implements HasMedia
     /**
      * Organization->Accounts relationship
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function accounts(): HasMany
+    public function accounts(): BelongsToMany
     {
-        return $this->hasMany(Account::class);
-    }
-
-    /**
-     * Organization->Principals relationship
-     *
-     * @return HasMany
-     */
-    public function principals(): HasMany
-    {
-        return $this->hasMany(Principal::class);
+        return $this->belongsToMany(Account::class, 'organization_accounts');
     }
 
     /**
      * Organization->Assets relationship
      *
-     * @return HasManyThrough
+     * @return BelongsToMany
      */
-    public function assets(): HasManyThrough
+    public function assets(): BelongsToMany
     {
-        return $this->hasManyThrough(Asset::class, Account::class);
+        return $this->belongsToMany(Asset::class, 'organization_assets');
+    }
+
+    /**
+     * Organization->Principals relationship
+     *
+     * @return BelongsToMany
+     */
+    public function principals(): BelongsToMany
+    {
+        return $this->belongsToMany(Principal::class, 'organization_principals');
+    }
+
+    /**
+     * Organization->Validators relationship
+     *
+     * @return BelongsToMany
+     */
+    public function validators(): BelongsToMany
+    {
+        return $this->belongsToMany(Validator::class, 'organization_validators');
     }
 
     /*

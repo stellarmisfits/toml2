@@ -5,7 +5,7 @@
     </a-breadcrumbs>
     <div class="px-12 py-8 mx-auto max-w-4xl">
       <transition name="fade" mode="out-in">
-        <router-view />
+        <router-view :organization="organization" />
       </transition>
     </div>
   </div>
@@ -23,29 +23,31 @@ export default {
         {
           name: 'General',
           route: 'org.details',
-          params: { slug: this.$route.params.slug }
+          params: { uuid: this.$route.params.uuid }
         },
         {
           name: 'Assets',
           route: 'settings.password',
-          params: { slug: this.$route.params.slug }
+          params: { uuid: this.$route.params.uuid }
         },
         {
           name: 'Toml',
           route: 'org.toml',
-          params: { slug: this.$route.params.slug }
+          params: { uuid: this.$route.params.uuid }
         }
       ]
     }
   },
   computed: {
-    ...mapGetters('org', ['getOrgBySlug']),
+    ...mapGetters('org', ['getOrgByUuid']),
     ...mapGetters('account', ['accounts']),
     organization: function () {
-      const id = this.$route.params.slug
-      console.log(id)
-      return this.getOrgBySlug(id)
+      const uuid = this.$route.params.uuid
+      return this.getOrgByUuid(uuid)
     }
+  },
+  created () {
+    this.$store.dispatch('org/fetchOrg', this.$route.params.uuid)
   }
 }
 </script>

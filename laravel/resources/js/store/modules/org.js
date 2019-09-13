@@ -1,20 +1,8 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 export const state = {
-  orgs: [
-    {
-      uuid: 'd5a678a3-cb17-4e05-9345-6753d143decf',
-      name: 'Lotto\' Gelato',
-      slug: 'lotto-gelato',
-      published: true
-    },
-    {
-      uuid: '4130ff6c-c4d9-405b-b08d-240a29c9a302',
-      name: 'Tunnel Tusk, Ltd',
-      slug: 'tunnel-tusk',
-      published: false
-    }
-  ]
+  orgs: [],
+  toml: null
 }
 
 // getters
@@ -26,4 +14,39 @@ export const getters = {
     return state.orgs.find(org => org.slug === slug)
   },
   orgs: state => (state.orgs.length) ? state.orgs : null
+}
+
+// actions
+export const actions = {
+  async fetchOrgs ({ commit }) {
+    const { data } = await axios.get('/api/organizations')
+    commit('SET_ORGS', { orgs: data.data })
+  },
+
+  async fetchOrg ({ commit, getters }, uuid) {
+    let org = getters.getOrgByUuid(uuid)
+
+    if (!org) {
+      const { data } = await axios.get('/api/organizations/' + uuid)
+      commit('SET_ORG', { org: data.data })
+    }
+  },
+
+  async fetchToml ({ commit }, org) {
+    const { data } = await axios.get('/api/organizations/' + org.uuid + '/toml')
+    commit('SET_TOML', { toml: data.toml })
+  }
+}
+
+// mutations
+export const mutations = {
+  SET_ORGS (state, { orgs }) {
+    state.orgs = orgs
+  },
+  SET_ORG (state, { org }) {
+    state.orgs.push(org)
+  },
+  SET_TOML (state, { toml }) {
+    state.toml = toml
+  }
 }

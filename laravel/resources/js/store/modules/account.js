@@ -1,15 +1,7 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 export const state = {
-  accounts: [
-    {
-      uuid: '2130ff6c-c4d9-405b-b08d-240a29c4a302',
-      publicKey: 'GA6MOVBKZSOGJ47PHWOLUSN46D6ODSZ7PQJ7NMHRRIS5Z7LP5L7ZZWL6',
-      organizationUuid: 'd5a678a3-cb17-4e05-9345-6753d143decf',
-      slug: 'example-account',
-      verified: true
-    }
-  ]
+  accounts: []
 }
 
 // getters
@@ -21,4 +13,31 @@ export const getters = {
     return state.accounts.find(account => account.slug === slug)
   },
   accounts: state => (state.accounts.length) ? state.accounts : null
+}
+
+// actions
+export const actions = {
+  async fetchAccounts ({ commit }) {
+    const { data } = await axios.get('/api/accounts')
+    commit('SET_ACCOUNTS', { accounts: data.data })
+  },
+
+  async fetchAccount ({ commit, getters }, uuid) {
+    let account = getters.getAccountByUuid(uuid)
+
+    if (!account) {
+      const { data } = await axios.get('/api/accounts/' + uuid)
+      commit('SET_ACCOUNT', { account: data.data })
+    }
+  }
+}
+
+// mutations
+export const mutations = {
+  SET_ACCOUNTS (state, { accounts }) {
+    state.accounts = accounts
+  },
+  SET_ACCOUNT (state, { account }) {
+    state.accounts.push(account)
+  }
 }

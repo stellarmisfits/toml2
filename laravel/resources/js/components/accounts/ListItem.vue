@@ -1,21 +1,24 @@
 <template>
   <a-well>
     <router-link
-      :to="{ name: 'account.details', params: { slug: account.slug }}"
+      :to="{ name: 'account.details', params: { uuid: account.uuid }}"
       class="flex justify-between items-center px-6 py-6 hover:bg-gray-100 cursor-pointer"
     >
       <div class="flex-grow">
-        <div class="flex justify-between items-baseline">
-          <span>{{ account.slug }}</span>
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <span>{{ account.alias }}</span>
+          </div>
+          <div class="flex items-center spaced-x-1 ml-4">
+            <a-pill color="red">
+              {{ (account.verified) ? 'Verified' : 'Not Verified' }}
+            </a-pill>
+          </div>
         </div>
         <div class="flex justify-between items-baseline mt-1">
-          <span
-            class="text-sm text-gray-600"
-          >
-            <span
-              class="inline-flex items-center"
-            >
-              <span>{{ (account.verified) ? 'Verified' : 'Not Verified' }}</span>
+          <span class="text-xs text-gray-600">
+            <span class="inline-flex items-center">
+              <span>{{ account.public_key }}</span>
             </span>
           </span>
         </div>

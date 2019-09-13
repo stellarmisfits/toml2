@@ -31,9 +31,18 @@ class UserTest extends TestCase
     /**
      *
      */
+    public function testTeamsRelationship()
+    {
+        $user = $this->seeder->seedUserWithTeam();
+        $this->assertCount(1, $user->teams);
+    }
+
+    /**
+     *
+     */
     public function testAccountsRelationship()
     {
-        $user = $this->seeder->seedUser();
+        $user = $this->seeder->seedUserWithTeam();
         $account1 = $this->seeder->seedAccount();
         $account1->users()->attach($user);
 

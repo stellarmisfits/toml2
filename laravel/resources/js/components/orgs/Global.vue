@@ -6,9 +6,9 @@
           <span>Lotto' Gelato</span>
         </div>
         <div class="flex items-center spaced-x-1 ml-4">
-          <span class="inline-block px-2 py-0 rounded-full text-xs font-semibold tracking-wider leading-relaxed uppercase ml-4 bg-blue-100 text-blue-800">
+          <a-pill color="blue">
             Published
-          </span>
+          </a-pill>
         </div>
       </div>
       <div class="flex justify-between mt-2">

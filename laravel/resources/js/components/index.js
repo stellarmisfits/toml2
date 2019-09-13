@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Pill from './Pill'
 import Card from './Card'
 import Child from './Child'
 import Modal from './Modal'
@@ -16,6 +17,7 @@ import Well from './Well'
 [
   TwCard,
   TwCheckbox,
+  Pill,
   Card,
   Child,
   Modal,
