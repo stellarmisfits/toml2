@@ -1,93 +1,40 @@
 <template>
-  <div class="container mx-auto flex justify-center items-center">
-    <tw-card class="max-w-md">
-      <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-        <!-- Email -->
-        <div class="w-full">
-          <label class="uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
-            {{ $t('email') }}
-          </label>
-          <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" name="email" class="form-input mt-2 mb-4 w-full" type="email" required autocomplete="email" placeholder="username@example.com">
-          <has-error :form="form" field="email" />
-        </div>
-
-        <!-- Password -->
-        <div class="w-full">
-          <label class="uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="password">
-            {{ $t('password') }}
-          </label>
-          <input id="password" v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" name="password" class="form-input mt-2 mb-4 w-full" type="password" placeholder="******************">
-          <has-error :form="form" field="password" />
-        </div>
-
-        <!-- Remember Me -->
-        <div>
-          <div class="flex items-center justify-between uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-            <tw-checkbox v-model="remember" name="remember">
-              {{ $t('remember_me') }}
-            </tw-checkbox>
-          </div>
-        </div>
-
-        <div class="mt-4 flex flex-col md:flex-row items-start md:items-center justify-between">
-          <!-- Submit Button -->
-          <a-button :loading="form.busy">
-            {{ $t('login') }}
-          </a-button>
-          <div class="ml-0 md:ml-2 mb-2">
-            <router-link :to="{ name: 'password.request' }" class="align-baseline uppercase tracking-wide text-grey-darker text-xs no-underline">
-              {{ $t('forgot_password') }}
-            </router-link>
-          </div>
-
-          <!-- GitHub Login Button -->
-          <login-with-github />
-        </div>
-      </form>
-    </tw-card>
+  <div class="min-h-screen flex flex-col justify-center items-center bg-gray-200">
+    <div class="text-blue-800">
+      <svg
+        class="fill-current h-24 w-24"
+        viewBox="0 0 270 270"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M161.181 16.875l104.724 202.5c11.636 22.5-2.909 50.625-26.181 50.625H195c-34.887 0-34.275-23.819-34.887-37.447-.099-2.207 1.678-3.995 3.887-3.995h27.493c.833 0 1.507-.67 1.507-1.498v-9.168c0-.365-.134-.717-.377-.991l-23.727-25.036c9.353-34.806-5.245-66.142-33.896-86.865-28.841 20.422-43.249 52.059-33.896 86.865l-23.727 25.036a1.493 1.493 0 0 0-.377.991v9.168c0 .828.674 1.498 1.507 1.498H106c2.209 0 3.986 1.788 3.887 3.995-.612 13.628 0 37.447-34.887 37.447H30.276c-23.272 0-37.817-28.125-26.18-50.625l104.723-202.5c11.636-22.5 40.726-22.5 52.362 0z"
+        />
+        <path
+          fill-rule="evenodd"
+          d="M135 179.884c10.331 0 18.831-8.423 18.831-18.721s-8.5-18.721-18.831-18.721-18.831 8.423-18.831 18.721 8.5 18.721 18.831 18.721zm-2.871-32.765c.032 1.094.916 1.998 2.021 1.998 2.036-.016 3.978.443 5.683 1.315 1.783.872 3.314 2.173 4.514 3.758a1.98 1.98 0 0 0 2.778.397c.869-.651 1.042-1.919.395-2.791a16.486 16.486 0 0 0-5.919-4.963c-2.258-1.109-4.799-1.76-7.483-1.744-1.089.032-1.989.92-1.989 2.03zm15.644 8.783c-1.058.286-1.674 1.396-1.39 2.458.158.523.253 1.094.332 1.665.079.539.11 1.11.11 1.712.032 1.094.916 2.014 2.021 1.998a2.023 2.023 0 0 0 1.989-2.03 17.924 17.924 0 0 0-.174-2.219 17.06 17.06 0 0 0-.442-2.188c-.284-1.063-1.389-1.681-2.446-1.396z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <a-well class="mt-6 min-w-2">
+      <Login class="px-6 py-6 max-w-md" />
+    </a-well>
   </div>
 </template>
 
 <script>
-import Form from 'vform'
-import LoginWithGithub from '~/components/LoginWithGithub'
+import Login from '~/components/auth/Login'
 
 export default {
+  layout: 'auth',
   middleware: 'guest',
 
   components: {
-    LoginWithGithub
+    Login
   },
 
   metaInfo () {
     return { title: this.$t('login') }
-  },
-
-  data: () => ({
-    form: new Form({
-      email: '',
-      password: ''
-    }),
-    remember: false
-  }),
-
-  methods: {
-    async login () {
-      // Submit the form.
-      const { data } = await this.form.post('/api/login')
-
-      // Save the token.
-      this.$store.dispatch('auth/saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
-
-      // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
-
-      // Redirect home.
-      this.$router.push({ name: 'home' })
-    }
   }
 }
 </script>

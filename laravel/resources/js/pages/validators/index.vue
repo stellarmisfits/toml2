@@ -49,6 +49,9 @@ export default {
   },
   computed: {
     ...mapGetters('validator', ['validators'])
+  },
+  created () {
+    this.$store.dispatch('validator/fetchValidators')
   }
 }
 </script>

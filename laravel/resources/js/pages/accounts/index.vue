@@ -21,7 +21,10 @@
         </div>
       </div>
       <div class="mt-4">
-        <AccountList />
+        <AccountList
+          :accounts="accounts"
+          message="No account records have been added."
+        />
       </div>
     </div>
   </div>

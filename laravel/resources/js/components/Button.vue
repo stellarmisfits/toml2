@@ -9,7 +9,7 @@
       'btn-loading': loading
     }"
     class="relative transition-all btn"
-    @click="$emit('click')"
+    @click="click"
   >
     <slot />
   </button>
@@ -43,6 +43,18 @@ export default {
     large: {
       type: Boolean,
       default: false
+    },
+
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    click () {
+      if (!this.disabled) {
+        this.$emit('click')
+      }
     }
   }
 }

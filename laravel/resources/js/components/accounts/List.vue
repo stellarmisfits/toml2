@@ -4,12 +4,14 @@
       v-for="account in accounts"
       :key="account.uuid"
       :account="account"
+      :linked="linked"
     />
   </div>
-  <empty-list
-    v-else
-    message="No accounts have been added to this account."
-  />
+  <a-well v-else class="px-6 py-12">
+    <empty-list
+      :message="message"
+    />
+  </a-well>
 </template>
 <script>
 import ListItem from '~/components/accounts/ListItem'
@@ -18,12 +20,17 @@ export default {
   components: {
     ListItem
   },
+  props: {
+    accounts: { type: Array, default: () => [] },
+    message: { type: String, required: true },
+    linked: { type: Boolean, default: false }
+  },
   data: () => ({
     //
   }),
   computed: {
     ...mapGetters({
-      accounts: 'account/accounts'
+      //
     })
   }
 }

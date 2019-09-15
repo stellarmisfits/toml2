@@ -17,6 +17,7 @@ class Principal extends JsonResource
         return [
             'uuid'                      => $this->uuid,
             'name'                      => $this->name,
+            'email'                     => $this->email,
             'keybase'                   => $this->keybase,
             'telegram'                  => $this->telegram,
             'twitter'                   => $this->twitter,

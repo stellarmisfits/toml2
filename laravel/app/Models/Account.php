@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Account extends BaseModel
 {
+    use BelongsToTeam, HasOrganizations;
+
     protected $casts = ['verified' => 'boolean'];
 
     /*
@@ -28,27 +30,6 @@ class Account extends BaseModel
     |
     |
     */
-
-    /**
-     * Get the team that owns the validaccountator.
-     */
-    public function team(): BelongsTo
-    {
-        return $this->belongsTo(Team::class, 'team_id');
-    }
-
-    /**
-     * Get all of the organizations that the account belongs to.
-     */
-    public function organizations(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            Organization::class,
-            'organization_accounts',
-            'account_id',
-            'organization_id'
-        )->orderBy('name', 'asc');
-    }
 
     /**
      * Account->Assets relationship
@@ -78,37 +59,6 @@ class Account extends BaseModel
 
         if (!empty($publicKey)) {
             $query->where('public_key', $publicKey->id);
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param Builder $query
-     * @param Organization $organization
-     * @return Builder
-     */
-    public function scopeOrganizationFilter($query, Organization $organization)
-    {
-        if (!empty($organization)) {
-            return $query->whereHas('organizations', function ($query) use ($organization) {
-                $query->where('organizations.id', $organization->id);
-            });
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param Builder $query
-     * @param string $organizationId
-     * @return Builder
-     */
-    public function scopeOrganizationIdFilter($query, string $organizationId = null)
-    {
-
-        if (!empty($organizationId)) {
-            $query->where('organization_id', $organizationId);
         }
 
         return $query;

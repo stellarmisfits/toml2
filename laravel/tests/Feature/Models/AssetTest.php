@@ -76,7 +76,7 @@ class AssetTest extends TestCase
         $or = new OrganizationRepository();
         $or->addAsset($org, $asset1);
 
-        $results = (new Asset())->organizationUuidFilter($org->uuid)->get();
+        $results = (new Asset())->linkedOrganizationUuidFilter($org->uuid)->get();
         $this->assertCount(1, $results);
         $this->assertEquals($asset1->id, $results[0]->id);
     }

@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Validator extends BaseModel
+trait BelongsToTeam
 {
-    Use BelongsToTeam, HasOrganizations;
-
     /*
     |--------------------------------------------------------------------------
     | Accessors & Mutators
@@ -28,11 +26,11 @@ class Validator extends BaseModel
     */
 
     /**
-     * Get the team that owns the validator.
+     * Get the team that owns the validaccountator.
      */
-    public function account(): BelongsTo
+    public function team(): BelongsTo
     {
-        return $this->belongsTo(Account::class, 'account_id');
+        return $this->belongsTo(Team::class, 'team_id');
     }
 
     /*
@@ -43,5 +41,17 @@ class Validator extends BaseModel
     |
     */
 
-    //
+    /**
+     * @param Builder $query
+     * @param Team $team
+     * @return Builder
+     */
+    public function scopeTeamFilter(Builder $query, Team $team = null)
+    {
+        if (!empty($team)) {
+            $query->where('team_id', $team->id);
+        }
+
+        return $query;
+    }
 }

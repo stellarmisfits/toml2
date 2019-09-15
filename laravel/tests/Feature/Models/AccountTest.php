@@ -77,22 +77,42 @@ class AccountTest extends TestCase
     /**
      *
      */
-    public function testOrganizationScope()
+    public function testLinkedOrganizationUuidFilterScope()
     {
         $team = $this->seeder->seedTeam();
-        $org1 = $this->seeder->seedOrganization($team);
-        $org2 = $this->seeder->seedOrganization($team);
+        $org = $this->seeder->seedOrganization($team);
 
         $account1 = $this->seeder->seedAccount($team);
         $account2 = $this->seeder->seedAccount($team);
 
         $or = new OrganizationRepository();
-        $or->addAccount($org1, $account1);
-        $or->addAccount($org2 , $account2);
+        $or->addAccount($org, $account1);
 
-        $results = Account::organizationFilter($org1)->get();
+        $results = Account::linkedOrganizationUuidFilter($org->uuid)->get();
 
         $this->assertCount(1, $results);
         $this->assertEquals($account1->id, $results[0]->id);
+    }
+
+    /**
+     *
+     */
+    public function testUnlinkedOrganizationUuidFilterScope()
+    {
+        $team = $this->seeder->seedTeam();
+        $org = $this->seeder->seedOrganization($team);
+
+        $account1 = $this->seeder->seedAccount($team);
+        $account2 = $this->seeder->seedAccount($team);
+
+        $this->assertCount(2, Account::unlinkedOrganizationUuidFilter($org->uuid)->get());
+
+        $or = new OrganizationRepository();
+        $or->addAccount($org, $account1);
+
+        $results = Account::unlinkedOrganizationUuidFilter($org->uuid)->get();
+
+        $this->assertCount(1, $results);
+        $this->assertEquals($account2->id, $results[0]->id);
     }
 }

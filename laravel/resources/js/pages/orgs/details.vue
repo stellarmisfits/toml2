@@ -18,45 +18,26 @@
       </div>
       <Global />
     </div>
-
-    <div class="px-12 py-8 mx-auto max-w-4xl">
-      <div class="flex items-baseline justify-between">
-        <div>
-          <h2 class="text-lg">
-            Accounts
-          </h2>
-          <div class="mt-2 text-sm text-gray-700">
-            <div class="max-w-2xl">
-              A list of Stellar accounts that are controlled by this organization.
-            </div>
-          </div>
-        </div>
-        <div class="flex-shrink-0 ml-4">
-          <GlobalUpdate />
-        </div>
-      </div>
-      <div class="mt-4">
-        <AccountList />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
-import AccountList from '~/components/accounts/List'
 import Global from '~/components/orgs/Global'
 import GlobalUpdate from '~/components/orgs/GlobalUpdate'
 export default {
   middleware: 'auth',
 
-  components: {
-    Global,
-    GlobalUpdate,
-    AccountList
+  metaInfo () {
+    return { title: this.organization.name }
   },
 
-  metaInfo () {
-    return { title: this.$t('login') }
+  components: {
+    Global,
+    GlobalUpdate
+  },
+
+  props: {
+    organization: { type: Object, required: true }
   },
 
   methods: {

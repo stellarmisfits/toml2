@@ -17,6 +17,7 @@ class Asset extends JsonResource
         return [
             'uuid'              => $this->uuid,
             'account_uuid'      => $this->account->uuid,
+            'account_public_key'=> $this->account->public_key,
             'code'              => $this->code,
             'display_decimals'  => $this->display_decimals,
             'name'              => $this->name,

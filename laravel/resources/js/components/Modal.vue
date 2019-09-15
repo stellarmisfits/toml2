@@ -32,7 +32,7 @@
           <div class="px-6 py-4">
             <div class="text-lg">
               <slot name="title" />
-              <div class="mt-2 text-sm text-gray-600">
+              <div class="mt-1 text-sm text-gray-600">
                 <slot name="subtitle" />
               </div>
             </div>

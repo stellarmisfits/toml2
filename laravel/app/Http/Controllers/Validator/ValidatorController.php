@@ -22,14 +22,16 @@ class ValidatorController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'organization_uuid'     =>  ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
+            'linked_organization_uuid'      => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
+            'unlinked_organization_uuid'    => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
         ]);
 
         $assets = auth()
             ->user()
             ->currentTeam()
             ->validators()
-            ->organizationUuidFilter($request->organization_uuid)
+            ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
             ->paginate(20);
 
         return ValidatorResource::collection($assets);

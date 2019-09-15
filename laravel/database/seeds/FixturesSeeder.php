@@ -125,7 +125,8 @@ class FixturesSeeder extends Seeder
         ]);
 
         $validator = factory(Validator::class)->create([
-            'team_id'                   => $team->id
+            'team_id'                   => $team->id,
+            'account_id'                => $account->id
         ]);
     }
 

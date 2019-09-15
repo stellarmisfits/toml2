@@ -6,10 +6,11 @@
       :org="org"
     />
   </div>
-  <empty-list
-    v-else
-    message="No organizations have been added to this account."
-  />
+  <a-well v-else class="px-6 py-12">
+    <empty-list
+      message="No organizations have been added to this account."
+    />
+  </a-well>
 </template>
 <script>
 import ListItem from '~/components/orgs/ListItem'

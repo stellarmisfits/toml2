@@ -20,8 +20,9 @@ class AssetController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'account_uuid'          =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
-            'organization_uuid'     =>  ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
+            'account_uuid'                  => ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
+            'linked_organization_uuid'      => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
+            'unlinked_organization_uuid'    => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
         ]);
 
         $assets = auth()
@@ -29,7 +30,8 @@ class AssetController extends Controller
             ->currentTeam()
             ->assets()
             ->accountUuidFilter($request->account_uuid)
-            ->organizationUuidFilter($request->organization_uuid)
+            ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
             ->paginate(20);
 
         return AssetResource::collection($assets);

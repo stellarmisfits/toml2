@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-block px-2 py-0 rounded-full text-xs font-semibold tracking-wider leading-relaxed uppercase ml-4" :class="type">
+  <div class="inline-block px-2 py-0 rounded-full text-xs font-semibold tracking-wider leading-relaxed uppercase" :class="type">
     <slot />
   </div>
 </template>

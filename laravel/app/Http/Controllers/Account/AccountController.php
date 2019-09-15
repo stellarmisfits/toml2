@@ -27,8 +27,9 @@ class AccountController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'organization_id'   => ['nullable', new ValidateUuid, 'exists:organizations,id'],
-            'public_key'        => ['nullable', 'string', 'size:56', new PublicKey],
+            'public_key'                    => ['nullable', 'string', 'size:56', new PublicKey],
+            'linked_organization_uuid'      => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
+            'unlinked_organization_uuid'    => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
         ]);
 
         $account = auth()
@@ -36,7 +37,8 @@ class AccountController extends Controller
             ->currentTeam()
             ->accounts()
             // ->publicKeyFilter($request->public_key)
-            // ->organizationIdFilter($request->organization_id)
+            ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
             ->paginate(20);
 
         return AccountResource::collection($account);
@@ -53,7 +55,7 @@ class AccountController extends Controller
     public function store(Request $request, AccountRepository $ac): AccountResource
     {
         $data = $request->validate([
-            'alias'        => 'nullable|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
+            'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
             'public_key'   => ['required', 'string', 'size:56', new PublicKey, Rule::unique('accounts', 'public_key')]
         ]);
 

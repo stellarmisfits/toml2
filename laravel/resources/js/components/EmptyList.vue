@@ -1,5 +1,5 @@
 <template>
-  <a-well class="px-6 py-12">
+  <div>
     <div class="flex items-center justify-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -17,9 +17,9 @@
       </svg>
     </div>
     <div class="mt-4 text-center max-w-xl mx-auto">
-      {{ message }}
+      <slot>{{ message }}</slot>
     </div>
-  </a-well>
+  </div>
 </template>
 <script>
 export default {
@@ -27,7 +27,8 @@ export default {
   props: {
     message: {
       type: String,
-      required: true
+      required: false,
+      default: 'No results'
     }
   }
 }

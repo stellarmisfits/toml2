@@ -23,7 +23,7 @@
         </div>
       </div>
     </router-link>
-    <div>
+    <div v-if="authenticated">
       <div class="px-6 py-6 text-white">
         <router-link :to="{ name: 'dashboard' }" active-class="underline">
           Dashboard
@@ -80,7 +80,8 @@ export default {
   }),
   computed: mapGetters({
     orgs: 'org/orgs',
-    accounts: 'account/accounts'
+    accounts: 'account/accounts',
+    authenticated: 'auth/check'
   })
 }
 </script>

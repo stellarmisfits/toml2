@@ -1,16 +1,7 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 export const state = {
-  validators: [
-    {
-      uuid: '4130ff6c-c4d9-405b-b08d-240a29c4a302',
-      alias: 'domain-us',
-      displayName: 'Domain United States',
-      host: 'core-us.domain.com:11625',
-      publicKey: 'GA6MOVBKZSOGJ47PHWOLUSN46D6ODSZ7PQJ7NMHRRIS5Z7LP5L7ZZWL6',
-      history: 'http://history.domain.com/prd/core-live/core_live_003/'
-    }
-  ]
+  validators: []
 }
 
 // getters
@@ -19,4 +10,31 @@ export const getters = {
     return state.validators.find(validator => validator.uuid === uuid)
   },
   validators: state => (state.validators.length) ? state.validators : null
+}
+
+// actions
+export const actions = {
+  async fetchValidators ({ commit }) {
+    const { data } = await axios.get('/api/validators')
+    commit('SET_VALIDATORS', { validators: data.data })
+  },
+
+  async fetchValidator ({ commit, getters }, uuid) {
+    let validator = getters.getValidatorByUuid(uuid)
+
+    if (!validator) {
+      const { data } = await axios.get('/api/validators/' + uuid)
+      commit('SET_VALIDATOR', { validator: data.data })
+    }
+  }
+}
+
+// mutations
+export const mutations = {
+  SET_VALIDATORS (state, { validators }) {
+    state.validators = validators
+  },
+  SET_VALIDATOR (state, { validator }) {
+    state.validators.push(validator)
+  }
 }

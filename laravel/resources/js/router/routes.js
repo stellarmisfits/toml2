@@ -31,6 +31,7 @@ export default [
     children: [
       { path: '', redirect: { name: 'org.details' } },
       { path: 'details', name: 'org.details', component: page('orgs/details.vue') },
+      { path: 'resources', name: 'org.resources', component: page('orgs/resources.vue') },
       { path: 'toml', name: 'org.toml', component: page('orgs/toml.vue') }
     ]
   },

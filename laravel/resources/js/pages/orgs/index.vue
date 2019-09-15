@@ -26,8 +26,8 @@ export default {
           params: { uuid: this.$route.params.uuid }
         },
         {
-          name: 'Assets',
-          route: 'settings.password',
+          name: 'Resources',
+          route: 'org.resources',
           params: { uuid: this.$route.params.uuid }
         },
         {

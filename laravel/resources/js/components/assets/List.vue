@@ -1,9 +1,9 @@
 <template>
-  <div v-if="validators" class="spaced-y-6">
+  <div v-if="assets" class="spaced-y-6">
     <list-item
-      v-for="validator in validators"
-      :key="validator.uuid"
-      :validator="validator"
+      v-for="asset in assets"
+      :key="asset.uuid"
+      :asset="asset"
       :linked="linked"
     />
   </div>
@@ -14,18 +14,24 @@
   </a-well>
 </template>
 <script>
-import ListItem from '~/components/validators/ListItem'
+import ListItem from '~/components/assets/ListItem'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     ListItem
   },
   props: {
-    validators: { type: Array, default: () => [] },
+    assets: { type: Array, default: () => [] },
     message: { type: String, required: true },
     linked: { type: Boolean, default: false }
   },
   data: () => ({
     //
-  })
+  }),
+  computed: {
+    ...mapGetters({
+      //
+    })
+  }
 }
 </script>

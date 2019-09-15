@@ -21,7 +21,7 @@ class CreateValidatorsTable extends Migration
             // begin sep-0001 properties
             // https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#validator-information
             $table->string('name');
-            $table->unsignedBigInteger('account_id')->nullable();
+            $table->unsignedBigInteger('account_id');
             $table->string('alias', 15)->unique()->index();
             $table->string('host')->nullable();
             $table->string('history')->nullable();

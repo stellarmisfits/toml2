@@ -25,32 +25,29 @@ class LinkResourceController extends Controller
     public function store(Request $request, Organization $organization)
     {
         $request->validate([
-            'account_uuid'      =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid', 'required_without_all:asset_uuid,principal_uuid,validator_uuid'],
-            'asset_uuid'        =>  ['nullable', new ValidateUuid, 'exists:assets,uuid', 'required_without_all:account_uuid,principal_uuid,validator_uuid'],
-            'principal_uuid'    =>  ['nullable', new ValidateUuid, 'exists:principals,uuid', 'required_without_all:account_uuid,asset_uuid,validator_uuid'],
-            'validator_uuid'    =>  ['nullable', new ValidateUuid, 'exists:validators,uuid', 'required_without_all:account_uuid,asset_uuid,principal_uuid'],
+            'resource_uuid'     =>  ['required', new ValidateUuid],
+            'resource_type'     =>  ['required', 'in:ACCOUNT,ASSET,PRINCIPAL,VALIDATOR']
         ]);
 
         $or = new OrganizationRepository();
 
-        if($request->account_uuid){
-            $account = (new Account)->whereUuid($request->account_uuid)->firstOrFail();
-            $or->addAccount($organization, $account);
-        }
-
-        if($request->asset_uuid){
-            $asset = (new Asset)->whereUuid($request->asset_uuid)->firstOrFail();
-            $or->addAsset($organization, $asset);
-        }
-
-        if($request->principal_uuid){
-            $principal = (new Principal)->whereUuid($request->principal_uuid)->firstOrFail();
-            $or->addPrincipal($organization, $principal);
-        }
-
-        if($request->validator_uuid){
-            $validator = (new Validator())->whereUuid($request->validator_uuid)->firstOrFail();
-            $or->addValidator($organization, $validator);
+        switch ($request->resource_type) {
+            case 'ACCOUNT':
+                $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
+                $or->addAccount($organization, $account);
+                break;
+            case 'ASSET':
+                $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
+                $or->addAsset($organization, $asset);
+                break;
+            case 'PRINCIPAL':
+                $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
+                $or->addPrincipal($organization, $principal);
+                break;
+            case 'VALIDATOR':
+                $validator = (new Validator())->whereUuid($request->resource_uuid)->firstOrFail();
+                $or->addValidator($organization, $validator);
+                break;
         }
 
         return response()->json(null, 201);
@@ -66,30 +63,27 @@ class LinkResourceController extends Controller
     public function destroy(Request $request, Organization $organization)
     {
         $request->validate([
-            'account_uuid'      =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid', 'required_without_all:asset_uuid,principal_uuid,validator_uuid'],
-            'asset_uuid'        =>  ['nullable', new ValidateUuid, 'exists:assets,uuid', 'required_without_all:account_uuid,principal_uuid,validator_uuid'],
-            'principal_uuid'    =>  ['nullable', new ValidateUuid, 'exists:principals,uuid', 'required_without_all:account_uuid,asset_uuid,validator_uuid'],
-            'validator_uuid'    =>  ['nullable', new ValidateUuid, 'exists:validators,uuid', 'required_without_all:account_uuid,asset_uuid,principal_uuid'],
+            'resource_uuid'     =>  ['required', new ValidateUuid],
+            'resource_type'     =>  ['required', 'in:ACCOUNT,ASSET,PRINCIPAL,VALIDATOR']
         ]);
 
-        if($request->account_uuid){
-            $account = (new Account)->whereUuid($request->account_uuid)->firstOrFail();
-            $organization->accounts()->detach($account->id);
-        }
-
-        if($request->asset_uuid){
-            $asset = (new Asset)->whereUuid($request->asset_uuid)->firstOrFail();
-            $organization->assets()->detach($asset->id);
-        }
-
-        if($request->principal_uuid){
-            $principal = (new Principal)->whereUuid($request->principal_uuid)->firstOrFail();
-            $organization->principals()->detach($principal->id);
-        }
-
-        if($request->validator_uuid){
-            $validator = (new Validator())->whereUuid($request->validator_uuid)->firstOrFail();
-            $organization->validators()->detach($validator->id);
+        switch ($request->resource_type) {
+            case 'ACCOUNT':
+                $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
+                $organization->accounts()->detach($account->id);
+                break;
+            case 'ASSET':
+                $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
+                $organization->assets()->detach($asset->id);
+                break;
+            case 'PRINCIPAL':
+                $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
+                $organization->principals()->detach($principal->id);
+                break;
+            case 'VALIDATOR':
+                $validator = (new Validator())->whereUuid($request->resource_uuid)->firstOrFail();
+                $organization->validators()->detach($validator->id);
+                break;
         }
 
         return response()->json(null, 201);

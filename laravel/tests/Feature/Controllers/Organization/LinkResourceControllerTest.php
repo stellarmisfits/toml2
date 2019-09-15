@@ -14,22 +14,22 @@ class LinkResourceControllerTest extends TestCase
     /**
      * POST
      */
-    public function testOrganizationControllerStore()
+    public function testOrganizationControllerStoreAccount()
     {
         $team       = $this->seeder->seedTeam();
         $org        = $this->seeder->seedOrganization($team);
         $account    = $this->seeder->seedAccount($team);
-        $asset      = $this->seeder->seedAsset($team);
-        $principal  = $this->seeder->seedPrincipal($team);
-        $validator  = $this->seeder->seedValidator($team);
         $user       = $this->seeder->seedUserWithTeam($team);
         $this->actingAs($user);
 
+        $this->assertDatabaseMissing('organization_accounts', [
+            'organization_id' => $org->id,
+            'account_id' => $account->id
+        ]);
+
         $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
-            'account_uuid' => $account->uuid,
-            'asset_uuid' => $asset->uuid,
-            'principal_uuid' => $principal->uuid,
-            'validator_uuid' => $validator->uuid,
+            'resource_uuid' => $account->uuid,
+            'resource_type' => 'ACCOUNT'
         ])
             ->assertStatus(201);
 
@@ -37,16 +37,86 @@ class LinkResourceControllerTest extends TestCase
             'organization_id' => $org->id,
             'account_id' => $account->id
         ]);
+    }
+
+
+    /**
+     * POST
+     */
+    public function testOrganizationControllerStoreAsset()
+    {
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $asset    = $this->seeder->seedAsset($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $this->assertDatabaseMissing('organization_assets', [
+            'organization_id' => $org->id,
+            'asset_id' => $asset->id
+        ]);
+
+        $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
+            'resource_uuid' => $asset->uuid,
+            'resource_type' => 'ASSET'
+        ])
+            ->assertStatus(201);
 
         $this->assertDatabaseHas('organization_assets', [
             'organization_id' => $org->id,
             'asset_id' => $asset->id
         ]);
+    }
+
+    /**
+     * POST
+     */
+    public function testOrganizationControllerStorePrincipal()
+    {
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $principal    = $this->seeder->seedPrincipal($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $this->assertDatabaseMissing('organization_principals', [
+            'organization_id' => $org->id,
+            'principal_id' => $principal->id
+        ]);
+
+        $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
+            'resource_uuid' => $principal->uuid,
+            'resource_type' => 'PRINCIPAL'
+        ])
+            ->assertStatus(201);
 
         $this->assertDatabaseHas('organization_principals', [
             'organization_id' => $org->id,
             'principal_id' => $principal->id
         ]);
+    }
+
+    /**
+     * POST
+     */
+    public function testOrganizationControllerStoreValidator()
+    {
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $validator    = $this->seeder->seedValidator($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $this->assertDatabaseMissing('organization_validators', [
+            'organization_id' => $org->id,
+            'validator_id' => $validator->id
+        ]);
+
+        $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
+            'resource_uuid' => $validator->uuid,
+            'resource_type' => 'VALIDATOR'
+        ])
+            ->assertStatus(201);
 
         $this->assertDatabaseHas('organization_validators', [
             'organization_id' => $org->id,
@@ -57,28 +127,25 @@ class LinkResourceControllerTest extends TestCase
     /**
      * DELETE Resource
      */
-    public function testAccountControllerDelete()
+    public function testResourceLinkControllerDeleteAccount()
     {
         $or = new OrganizationRepository();
         $team       = $this->seeder->seedTeam();
         $org        = $this->seeder->seedOrganization($team);
         $account    = $this->seeder->seedAccount($team);
-        $asset      = $this->seeder->seedAsset($team);
-        $principal  = $this->seeder->seedPrincipal($team);
-        $validator  = $this->seeder->seedValidator($team);
         $user       = $this->seeder->seedUserWithTeam($team);
         $this->actingAs($user);
 
         $or->addAccount($org, $account);
-        $or->addAsset($org, $asset);
-        $or->addPrincipal($org, $principal);
-        $or->addValidator($org, $validator);
+
+        $this->assertDatabaseHas('organization_accounts', [
+            'organization_id' => $org->id,
+            'account_id' => $account->id
+        ]);
 
         $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
-            'account_uuid' => $account->uuid,
-            'asset_uuid' => $asset->uuid,
-            'principal_uuid' => $principal->uuid,
-            'validator_uuid' => $validator->uuid,
+            'resource_uuid' => $account->uuid,
+            'resource_type' => 'ACCOUNT'
         ])
             ->assertStatus(201);
 
@@ -86,16 +153,94 @@ class LinkResourceControllerTest extends TestCase
             'organization_id' => $org->id,
             'account_id' => $account->id
         ]);
+    }
+
+    /**
+     * DELETE Resource
+     */
+    public function testResourceLinkControllerDeleteAsset()
+    {
+        $or = new OrganizationRepository();
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $asset    = $this->seeder->seedAsset($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $or->addAsset($org, $asset);
+
+        $this->assertDatabaseHas('organization_assets', [
+            'organization_id' => $org->id,
+            'asset_id' => $asset->id
+        ]);
+
+        $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
+            'resource_uuid' => $asset->uuid,
+            'resource_type' => 'ASSET'
+        ])
+            ->assertStatus(201);
 
         $this->assertDatabaseMissing('organization_assets', [
             'organization_id' => $org->id,
             'asset_id' => $asset->id
         ]);
+    }
+
+    /**
+     * DELETE Resource
+     */
+    public function testResourceLinkControllerDeletePrincipal()
+    {
+        $or = new OrganizationRepository();
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $principal    = $this->seeder->seedPrincipal($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $or->addPrincipal($org, $principal);
+
+        $this->assertDatabaseHas('organization_principals', [
+            'organization_id' => $org->id,
+            'principal_id' => $principal->id
+        ]);
+
+        $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
+            'resource_uuid' => $principal->uuid,
+            'resource_type' => 'PRINCIPAL'
+        ])
+            ->assertStatus(201);
 
         $this->assertDatabaseMissing('organization_principals', [
             'organization_id' => $org->id,
             'principal_id' => $principal->id
         ]);
+    }
+
+    /**
+     * DELETE Resource
+     */
+    public function testResourceLinkControllerDeleteValidator()
+    {
+        $or = new OrganizationRepository();
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $validator    = $this->seeder->seedValidator($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $or->addValidator($org, $validator);
+
+        $this->assertDatabaseHas('organization_validators', [
+            'organization_id' => $org->id,
+            'validator_id' => $validator->id
+        ]);
+
+        $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
+            'resource_uuid' => $validator->uuid,
+            'resource_type' => 'VALIDATOR'
+        ])
+            ->assertStatus(201);
 
         $this->assertDatabaseMissing('organization_validators', [
             'organization_id' => $org->id,

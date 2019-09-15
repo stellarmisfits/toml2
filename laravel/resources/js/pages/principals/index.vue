@@ -49,6 +49,9 @@ export default {
   },
   computed: {
     ...mapGetters('principal', ['principals'])
+  },
+  created () {
+    this.$store.dispatch('principal/fetchPrincipals')
   }
 }
 </script>
