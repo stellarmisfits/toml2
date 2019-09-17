@@ -141,7 +141,7 @@ module.exports = {
         600: '#805ad5',
         700: '#6b46c1',
         800: '#553c9a',
-        900: '#44337a',
+        900: '#44337a'
       },
       pink: {
         100: '#fff5f7',
@@ -152,7 +152,7 @@ module.exports = {
         600: '#d53f8c',
         700: '#b83280',
         800: '#97266d',
-        900: '#702459',
+        900: '#702459'
       },
     },
     spacing: {
@@ -175,6 +175,32 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
+      '1/2': '50%',
+      '1/3': '33.333333%',
+      '2/3': '66.666667%',
+      '1/4': '25%',
+      '2/4': '50%',
+      '3/4': '75%',
+      '1/5': '20%',
+      '2/5': '40%',
+      '3/5': '60%',
+      '4/5': '80%',
+      '1/6': '16.666667%',
+      '2/6': '33.333333%',
+      '3/6': '50%',
+      '4/6': '66.666667%',
+      '5/6': '83.333333%',
+      '1/12': '8.333333%',
+      '2/12': '16.666667%',
+      '3/12': '25%',
+      '4/12': '33.333333%',
+      '5/12': '41.666667%',
+      '6/12': '50%',
+      '7/12': '58.333333%',
+      '8/12': '66.666667%',
+      '9/12': '75%',
+      '10/12': '83.333333%',
+      '11/12': '91.666667%'
     },
     backgroundColor: theme => theme('colors'),
     backgroundPosition: {
@@ -186,12 +212,12 @@ module.exports = {
       right: 'right',
       'right-bottom': 'right bottom',
       'right-top': 'right top',
-      top: 'top',
+      top: 'top'
     },
     backgroundSize: {
       auto: 'auto',
       cover: 'cover',
-      contain: 'contain',
+      contain: 'contain'
     },
     borderColor: theme => ({
       ...theme('colors'),
@@ -202,14 +228,14 @@ module.exports = {
       sm: '0.125rem',
       default: '0.25rem',
       lg: '0.5rem',
-      full: '9999px',
+      full: '9999px'
     },
     borderWidth: {
       default: '1px',
       '0': '0',
       '2': '2px',
       '4': '4px',
-      '8': '8px',
+      '8': '8px'
     },
     boxShadow: {
       default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
@@ -219,7 +245,7 @@ module.exports = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
-      none: 'none',
+      none: 'none'
     },
     container: {},
     cursor: {
@@ -229,24 +255,24 @@ module.exports = {
       wait: 'wait',
       text: 'text',
       move: 'move',
-      'not-allowed': 'not-allowed',
+      'not-allowed': 'not-allowed'
     },
     fill: {
-      current: 'currentColor',
+      current: 'currentColor'
     },
     flex: {
       '1': '1 1 0%',
       auto: '1 1 auto',
       initial: '0 1 auto',
-      none: 'none',
+      none: 'none'
     },
     flexGrow: {
       '0': '0',
-      default: '1',
+      default: '1'
     },
     flexShrink: {
       '0': '0',
-      default: '1',
+      default: '1'
     },
     fontFamily: {
       sans: [

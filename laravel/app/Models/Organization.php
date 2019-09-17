@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Builder;
 
-// use Spatie\Image\Manipulations;
-// use Spatie\MediaLibrary\Models\Media;
-// use Spatie\MediaLibrary\HasMedia\HasMedia;
-// use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+ use Spatie\Image\Manipulations;
+ use Spatie\MediaLibrary\Models\Media;
+ use Spatie\MediaLibrary\HasMedia\HasMedia;
+ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Organization extends BaseModel // implements HasMedia
+class Organization extends BaseModel implements HasMedia
 {
+    use HasMediaTrait;
+
     // use HasMediaTrait;
 
     protected $casts = [

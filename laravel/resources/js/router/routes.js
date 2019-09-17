@@ -45,7 +45,24 @@ export default [
     component: page('accounts/show.vue'),
     children: [
       { path: '', redirect: { name: 'account.details' } },
-      { path: 'details', name: 'account.details', component: page('accounts/details.vue') }
+      { path: 'details', name: 'account.details', component: page('accounts/details.vue') },
+      { path: 'stellar', name: 'account.stellar', component: page('accounts/stellar.vue') }
+    ]
+  },
+
+  /**
+   * Assets
+   */
+  { path: '/app/assets', name: 'assets', component: page('assets/index.vue') },
+  { path: '/app/assets/:uuid',
+    name: 'asset',
+    component: page('assets/show.vue'),
+    children: [
+      { path: '', redirect: { name: 'asset.details' } },
+      { path: 'details', name: 'asset.details', component: page('assets/details.vue') },
+      { path: 'anchor', name: 'asset.anchor', component: page('assets/anchor.vue') },
+      { path: 'regulated', name: 'asset.regulated', component: page('assets/regulated.vue') },
+      { path: 'stellar', name: 'asset.stellar', component: page('assets/stellar.vue') }
     ]
   },
 

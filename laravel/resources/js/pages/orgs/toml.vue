@@ -60,7 +60,7 @@ export default {
   },
 
   metaInfo () {
-    return { title: this.$t('login') }
+    return { title: 'TOML Preview' }
   },
 
   methods: {

@@ -57,6 +57,11 @@
             </router-link>
           </li>
           <li class="mt-3">
+            <router-link :to="{ name: 'assets'}" active-class="underline">
+              Assets
+            </router-link>
+          </li>
+          <li class="mt-3">
             <router-link :to="{ name: 'principals'}" active-class="underline">
               Principals
             </router-link>

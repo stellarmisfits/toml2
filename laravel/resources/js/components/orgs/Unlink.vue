@@ -1,11 +1,6 @@
 <template>
   <div>
-    <button
-      class="inline-flex items-center spaced-x-2 btn btn-sm btn-white transition-all"
-      @click.prevent="modal=!modal"
-    >
-      <span>Unlink</span>
-    </button>
+    <fa icon="times-circle" class="hover:text-gray-400 cursor-pointer" @click.prevent="modal=!modal" />
     <Modal :open="modal">
       <div slot="title">
         Are you sure you want to unlink?

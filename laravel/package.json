@@ -21,6 +21,7 @@
     "eslint-loader": "^3.0.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.0",
+    "laravel-vapor": "^0.1.5",
     "popper.js": "^1.15.0",
     "portal-vue": "^2.1.6",
     "sweetalert2": "^8.10.0",

@@ -93,7 +93,7 @@ export default {
   },
 
   metaInfo () {
-    return { title: this.$t('login') }
+    return { title: 'Validator Details' }
   },
 
   data: () => ({

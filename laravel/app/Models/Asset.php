@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-// use Spatie\Image\Manipulations;
-// use Spatie\MediaLibrary\Models\Media;
-// use Spatie\MediaLibrary\HasMedia\HasMedia;
-// use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Asset extends BaseModel // implements HasMedia
+class Asset extends BaseModel implements HasMedia
 {
-    use BelongsToTeam, HasOrganizations; // HasMediaTrait;
+    use BelongsToTeam, HasOrganizations, HasMediaTrait;
 
     protected $fillable = [
         'code',
@@ -46,7 +46,19 @@ class Asset extends BaseModel // implements HasMedia
     |
     */
 
-    //
+    /**
+     * @param  mixed
+     * @return string
+     */
+    public function getImageAttribute(): ?string
+    {
+        $url = $this->getFirstMediaUrl('image', 'image');
+        if ($url) {
+            return url($url);
+        }
+
+        return null;
+    }
 
     /*
     |--------------------------------------------------------------------------

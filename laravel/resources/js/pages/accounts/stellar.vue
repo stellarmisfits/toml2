@@ -4,7 +4,7 @@
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
-            Account Details
+            Stellar Details for Account
           </h2>
         </div>
         <div class="flex-shrink-0 ml-4">
@@ -55,7 +55,7 @@ export default {
   },
 
   metaInfo () {
-    return { title: 'Account Details' }
+    return { title: 'Account Stellar' }
   },
 
   data: () => ({

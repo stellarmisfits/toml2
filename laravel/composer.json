@@ -28,6 +28,8 @@
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "laravel/vapor-core": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "spatie/laravel-medialibrary": "^7.0.0",
         "tymon/jwt-auth": "dev-feature/laravel-6-support",
         "yosymfony/toml": "^1.0",
         "zulucrypto/stellar-api": "^0.7.0"

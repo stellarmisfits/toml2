@@ -34,7 +34,7 @@ class Organization extends JsonResource
             'name'                          => $this->name,
             'dba'                           => $this->dba,
             'url'                           => $this->url,
-            // 'logo'                          => $this->logo,
+            'logo'                          => $this->logo,
             'description'                   => $this->description,
             'address'                       => $this->address,
             'address_attestation'           => $this->address_attestation,

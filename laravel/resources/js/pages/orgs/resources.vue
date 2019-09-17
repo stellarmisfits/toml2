@@ -6,7 +6,7 @@
           <h2 class="text-lg">
             Accounts
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-1 text-sm text-gray-700">
             <div class="max-w-2xl">
               Lists of the account resources that are tied to this organization.
               Account records that are linked to an organization will show up in the
@@ -22,7 +22,7 @@
         <AccountList
           :accounts="linkedAccounts"
           message="No account records have been linked to this organization"
-          :linked="true"
+          action="unlink"
         />
       </div>
     </div>
@@ -49,7 +49,7 @@
         <AssetList
           :assets="linkedAssets"
           message="No assets records have been linked to this organization"
-          :linked="true"
+          action="unlink"
         />
       </div>
     </div>

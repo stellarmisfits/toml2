@@ -1202,7 +1202,7 @@ autoprefixer@^9.4.2, autoprefixer@^9.4.5:
     postcss "^7.0.17"
     postcss-value-parser "^4.0.0"
 
-axios@^0.18.1:
+axios@^0.18.0, axios@^0.18.1:
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
   integrity sha512-0BfJq4NSfQXd+SkFdrvFbG7addhYSBA2mQwISr46pD6E5iqkWg02RAs8vyTT/j0RTnoYmeXauBuSv1qKwR179g==
@@ -4379,6 +4379,13 @@ laravel-mix@^4.0.15:
     webpack-merge "^4.1.0"
     webpack-notifier "^1.5.1"
     yargs "^12.0.5"
+
+laravel-vapor@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/laravel-vapor/-/laravel-vapor-0.1.5.tgz#9a7f46f081ce268e2b7300af42358a643025ab71"
+  integrity sha512-6josd2jy/JR90ZZjb3xMlDUr201XpV1MjvAHL96zMamPWK6XbAAFCDt37zbch1zqp6sQjjTKAsQ3Bio+xdBENA==
+  dependencies:
+    axios "^0.18.0"
 
 last-call-webpack-plugin@^3.0.0:
   version "3.0.0"

@@ -1,6 +1,6 @@
 <template>
   <div v-if="account" class="flex-grow">
-    <a-breadcrumbs>
+    <a-breadcrumbs :tabs="tabs">
       <span slot="title">
         <router-link :to="{ name: 'accounts' }">
           Accounts
@@ -28,6 +28,11 @@ export default {
         {
           name: 'General',
           route: 'account.details',
+          params: { uuid: this.$route.params.uuid }
+        },
+        {
+          name: 'Stellar',
+          route: 'account.stellar',
           params: { uuid: this.$route.params.uuid }
         }
       ]

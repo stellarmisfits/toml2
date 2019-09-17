@@ -18,15 +18,14 @@ class CreateAssetsTable extends Migration
             $table->uuid('uuid');
             $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('account_id');
-            $table->boolean('published')->default(false);
 
+            $table->string('name');
             $table->string('code');
+            $table->string('desc');
             $table->string('code_template')->nullable();
-            $table->string('name')->nullable();
             // $table->string('issuer'); // obtain through account_id
             $table->string('status')->nullable();
             $table->integer('display_decimals')->default(0);
-            $table->string('desc')->nullable();
             $table->text('conditions')->nullable();
             // $table->string('image'); // obtain through media library
             $table->string('fixed_number')->nullable();

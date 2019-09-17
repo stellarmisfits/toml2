@@ -4,7 +4,7 @@
       v-for="account in accounts"
       :key="account.uuid"
       :account="account"
-      :linked="linked"
+      :action="action"
     />
   </div>
   <a-well v-else class="px-6 py-12">
@@ -23,7 +23,7 @@ export default {
   props: {
     accounts: { type: Array, default: () => [] },
     message: { type: String, required: true },
-    linked: { type: Boolean, default: false }
+    action: { type: String, default: null }
   },
   data: () => ({
     //

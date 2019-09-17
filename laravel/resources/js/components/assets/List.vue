@@ -1,10 +1,10 @@
 <template>
   <div v-if="assets" class="spaced-y-6">
-    <list-item
+    <Asset
       v-for="asset in assets"
       :key="asset.uuid"
       :asset="asset"
-      :linked="linked"
+      :action="action"
     />
   </div>
   <a-well v-else class="px-6 py-12">
@@ -14,16 +14,16 @@
   </a-well>
 </template>
 <script>
-import ListItem from '~/components/assets/ListItem'
+import Asset from '~/components/assets/Asset'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    ListItem
+    Asset
   },
   props: {
     assets: { type: Array, default: () => [] },
     message: { type: String, required: true },
-    linked: { type: Boolean, default: false }
+    action: { type: String, default: null }
   },
   data: () => ({
     //
