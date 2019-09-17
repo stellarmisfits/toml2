@@ -8,19 +8,22 @@
       <div slot="link" class="fill-current h-6 w-6 z-10 absolute right-0 mr-4 mt-2">
         <fa icon="ellipsis-h" />
       </div>
-      <div slot="dropdown" class="py-2 w-32">
-        <router-link :to="{ name: 'settings.profile' }" class="dropdown-item">
-          <fa class="mr-2" icon="cog" />Update
-        </router-link>
-        <a href="#" class="dropdown-item" @click.prevent="logout">
-          <fa class="mr-2" icon="sign-out-alt" />Remove
-        </a>
-      </div>
+      <template v-slot:dropdown="dropdownProps">
+        <div class="py-2 w-32">
+          <image-add :asset="asset" @close="dropdownProps.closeDropdown" />
+          <image-remove v-if="asset.image" :asset="asset" @close="dropdownProps.closeDropdown" />
+        </div>
+      </template>
     </dropdown>
     <div slot="body">
-      <h4 class="font-semibold text-lg leading-tight truncate">
-        {{ asset.name }}
-      </h4>
+      <div class="flex items-center spaced-x-1">
+        <h4 class="font-semibold text-lg leading-tight truncate">
+          {{ asset.name }}
+        </h4>
+        <a-pill class="ml-2" color="blue">
+          {{ asset.status }}
+        </a-pill>
+      </div>
       <div class="mt-1">
         {{ asset.code }}
       </div>
@@ -43,9 +46,6 @@
         {{ asset.code_template }}
       </div>
       <div class="mt-2">
-        {{ asset.status }}
-      </div>
-      <div class="mt-2">
         {{ asset.conditions }}
       </div>
     </div>
@@ -53,9 +53,13 @@
 </template>
 <script>
 import Unlink from '~/components/orgs/Unlink'
+import ImageAdd from '~/components/assets/ImageAdd'
+import ImageRemove from '~/components/assets/ImageRemove'
 export default {
   components: {
-    Unlink
+    Unlink,
+    ImageAdd,
+    ImageRemove
   },
   props: {
     asset: { type: Object, required: true },

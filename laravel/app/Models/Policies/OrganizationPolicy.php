@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Models\Policies;
 
 use App\Models\User;
 use App\ModelsOrganization;
@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class OrganizationPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view any models organizations.
      *

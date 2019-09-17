@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace App\Models\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -82,8 +82,8 @@ class UserPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  User  $user
+     * @param  User  $model
      * @return mixed
      */
     public function forceDelete(User $user, User $model)
@@ -94,7 +94,7 @@ class UserPolicy
     /**
      * Determine whether the user can upload files.
      *
-     * @param  \App\User  $user
+     * @param  User  $user
      * @return mixed
      */
     public function uploadFiles(User $user)

@@ -25,4 +25,12 @@ class AssetRepository
 
         return $a;
     }
+
+    /**
+     * @param Asset $asset
+     */
+    public function deleteMedia(Asset $asset): void
+    {
+        $asset->clearMediaCollection();
+    }
 }

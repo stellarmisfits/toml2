@@ -14,7 +14,7 @@
         leave-to-class="opacity-0 scale-75"
       >
         <div v-if="open" class="absolute z-50 mt-2 rounded-lg border shadow-md bg-white overflow-hidden right-0 transform-tr">
-          <slot name="dropdown" />
+          <slot name="dropdown" :closeDropdown="close" />
         </div>
       </transition>
     </div>
@@ -25,6 +25,11 @@ export default {
   name: 'Dropdown',
   data: () => ({
     open: false
-  })
+  }),
+  methods: {
+    close () {
+      this.open = false
+    }
+  }
 }
 </script>

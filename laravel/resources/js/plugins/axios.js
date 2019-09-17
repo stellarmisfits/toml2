@@ -7,7 +7,7 @@ import i18n from '~/plugins/i18n'
 // Request interceptor
 axios.interceptors.request.use(request => {
   const token = store.getters['auth/token']
-  if (token) {
+  if (token && request.headers.Host === window.config.appUrl) {
     request.headers.common['Authorization'] = `Bearer ${token}`
   }
 

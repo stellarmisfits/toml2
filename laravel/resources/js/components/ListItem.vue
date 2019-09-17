@@ -2,7 +2,10 @@
   <a-well>
     <div class="lg:flex">
       <div class="relative pb-2/3 lg:flex-none lg:pb-0 lg:h-48 lg:w-48">
-        <img class="absolute h-full w-full object-cover" :src="imageUrl" :alt="imageTitle">
+        <img v-if="imageUrl" class="absolute h-full w-full object-cover" :src="imageUrl" :alt="imageTitle">
+        <div v-else class="absolute flex justify-center items-center h-full w-full object-cover bg-gray-500">
+          <fa class="block mr-2" icon="times-circle" />
+        </div>
         <slot name="imageAction" />
       </div>
       <div class="flex flex-grow p-6">

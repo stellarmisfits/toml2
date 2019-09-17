@@ -462,7 +462,7 @@ module.exports = {
       '10/12': '83.333333%',
       '11/12': '91.666667%',
       full: '100%',
-      screen: '100vw',
+      screen: '100vw'
     }),
     zIndex: {
       auto: 'auto',
@@ -472,7 +472,8 @@ module.exports = {
       '30': '30',
       '40': '40',
       '50': '50',
-    },
+      '100': '100'
+    }
   },
   variants: {
     alignContent: ['responsive'],

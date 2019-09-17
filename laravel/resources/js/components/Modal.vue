@@ -1,6 +1,6 @@
 <template>
   <portal to="modal">
-    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center">
+    <div v-if="showModal" class="fixed z-100 inset-0 flex items-center justify-center">
       <transition
         enter-active-class="transition-all transition-duration-25 transition-ease-out"
         leave-active-class="transition-all transition-duration-25 transition-ease-in"
