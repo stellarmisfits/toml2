@@ -17,7 +17,9 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <AssetCreate />
+          <AssetCreate
+            action="create"
+          />
         </div>
       </div>
       <div class="mt-4">
@@ -34,7 +36,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import AssetList from '~/components/assets/List'
-import AssetCreate from '~/components/assets/Create'
+import AssetCreate from '~/components/assets/Upsert'
 export default {
   middleware: 'auth',
 

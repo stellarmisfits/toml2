@@ -1,14 +1,25 @@
 <template>
   <div>
-    <button
-      class="inline-flex items-center spaced-x-2 btn btn-sm btn-white transition-all"
-      @click.prevent="modal=!modal"
-    >
-      Add Account
-    </button>
+    <template v-if="action==='create'">
+      <button
+        class="inline-flex items-center spaced-x-2 btn btn-sm btn-white transition-all"
+        @click.prevent="modal=!modal"
+      >
+        Add Account
+      </button>
+    </template>
+
+    <template v-if="action==='update'">
+      <fa
+        icon="edit"
+        class="hover:text-gray-400 cursor-pointer"
+        @click.prevent="modal=!modal"
+      />
+    </template>
+
     <Modal :open="modal">
       <div slot="title">
-        Add Account
+        {{ title }}
       </div>
       <div slot="subtitle">
         Add an alias and public key of a stellar account that you control.
@@ -55,6 +66,14 @@
 <script>
 import Form from 'vform'
 export default {
+  props: {
+    action: {
+      type: String,
+      required: true,
+      validator: (val) => ['create', 'update'].includes(val)
+    },
+    account: { type: Object, default: null }
+  },
   data: () => ({
     modal: false,
     form: new Form({
@@ -66,14 +85,39 @@ export default {
   computed: {
     ready: function () {
       return this.form.name && this.form.alias && this.form.public_key
+    },
+    title () {
+      return (this.action === 'create') ? 'Add New Account' : 'Update Account'
+    }
+  },
+  watch: {
+    modal: function () {
+      // if in edit mode repopulate the current values every time the modal opens
+      if (this.modal && this.action === 'update') {
+        this.form.name = this.account.name
+        this.form.alias = this.account.alias
+        this.form.public_key = this.account.public_key
+      }
     }
   },
   methods: {
     async save () {
-      await this.form.post('/api/accounts')
-      this.form.reset()
-      this.$store.dispatch('account/fetchAccounts')
-      this.modal = false
+      try {
+        if (this.action === 'create') {
+          const { data } = await this.form.post('/api/accounts')
+          this.$store.commit('account/SET_ACCOUNT', { account: data.data })
+        }
+
+        if (this.action === 'update') {
+          const { data } = await this.form.patch('/api/accounts/' + this.$route.params.uuid)
+          this.$store.commit('account/SET_ACCOUNT', { account: data.data })
+        }
+
+        this.form.reset()
+        this.modal = false
+      } catch {
+
+      }
     }
   }
 }

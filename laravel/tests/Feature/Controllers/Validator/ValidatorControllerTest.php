@@ -87,13 +87,22 @@ class ValidatorControllerTest extends TestCase
         $user = $this->seeder->seedUserWithTeam($validator->team);
         $this->actingAs($user);
 
+        $newAccount = $this->seeder->seedAccount($validator->team);
         $updatedValues = factory(Validator::class)->make([
-            'team_id' => $user->currentTeam()->id,
+            'account_uuid' => $newAccount->uuid,
         ]);
 
-        $this->getJson(route('validators.show', $updatedValues->toArray()))
-            ->assertStatus(200)
-            ->assertJsonFragment((new ValidatorResource($validator))->toArray());
+        $this->patchJson(route('validators.update', $validator->uuid), $updatedValues->toArray())
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('validators', [
+            'uuid'          => $validator->uuid,
+            'name'          => $updatedValues->name,
+            'account_id'    => $newAccount->id,
+            'alias'         => $updatedValues->alias,
+            'host'          => $updatedValues->host,
+            'history'       => $updatedValues->history
+        ]);
     }
 
     /**

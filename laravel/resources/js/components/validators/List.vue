@@ -8,7 +8,7 @@
     />
   </div>
   <a-well v-else class="px-6 py-12">
-    <empty-list
+    <a-empty-list
       :message="emptyMessage"
     />
   </a-well>
@@ -22,7 +22,11 @@ export default {
   props: {
     validators: { type: Array, default: () => [] },
     emptyMessage: { type: String, required: true },
-    action: { type: Boolean, default: false }
+    action: {
+      type: Boolean,
+      required: true,
+      validator: (val) => ['edit', 'unlink', 'navigate'].includes(val)
+    }
   },
   data: () => ({
     //

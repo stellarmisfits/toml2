@@ -42,6 +42,11 @@ export default {
       const assetUuid = this.$route.params.uuid
       await this.form.delete('/api/assets/' + assetUuid + '/image')
 
+      this.$store.dispatch('asset/fetchAsset', {
+        uuid: this.$route.params.uuid,
+        force: true
+      })
+
       this.form.reset()
       this.modal = false
     }

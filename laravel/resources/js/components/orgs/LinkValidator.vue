@@ -26,12 +26,12 @@
             <has-error :form="form" field="email" />
           </label>
         </form>
-        <empty-list v-else>
+        <a-empty-list v-else>
           No unlinked validator records were found. To create a new validator
           <router-link to="/app/validators">
             click here.
           </router-link>
-        </empty-list>
+        </a-empty-list>
       </div>
       <div slot="actions">
         <button class="btn btn-white transition-all" @click="modal=false">

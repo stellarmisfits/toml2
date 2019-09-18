@@ -6,9 +6,13 @@
           Assets
         </router-link>
         <span class="mx-3 text-gray-400 font-light text-2xl leading-none">/</span>{{ asset.name }}</span>
-      <span slot="dropdown">delete asset</span>
+      <delete-resource
+        slot="dropdown"
+        :resource="asset"
+        resource-type="ASSET"
+      />
     </a-breadcrumbs>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="px-12 py-8 mx-auto">
       <transition name="fade" mode="out-in">
         <router-view :asset="asset" />
       </transition>
@@ -18,9 +22,10 @@
 
 <script>
 import ABreadcrumbs from '~/components/Breadcrumbs'
+import DeleteResource from '~/components/DeleteResource'
 import { mapGetters } from 'vuex'
 export default {
-  components: { ABreadcrumbs },
+  components: { ABreadcrumbs, DeleteResource },
   middleware: 'auth',
   data () {
     return {
@@ -55,7 +60,9 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('asset/fetchAsset', this.$route.params.uuid)
+    this.$store.dispatch('asset/fetchAsset', {
+      uuid: this.$route.params.uuid
+    })
   }
 }
 </script>

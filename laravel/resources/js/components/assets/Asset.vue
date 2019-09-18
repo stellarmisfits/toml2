@@ -5,8 +5,8 @@
     :action="action"
   >
     <dropdown v-if="action==='edit'" slot="imageAction">
-      <div slot="link" class="fill-current h-6 w-6 z-10 absolute right-0 mr-4 mt-2">
-        <fa icon="ellipsis-h" />
+      <div slot="link" class="fill-current h-6 w-6 z-10 absolute right-0 mr-4 mt-2 text-white">
+        <fa class="bg-gray-500 rounded-full" icon="chevron-circle-down" />
       </div>
       <template v-slot:dropdown="dropdownProps">
         <div class="py-2 w-32">
@@ -33,7 +33,11 @@
     </div>
     <div slot="action">
       <unlink v-if="action==='unlink'" resource-type="ASSET" :resource="asset" />
-      <fa v-if="action==='edit'" icon="edit" />
+      <update-asset
+        v-if="action==='edit'"
+        :asset="asset"
+        action="update"
+      />
       <router-link
         v-if="action==='navigate'"
         :to="{ name: 'asset.details', params: { uuid: asset.uuid }}"
@@ -55,15 +59,21 @@
 import Unlink from '~/components/orgs/Unlink'
 import ImageAdd from '~/components/assets/ImageAdd'
 import ImageRemove from '~/components/assets/ImageRemove'
+import UpdateAsset from '~/components/assets/Upsert'
 export default {
   components: {
     Unlink,
     ImageAdd,
-    ImageRemove
+    ImageRemove,
+    UpdateAsset
   },
   props: {
     asset: { type: Object, required: true },
-    action: { type: String, default: null }
+    action: {
+      type: String,
+      required: true,
+      validator: (val) => ['edit', 'unlink', 'navigate'].includes(val)
+    }
   },
   data: () => ({
     //

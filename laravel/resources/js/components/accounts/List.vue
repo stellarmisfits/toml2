@@ -1,6 +1,6 @@
 <template>
   <div v-if="accounts" class="spaced-y-6">
-    <list-item
+    <account
       v-for="account in accounts"
       :key="account.uuid"
       :account="account"
@@ -8,17 +8,17 @@
     />
   </div>
   <a-well v-else class="px-6 py-12">
-    <empty-list
+    <a-empty-list
       :message="message"
     />
   </a-well>
 </template>
 <script>
-import ListItem from '~/components/accounts/ListItem'
+import Account from '~/components/accounts/Account'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    ListItem
+    Account
   },
   props: {
     accounts: { type: Array, default: () => [] },

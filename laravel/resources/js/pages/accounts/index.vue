@@ -17,13 +17,16 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <AccountCreate />
+          <AccountCreate
+            action="create"
+          />
         </div>
       </div>
       <div class="mt-4">
         <AccountList
           :accounts="accounts"
           message="No account records have been added."
+          action="navigate"
         />
       </div>
     </div>
@@ -33,7 +36,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import AccountList from '~/components/accounts/List'
-import AccountCreate from '~/components/accounts/Create'
+import AccountCreate from '~/components/accounts/Upsert'
 export default {
   middleware: 'auth',
 

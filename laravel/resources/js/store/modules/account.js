@@ -38,6 +38,9 @@ export const mutations = {
     state.accounts = accounts
   },
   SET_ACCOUNT (state, { account }) {
-    state.accounts.push(account)
+    state.accounts = [
+      ...state.accounts.filter(element => element.uuid !== account.uuid),
+      account
+    ]
   }
 }

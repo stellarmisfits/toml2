@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -8,14 +8,17 @@
           </h2>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <span>edit button</span>
+          <span>Verify Button</span>
         </div>
       </div>
       <div class="mt-4">
-        <account-list-item :account="account" />
+        <account
+          :account="account"
+          action="edit"
+        />
       </div>
     </div>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -39,7 +42,7 @@
 </template>
 
 <script>
-import AccountListItem from '~/components/accounts/ListItem'
+import Account from '~/components/accounts/Account'
 import OrganizationList from '~/components/orgs/List'
 
 export default {
@@ -47,7 +50,7 @@ export default {
 
   components: {
     OrganizationList,
-    AccountListItem
+    Account
   },
 
   props: {

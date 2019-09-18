@@ -8,7 +8,7 @@
     />
   </div>
   <a-well v-else class="px-6 py-12">
-    <empty-list
+    <a-empty-list
       :message="message"
     />
   </a-well>

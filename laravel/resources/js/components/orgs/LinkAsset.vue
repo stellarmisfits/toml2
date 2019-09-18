@@ -26,12 +26,12 @@
             <has-error :form="form" field="email" />
           </label>
         </form>
-        <empty-list v-else>
+        <a-empty-list v-else>
           No unlinked asset records were found. To create a new asset
           <router-link to="/app/assets">
             click here.
           </router-link>
-        </empty-list>
+        </a-empty-list>
       </div>
       <div slot="actions">
         <button class="btn btn-white transition-all" @click="modal=false">

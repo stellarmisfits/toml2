@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="px-12 py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -12,7 +12,10 @@
         </div>
       </div>
       <div class="mt-4">
-        <account-list-item :account="account" />
+        <account-list-item
+          :account="account"
+          action="edit"
+        />
       </div>
     </div>
     <div class="px-12 py-8 mx-auto max-w-4xl">
@@ -39,7 +42,7 @@
 </template>
 
 <script>
-import AccountListItem from '~/components/accounts/ListItem'
+import AccountListItem from '~/components/accounts/Account'
 import OrganizationList from '~/components/orgs/List'
 
 export default {

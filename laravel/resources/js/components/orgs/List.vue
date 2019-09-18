@@ -7,7 +7,7 @@
     />
   </div>
   <a-well v-else class="px-6 py-12">
-    <empty-list
+    <a-empty-list
       message="No organizations have been added to this account."
     />
   </a-well>

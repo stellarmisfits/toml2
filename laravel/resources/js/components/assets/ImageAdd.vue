@@ -57,7 +57,13 @@ export default {
 
         await this.form.post('/api/assets/' + assetUuid + '/image')
 
-        this.$emit('close')
+        this.$store.dispatch('asset/fetchAsset', {
+          uuid: this.$route.params.uuid,
+          force: true
+        })
+
+        this.form.reset()
+        this.modal = false
       } catch (e) {
         console.log(e)
       }

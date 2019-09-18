@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Asset;
 
+use App\Models\Account;
 use App\Models\Asset;
 use App\Repositories\AssetRepository;
 use App\Rules\ValidateUuid;
@@ -73,12 +74,23 @@ class AssetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Asset $asset
+     * @return  AssetResource
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Asset $asset)
     {
-        //
+        $data = $request->validate([
+            'name'                  =>  ['required', 'string', 'max:20'],
+            'code'                  =>  ['required', 'string', 'max:12'],
+            'desc'                  =>  ['required', 'string', 'max:255'],
+            'account_uuid'          =>  ['required', new ValidateUuid, 'exists:accounts,uuid'],
+        ]);
+
+        $account = (new Account)->whereUuid($request->account_uuid)->firstOrFail();
+        $asset->account_id = $account->id;
+        $asset->update($data);
+
+        return new AssetResource($asset);
     }
 
     /**

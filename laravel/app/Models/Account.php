@@ -13,6 +13,11 @@ class Account extends BaseModel
 
     protected $casts = ['verified' => 'boolean'];
 
+    protected $fillable = [
+        'alias',
+        'public_key',
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | Accessors & Mutators

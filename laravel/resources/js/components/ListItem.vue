@@ -3,8 +3,8 @@
     <div class="lg:flex">
       <div class="relative pb-2/3 lg:flex-none lg:pb-0 lg:h-48 lg:w-48">
         <img v-if="imageUrl" class="absolute h-full w-full object-cover" :src="imageUrl" :alt="imageTitle">
-        <div v-else class="absolute flex justify-center items-center h-full w-full object-cover bg-gray-500">
-          <fa class="block mr-2" icon="times-circle" />
+        <div v-else class="absolute flex justify-center items-center h-full w-full object-cover bg-gray-400">
+          <fa class="block text-white text-5xl" icon="image" />
         </div>
         <slot name="imageAction" />
       </div>
@@ -29,7 +29,10 @@ export default {
     //
   },
   props: {
-    imageUrl: { type: String, required: true },
+    imageUrl: {
+      required: true,
+      validator: prop => typeof prop === 'string' || prop === null
+    },
     imageTitle: { type: String, required: true }
   }
 }

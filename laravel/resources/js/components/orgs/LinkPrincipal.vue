@@ -26,12 +26,12 @@
             <has-error :form="form" field="email" />
           </label>
         </form>
-        <empty-list v-else>
+        <a-empty-list v-else>
           No unlinked principal records were found. To create a new principal
           <router-link to="/app/principals">
             click here.
           </router-link>
-        </empty-list>
+        </a-empty-list>
       </div>
       <div slot="actions">
         <button class="btn btn-white transition-all" @click="modal=false">

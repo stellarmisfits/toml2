@@ -84,9 +84,19 @@ class PrincipalControllerTest extends TestCase
 
         $updatedValues = factory(Principal::class)->make();
 
-        $this->getJson(route('principals.update', $updatedValues->toArray()))
-            ->assertStatus(200)
-            ->assertJsonFragment((new PrincipalResource($principal))->toArray());
+        $this->patchJson(route('principals.update', $principal->uuid), $updatedValues->toArray())
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('principals', [
+            'uuid' => $principal->uuid,
+            'email' => $updatedValues->email,
+            'keybase' => $updatedValues->keybase,
+            'telegram' => $updatedValues->telegram,
+            'twitter' => $updatedValues->twitter,
+            'github' => $updatedValues->github,
+            'id_photo_hash' => $updatedValues->id_photo_hash,
+            'verification_photo_hash' => $updatedValues->verification_photo_hash,
+        ]);
     }
 
     /**

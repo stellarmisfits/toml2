@@ -81,13 +81,19 @@ class AccountController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  Account  $account
-     * @return \Illuminate\Http\Response
+     * @return AccountResource
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Account $account)
     {
-        $this->authorize('update', $account);
-        abort(404);
+        $data = $request->validate([
+            'alias'        => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('accounts', 'alias')->ignore($account->id)],
+            'public_key'   => ['required', 'string', new PublicKey, Rule::unique('accounts', 'public_key')->ignore($account->id)]
+        ]);
+
+        $account->update($data);
+
+        return new AccountResource($account);
     }
 
     /**

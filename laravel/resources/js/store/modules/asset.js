@@ -22,11 +22,11 @@ export const actions = {
     commit('SET_ASSETS', { assets: data.data })
   },
 
-  async fetchAsset ({ commit, getters }, uuid) {
-    let asset = getters.getAssetByUuid(uuid)
+  async fetchAsset ({ commit, getters }, options) {
+    let asset = getters.getAssetByUuid(options.uuid)
 
-    if (!asset) {
-      const { data } = await axios.get('/api/assets/' + uuid)
+    if (!asset || options.force) {
+      const { data } = await axios.get('/api/assets/' + options.uuid)
       commit('SET_ASSET', { asset: data.data })
     }
   }
@@ -38,6 +38,9 @@ export const mutations = {
     state.assets = assets
   },
   SET_ASSET (state, { asset }) {
-    state.assets.push(asset)
+    state.assets = [
+      ...state.assets.filter(element => element.uuid !== asset.uuid),
+      asset
+    ]
   }
 }

@@ -78,6 +78,32 @@ class AssetControllerTest extends TestCase
     }
 
     /**
+     * PATCH Resource
+     */
+    public function testAssetControllerUpdate()
+    {
+        $asset = $this->seeder->seedAsset();
+        $user = $this->seeder->seedUserWithTeam($asset->team);
+        $this->actingAs($user);
+
+        $newAccount = $this->seeder->seedAccount($asset->team);
+        $updatedValues = factory(Asset::class)->make([
+            'account_uuid' => $newAccount->uuid,
+        ]);
+
+        $this->patchJson(route('assets.update', $asset->uuid), $updatedValues->toArray())
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('assets', [
+            'uuid'          => $asset->uuid,
+            'name'          => $updatedValues->name,
+            'code'          => $updatedValues->code,
+            'desc'          => $updatedValues->desc,
+            'account_id'    => $newAccount->id,
+        ]);
+    }
+
+    /**
      * DELETE Resource
      */
     public function testAssetControllerDelete()
