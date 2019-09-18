@@ -25,7 +25,7 @@
     </router-link>
     <div v-if="authenticated">
       <div class="px-6 py-6 text-white">
-        <router-link :to="{ name: 'dashboard' }" active-class="underline">
+        <router-link :to="{ name: 'dashboard' }" active-class="underline" exact>
           Dashboard
         </router-link>
       </div>

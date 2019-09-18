@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Principal;
 use App\Http\Resources\Principal as PrincipalResource;
 use App\Models\Account;
 use App\Models\Principal;
+use App\Repositories\PrincipalRepository;
+use App\Rules\Sha256;
 use App\Rules\ValidateUuid;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,24 +51,17 @@ class PrincipalController extends Controller
         $data = $request->validate([
             'name'          =>  'required|string|max:50',
             'email'         =>  'required|email',
-            'keybase'       =>  'nullable|string|max:255',
-            'telegram'      =>  'nullable|string|max:255',
-            'twitter'       =>  'nullable|string|max:255',
-            'github'        =>  'nullable|string|max:255',
-            'id_photo_hash' =>  'nullable|string|max:255',
-            'verification_photo_hash' =>  'nullable|string|max:255',
+            'keybase'       =>  'nullable|alpha_dash|max:32',
+            'telegram'      =>  'nullable|alpha_dash|min:5|max:32',
+            'twitter'       =>  'nullable|alpha_dash|max:32',
+            'github'        =>  'nullable|alpha_dash|max:32',
+            'id_photo_hash' =>  ['nullable', new Sha256],
+            'verification_photo_hash' =>  ['nullable', new Sha256],
         ]);
 
         $p = new Principal;
-        $p->name = $request->name;
-        $p->email = $request->email;
-        $p->keybase = $request->keybase;
-        $p->telegram = $request->telegram;
-        $p->twitter = $request->twitter;
-        $p->github = $request->github;
-        $p->id_photo_hash = $request->id_photo_hash;
-        $p->verification_photo_hash = $request->verification_photo_hash;
         $p->team_id = auth()->user()->currentTeam()->id;
+        $p->fill($data);
         $p->save();
 
         return new PrincipalResource($p);
@@ -87,12 +82,25 @@ class PrincipalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  int  $id
+     * @param  Principal $principal
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Principal $principal): PrincipalResource
     {
-        //
+        $data = $request->validate([
+            'name'          =>  'required|string|max:50',
+            'email'         =>  'required|email',
+            'keybase'       =>  'nullable|alpha_dash|max:32',
+            'telegram'      =>  'nullable|alpha_dash|min:5|max:32',
+            'twitter'       =>  'nullable|alpha_dash|max:32',
+            'github'        =>  'nullable|alpha_dash|max:32',
+            'id_photo_hash' =>  ['nullable', new Sha256],
+            'verification_photo_hash' =>  ['nullable', new Sha256],
+        ]);
+
+        $principal->update($data);
+
+        return new PrincipalResource($principal);
     }
 
     /**

@@ -15,10 +15,9 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Validator::class, function (Faker $faker) {
-    $country = $faker->country;
     return [
-        'name' => $country,
-        'alias' => substr(str_slug(str_random(15)), 0, 15),
+        'name' => substr($faker->country, 0, 49),
+        'alias' => substr($faker->slug, 0, 12),
         'host' => $faker->url,
         'history' => $faker->url,
     ];

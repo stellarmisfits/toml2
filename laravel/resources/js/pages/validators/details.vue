@@ -8,14 +8,17 @@
           </h2>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <span>edit button</span>
+          <ValidatorCreate
+            :validator="validator"
+            action="update"
+          />
         </div>
       </div>
       <div>
         <a-well class="mt-4">
           <div class="px-6 py-4">
             <div class="flex justify-between items-center">
-              {{ validator.displayName }}
+              {{ validator.name }}
             </div>
             <div class="mt-2 text-xs text-gray-600">
               {{ validator.publicKey }}
@@ -61,7 +64,7 @@
           <h2 class="text-lg">
             Organizations
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-1 text-sm text-gray-700">
             <div class="max-w-2xl">
               This validator record is published by the following organizations:
             </div>
@@ -79,13 +82,15 @@
 </template>
 
 <script>
+import ValidatorCreate from '~/components/validators/Upsert'
 import OrganizationList from '~/components/orgs/List'
 
 export default {
   middleware: 'auth',
 
   components: {
-    OrganizationList
+    OrganizationList,
+    ValidatorCreate
   },
 
   props: {

@@ -49,6 +49,7 @@ class AssetController extends Controller
         $data = $request->validate([
             'name'                  =>  ['required', 'string', 'max:20'],
             'code'                  =>  ['required', 'string', 'max:12'],
+            'desc'                  =>  ['required', 'string', 'max:255'],
             'account_uuid'          =>  ['required', new ValidateUuid, 'exists:accounts,uuid'],
         ]);
 

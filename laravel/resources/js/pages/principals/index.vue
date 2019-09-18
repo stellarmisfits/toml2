@@ -18,11 +18,17 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <PrincipalsCreate />
+          <PrincipalsCreate
+            action="create"
+          />
         </div>
       </div>
       <div class="mt-4">
-        <PrincipalsList />
+        <PrincipalsList
+          :principals="principals"
+          action="navigate"
+          empty-message="No principals have been added"
+        />
       </div>
     </div>
   </div>
@@ -31,7 +37,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import PrincipalsList from '~/components/principals/List'
-import PrincipalsCreate from '~/components/principals/Create'
+import PrincipalsCreate from '~/components/principals/Upsert'
 export default {
   middleware: 'auth',
 

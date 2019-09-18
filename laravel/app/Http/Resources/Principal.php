@@ -18,6 +18,7 @@ class Principal extends JsonResource
             'uuid'                      => $this->uuid,
             'name'                      => $this->name,
             'email'                     => $this->email,
+            'photo_url'                 => $this->photo_url,
             'keybase'                   => $this->keybase,
             'telegram'                  => $this->telegram,
             'twitter'                   => $this->twitter,

@@ -9,6 +9,18 @@ class Validator extends BaseModel
 {
     Use BelongsToTeam, HasOrganizations;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'alias',
+        'host',
+        'history'
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | Accessors & Mutators

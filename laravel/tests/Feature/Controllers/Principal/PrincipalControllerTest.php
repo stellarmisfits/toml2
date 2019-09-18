@@ -60,7 +60,7 @@ class PrincipalControllerTest extends TestCase
     /**
      * GET Resource
      */
-    public function testAssetControllerShow()
+    public function testPrincipalControllerShow()
     {
         $principal = $this->seeder->seedPrincipal();
         $user = $this->seeder->seedUserWithTeam($principal->team);
@@ -69,6 +69,22 @@ class PrincipalControllerTest extends TestCase
         $this->getJson(route('principals.show', [
             $principal->uuid
             ]))
+            ->assertStatus(200)
+            ->assertJsonFragment((new PrincipalResource($principal))->toArray());
+    }
+
+    /**
+     * PATCH Resource
+     */
+    public function testPrincipalControllerUpdate()
+    {
+        $principal = $this->seeder->seedPrincipal();
+        $user = $this->seeder->seedUserWithTeam($principal->team);
+        $this->actingAs($user);
+
+        $updatedValues = factory(Principal::class)->make();
+
+        $this->getJson(route('principals.update', $updatedValues->toArray()))
             ->assertStatus(200)
             ->assertJsonFragment((new PrincipalResource($principal))->toArray());
     }

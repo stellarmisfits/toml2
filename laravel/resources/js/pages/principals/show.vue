@@ -1,16 +1,20 @@
 <template>
-  <div class="flex-grow">
+  <div v-if="principal" class="flex-grow">
     <a-breadcrumbs>
       <span slot="title">
         <router-link :to="{ name: 'principals' }">
           Principals
         </router-link>
         <span class="mx-3 text-gray-400 font-light text-2xl leading-none">/</span>{{ principal.name }}</span>
-      <span slot="dropdown">delete principal</span>
+      <delete-resource
+        slot="dropdown"
+        :resource="principal"
+        resource-type="PRINCIPAL"
+      />
     </a-breadcrumbs>
     <div class="px-12 py-8 mx-auto max-w-4xl">
       <transition name="fade" mode="out-in">
-        <router-view />
+        <router-view :principal="principal" />
       </transition>
     </div>
   </div>
@@ -18,9 +22,10 @@
 
 <script>
 import ABreadcrumbs from '~/components/Breadcrumbs'
+import DeleteResource from '~/components/DeleteResource'
 import { mapGetters } from 'vuex'
 export default {
-  components: { ABreadcrumbs },
+  components: { ABreadcrumbs, DeleteResource },
   middleware: 'auth',
   data () {
     return {
@@ -38,6 +43,9 @@ export default {
     principal: function () {
       return this.getPrincipalByUuid(this.$route.params.uuid)
     }
+  },
+  created () {
+    this.$store.dispatch('principal/fetchPrincipal', this.$route.params.uuid)
   }
 }
 </script>

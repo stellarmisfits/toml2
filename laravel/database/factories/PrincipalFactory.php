@@ -18,9 +18,11 @@ $factory->define(Principal::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'email' => $faker->email,
-        'twitter' => '@' . $faker->slug,
+        'keybase' => substr($faker->slug, 0, 25),
+        'telegram' => substr($faker->slug, 0, 25),
+        'twitter' => substr($faker->slug, 0, 25),
+        'github' => substr($faker->slug, 0, 25),
         'id_photo_hash' => hash('sha256', str_random(15)),
-        'verification_photo_hash' => hash('sha256', str_random(15)),
-
+        'verification_photo_hash' => hash('sha256', str_random(15))
     ];
 });

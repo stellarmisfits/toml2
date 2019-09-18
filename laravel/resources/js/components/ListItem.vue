@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="p-6">
+    <div v-if="$slots['details']" class="p-6">
       <slot name="details" />
     </div>
   </a-well>

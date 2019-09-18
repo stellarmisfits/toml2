@@ -21,11 +21,16 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <ValidatorCreate />
+          <ValidatorCreate
+            action="create"
+          />
         </div>
       </div>
       <div class="mt-4">
-        <ValidatorList />
+        <ValidatorList
+          :validators="validators"
+          empty-message="No validators have been added to your current team."
+        />
       </div>
     </div>
   </div>
@@ -34,7 +39,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import ValidatorList from '~/components/validators/List'
-import ValidatorCreate from '~/components/validators/Create'
+import ValidatorCreate from '~/components/validators/Upsert'
 export default {
   middleware: 'auth',
 

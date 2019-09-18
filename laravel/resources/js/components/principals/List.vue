@@ -1,28 +1,28 @@
 <template>
-  <div v-if="principals" class="spaced-y-6">
-    <list-item
+  <div v-if="principals && principals.length" class="spaced-y-6">
+    <principal
       v-for="principal in principals"
       :key="principal.uuid"
       :principal="principal"
-      :linked="linked"
+      :action="action"
     />
   </div>
   <a-well v-else class="px-6 py-12">
     <empty-list
-      :message="message"
+      :message="emptyMessage"
     />
   </a-well>
 </template>
 <script>
-import ListItem from '~/components/principals/ListItem'
+import Principal from '~/components/principals/Principal'
 export default {
   components: {
-    ListItem
+    Principal
   },
   props: {
     principals: { type: Array, default: () => [] },
-    message: { type: String, required: true },
-    linked: { type: Boolean, default: false }
+    emptyMessage: { type: String, required: true },
+    action: { type: String, default: null }
   },
   data: () => ({
     //

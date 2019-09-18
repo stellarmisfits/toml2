@@ -79,6 +79,24 @@ class ValidatorControllerTest extends TestCase
     }
 
     /**
+     * PATCH Resource
+     */
+    public function testAssetControllerUpdate()
+    {
+        $validator = $this->seeder->seedValidator();
+        $user = $this->seeder->seedUserWithTeam($validator->team);
+        $this->actingAs($user);
+
+        $updatedValues = factory(Validator::class)->make([
+            'team_id' => $user->currentTeam()->id,
+        ]);
+
+        $this->getJson(route('validators.show', $updatedValues->toArray()))
+            ->assertStatus(200)
+            ->assertJsonFragment((new ValidatorResource($validator))->toArray());
+    }
+
+    /**
      * DELETE Resource
      */
     public function testAssetControllerDelete()

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class ValidatorController extends Controller
 {
@@ -51,16 +52,15 @@ class ValidatorController extends Controller
             'name'          =>  'required|string|max:50',
             'alias'         =>  'required|string|max:15|regex:/^[a-z-].*$/|unique:validators',
             'host'          =>  'nullable|string|max:255',
-            'history'       =>  'nullable|string|max:255',
+            'history'       =>  'nullable|string|url|max:255',
         ]);
 
         $account = (new Account)->whereUuid($request->account_uuid)->firstOrFail();
 
         $v = new Validator;
-        $v->name = $request->name;
-        $v->alias = $request->alias;
         $v->account_id = $account->id;
         $v->team_id = auth()->user()->currentTeam()->id;
+        $v->fill($data);
         $v->save();
 
         return new ValidatorResource($v);
@@ -81,12 +81,24 @@ class ValidatorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param  Validator $validator
+     * @return ValidatorResource
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Validator $validator): ValidatorResource
     {
-        //
+        $data = $request->validate([
+            'alias'         =>  ['required', 'string','max:15', 'regex:/^[a-z-].*$/', Rule::unique('validators')->ignore($validator->id)],
+            'account_uuid'  =>  ['required', new ValidateUuid, 'exists:accounts,uuid'],
+            'name'          =>  'required|string|max:50',
+            'host'          =>  'nullable|string|max:255',
+            'history'       =>  'nullable|string|url|max:255',
+        ]);
+
+        $account = (new Account)->whereUuid($request->account_uuid)->firstOrFail();
+        $validator->account_id = $account->id;
+        $validator->update($data);
+
+        return new ValidatorResource($validator->fresh());
     }
 
     /**

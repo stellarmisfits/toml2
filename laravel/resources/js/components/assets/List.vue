@@ -1,5 +1,5 @@
 <template>
-  <div v-if="assets" class="spaced-y-6">
+  <div v-if="assets && assets.length" class="spaced-y-6">
     <Asset
       v-for="asset in assets"
       :key="asset.uuid"
