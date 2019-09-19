@@ -29,7 +29,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $account->uuid,
-            'resource_type' => 'ACCOUNT'
+            'resource_type' => 'account'
         ])
             ->assertStatus(201);
 
@@ -58,7 +58,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $asset->uuid,
-            'resource_type' => 'ASSET'
+            'resource_type' => 'asset'
         ])
             ->assertStatus(201);
 
@@ -86,7 +86,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $principal->uuid,
-            'resource_type' => 'PRINCIPAL'
+            'resource_type' => 'principal'
         ])
             ->assertStatus(201);
 
@@ -114,7 +114,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $validator->uuid,
-            'resource_type' => 'VALIDATOR'
+            'resource_type' => 'validator'
         ])
             ->assertStatus(201);
 
@@ -145,7 +145,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $account->uuid,
-            'resource_type' => 'ACCOUNT'
+            'resource_type' => 'account'
         ])
             ->assertStatus(201);
 
@@ -176,7 +176,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $asset->uuid,
-            'resource_type' => 'ASSET'
+            'resource_type' => 'asset'
         ])
             ->assertStatus(201);
 
@@ -207,7 +207,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $principal->uuid,
-            'resource_type' => 'PRINCIPAL'
+            'resource_type' => 'principal'
         ])
             ->assertStatus(201);
 
@@ -238,7 +238,7 @@ class LinkResourceControllerTest extends TestCase
 
         $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
             'resource_uuid' => $validator->uuid,
-            'resource_type' => 'VALIDATOR'
+            'resource_type' => 'validator'
         ])
             ->assertStatus(201);
 

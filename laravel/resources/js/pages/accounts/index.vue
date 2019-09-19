@@ -25,7 +25,7 @@
       <div class="mt-4">
         <AccountList
           :accounts="accounts"
-          message="No account records have been added."
+          empty-message="No account records have been added."
           action="navigate"
         />
       </div>

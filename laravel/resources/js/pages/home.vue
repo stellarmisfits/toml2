@@ -29,7 +29,7 @@
         <list-orgs
           :orgs="orgs"
           action="navigate"
-          message="No organizations have been added to this account."
+          empty-message="No organizations have been added to this account."
         />
       </div>
     </div>

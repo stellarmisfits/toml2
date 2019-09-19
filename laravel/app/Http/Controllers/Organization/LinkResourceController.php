@@ -26,25 +26,25 @@ class LinkResourceController extends Controller
     {
         $request->validate([
             'resource_uuid'     =>  ['required', new ValidateUuid],
-            'resource_type'     =>  ['required', 'in:ACCOUNT,ASSET,PRINCIPAL,VALIDATOR']
+            'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
         ]);
 
         $or = new OrganizationRepository();
 
         switch ($request->resource_type) {
-            case 'ACCOUNT':
+            case 'account':
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
                 $or->addAccount($organization, $account);
                 break;
-            case 'ASSET':
+            case 'asset':
                 $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
                 $or->addAsset($organization, $asset);
                 break;
-            case 'PRINCIPAL':
+            case 'principal':
                 $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
                 $or->addPrincipal($organization, $principal);
                 break;
-            case 'VALIDATOR':
+            case 'validator':
                 $validator = (new Validator())->whereUuid($request->resource_uuid)->firstOrFail();
                 $or->addValidator($organization, $validator);
                 break;
@@ -64,23 +64,23 @@ class LinkResourceController extends Controller
     {
         $request->validate([
             'resource_uuid'     =>  ['required', new ValidateUuid],
-            'resource_type'     =>  ['required', 'in:ACCOUNT,ASSET,PRINCIPAL,VALIDATOR']
+            'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
         ]);
 
         switch ($request->resource_type) {
-            case 'ACCOUNT':
+            case 'account':
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
                 $organization->accounts()->detach($account->id);
                 break;
-            case 'ASSET':
+            case 'asset':
                 $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
                 $organization->assets()->detach($asset->id);
                 break;
-            case 'PRINCIPAL':
+            case 'principal':
                 $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
                 $organization->principals()->detach($principal->id);
                 break;
-            case 'VALIDATOR':
+            case 'validator':
                 $validator = (new Validator())->whereUuid($request->resource_uuid)->firstOrFail();
                 $organization->validators()->detach($validator->id);
                 break;

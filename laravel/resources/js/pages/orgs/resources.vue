@@ -21,7 +21,7 @@
       <div class="mt-4">
         <AccountList
           :accounts="linkedAccounts"
-          message="No account records have been linked to this organization"
+          empty-message="No account records have been linked to this organization"
           action="unlink"
         />
       </div>
@@ -48,7 +48,7 @@
       <div class="mt-4">
         <AssetList
           :assets="linkedAssets"
-          message="No assets records have been linked to this organization"
+          empty-message="No assets records have been linked to this organization"
           action="unlink"
         />
       </div>
@@ -75,7 +75,7 @@
       <div class="mt-4">
         <PrincipalList
           :principals="linkedPrincipals"
-          message="No principals records have been linked to this organization"
+          empty-message="No principals records have been linked to this organization"
           :linked="true"
         />
       </div>
@@ -102,7 +102,7 @@
       <div class="mt-4">
         <ValidatorList
           :validators="linkedValidators"
-          message="No validators records have been linked to this organization"
+          empty-message="No validators records have been linked to this organization"
           :linked="true"
         />
       </div>
