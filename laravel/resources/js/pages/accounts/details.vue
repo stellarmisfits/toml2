@@ -34,6 +34,8 @@
           <link-organization
             resource-type="account"
             :resource-uuid="account.uuid"
+            :unlinked-orgs="unlinkedOrgs"
+            @organizationLinked="updateOrgs"
           />
         </div>
       </div>
@@ -42,6 +44,9 @@
           action="unlink"
           :orgs="linkedOrgs"
           empty-message="No organizations found."
+          resource-owner-type="account"
+          :resource-owner-uuid="account.uuid"
+          @organizationUnlinked="updateOrgs"
         />
       </div>
     </div>
@@ -51,7 +56,7 @@
 <script>
 import Account from '~/components/accounts/Account'
 import OrganizationList from '~/components/orgs/List'
-import LinkOrganization from '~/components/orgs/LinkOrganization'
+import LinkOrganization from '~/components/orgs/OrganizationLink'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -77,16 +82,20 @@ export default {
 
   computed: {
     ...mapGetters({
-      linkedOrgs: 'account/linkedOrgs'
+      linkedOrgs: 'account/linkedOrgs',
+      unlinkedOrgs: 'account/unlinkedOrgs'
     })
   },
 
   created () {
-    this.$store.dispatch('account/fetchLinkedOrgs', this.$route.params.uuid)
+    this.updateOrgs()
   },
 
   methods: {
-    //
+    updateOrgs () {
+      this.$store.dispatch('account/fetchLinkedOrgs', this.account.uuid)
+      this.$store.dispatch('account/fetchUnlinkedOrgs', this.account.uuid)
+    }
   }
 }
 </script>

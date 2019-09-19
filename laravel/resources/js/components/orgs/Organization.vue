@@ -33,7 +33,8 @@
         v-if="action==='unlink'"
         :resource-type="resourceOwnerType"
         :resource-uuid="resourceOwnerUuid"
-        :org-uuid="org.uuid"
+        :org="org"
+        @organizationUnlinked="$emit('organizationUnlinked', $event)"
       />
       <edit-organization
         v-if="action==='edit'"
@@ -62,7 +63,7 @@
 </template>
 <script>
 import EditOrganization from '~/components/orgs/Upsert'
-import Unlink from '~/components/orgs/ResourceUnlink'
+import Unlink from '~/components/orgs/OrganizationUnlink'
 import ImageAdd from '~/components/ImageAdd'
 import ImageRemove from '~/components/ImageRemove'
 export default {
@@ -79,8 +80,8 @@ export default {
       required: true,
       validator: (val) => ['edit', 'unlink', 'navigate'].includes(val)
     },
-    resourceOwnerUuid: { type: String, default: null },
-    resourceOwnerType: { type: String, default: null }
+    resourceOwnerUuid: { type: String, default: '' },
+    resourceOwnerType: { type: String, default: '' }
   },
   data: () => ({
     //

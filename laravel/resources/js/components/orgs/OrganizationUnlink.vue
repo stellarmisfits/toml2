@@ -3,7 +3,7 @@
     <fa icon="times-circle" class="hover:text-gray-400 cursor-pointer" @click.prevent="modal=!modal" />
     <Modal :open="modal">
       <div slot="title">
-        Are you sure you want to unlink this {{ resourceType }}?
+        Are you sure you want to unlink {{ resourceType }}?
       </div>
       <div slot="actions">
         <button class="btn btn-white transition-all" @click="modal=false">
@@ -20,7 +20,7 @@
 import Form from 'vform'
 export default {
   props: {
-    org: { type: Object, default: null },
+    org: { type: Object, required: true },
     resourceUuid: { type: String, required: true },
     resourceType: {
       type: String,
@@ -41,29 +41,8 @@ export default {
   },
   methods: {
     async save () {
-      const orgUuid = (this.org) ? this.org.uuid : this.$route.params.uuid
-      await this.form.delete('/api/organizations/' + orgUuid + '/link')
-
-      if (this.resourceType === 'account') {
-        this.$store.dispatch('org/fetchLinkedAccounts', orgUuid)
-        this.$store.dispatch('org/fetchUnlinkedAccounts', orgUuid)
-      }
-
-      if (this.resourceType === 'asset') {
-        this.$store.dispatch('org/fetchLinkedAssets', orgUuid)
-        this.$store.dispatch('org/fetchUnlinkedAssets', orgUuid)
-      }
-
-      if (this.resourceType === 'principal') {
-        this.$store.dispatch('org/fetchLinkedPrincipals', orgUuid)
-        this.$store.dispatch('org/fetchUnlinkedPrincipals', orgUuid)
-      }
-
-      if (this.resourceType === 'validator') {
-        this.$store.dispatch('org/fetchLinkedValidators', orgUuid)
-        this.$store.dispatch('org/fetchUnlinkedValidators', orgUuid)
-      }
-
+      await this.form.delete('/api/organizations/' + this.org.uuid + '/link')
+      this.$emit('organizationUnlinked', this.resourceType)
       this.form.reset()
       this.modal = false
     }

@@ -16,7 +16,7 @@ export const getters = {
   },
   accounts: state => (state.accounts.length) ? state.accounts : null,
   linkedOrgs: state => (state.linkedOrgs.length) ? state.linkedOrgs : null,
-  unlinkedOrgs: state => (state.unlinkedOrgs.length) ? state.unlinkedOrgs : null
+  unlinkedOrgs: state => state.unlinkedOrgs
 }
 
 // actions

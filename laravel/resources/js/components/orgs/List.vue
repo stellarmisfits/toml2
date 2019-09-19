@@ -5,6 +5,9 @@
       :key="org.uuid"
       :org="org"
       :action="action"
+      :resource-owner-type="resourceOwnerType"
+      :resource-owner-uuid="resourceOwnerUuid"
+      @organizationUnlinked="$emit('organizationUnlinked', $event)"
     />
   </div>
   <a-well v-else class="px-6 py-12">
@@ -21,10 +24,10 @@ export default {
   },
   props: {
     orgs: { type: Array, default: () => [] },
-    action: { type: String, default: null },
+    action: { type: String, required: true },
     emptyMessage: { type: String, required: true },
-    resourceOwnerUuid: { type: String, default: null },
-    resourceOwnerType: { type: String, default: null }
+    resourceOwnerUuid: { type: String, default: '' },
+    resourceOwnerType: { type: String, default: '' }
   },
   data: () => ({
     //
