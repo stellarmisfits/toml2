@@ -22,21 +22,17 @@ class OrganizationController extends Controller
     public function index(Request $request)
     {
         $request->validate([
-            'slug'       => 'nullable|string|max:15|regex:/^[a-z-].*$/|exists:organizations,slug',
-            'linked_account_uuid'   =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
-            'unlinked_account_uuid' =>  ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
-            'linked_asset_uuid'     =>  ['nullable', new ValidateUuid, 'exists:assets,uuid'],
-            'unlinked_asset_uuid'   =>  ['nullable', new ValidateUuid, 'exists:assets,uuid'],
+            'slug'             => 'nullable|string|max:15|regex:/^[a-z-].*$/|exists:organizations,slug',
+            'resource_uuid'    =>  ['nullable', new ValidateUuid],
+            'resource_type'    =>  ['nullable', 'in:accounts,assets,principals,validators'],
+            'resource_query'   =>  ['nullable', 'in:linked,unlinked'],
         ]);
 
         $org = auth()
             ->user()
             ->currentTeam()
             ->organizations()
-            ->accountUuidFilter($request->linked_account_uuid)
-            ->accountMissingUuidFilter($request->unlinked_account_uuid)
-            ->assetUuidFilter($request->linked_asset_uuid)
-            ->assetMissingUuidFilter($request->asset_missing)
+            ->resourceFilter($request->resource_uuid, $request->resource_type, $request->resource_query)
             // ->slugFilter($request->slug)
             ->paginate(20);
 

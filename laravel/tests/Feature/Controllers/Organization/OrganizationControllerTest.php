@@ -37,6 +37,52 @@ class OrganizationControllerTest extends TestCase
     }
 
     /**
+     * GET Collection
+     */
+    public function testOrganizationControllerIndexResourceFilter()
+    {
+        $team = $this->seeder->seedTeam();
+        $org1 = $this->seeder->seedOrganization($team);
+        $org2 = $this->seeder->seedOrganization($team);
+        $user = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $account1 = $this->seeder->seedAccount($team);
+        $account2 = $this->seeder->seedAccount($team);
+
+        $or = new OrganizationRepository();
+        $or->addAccount($org1, $account1);
+        $or->addAccount($org2, $account2);
+
+        $this->getJson(route('organizations.index', [
+            'resource_uuid' => $account1->uuid,
+            'resource_type' => 'accounts',
+            'resource_query' => 'linked'
+        ]))
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'uuid' => $org1->uuid,
+            ])
+            ->assertJsonMissing([
+                'uuid' => $org2->uuid
+            ]);
+
+
+        $this->getJson(route('organizations.index', [
+            'resource_uuid' => $account1->uuid,
+            'resource_type' => 'accounts',
+            'resource_query' => 'unlinked'
+        ]))
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'uuid' => $org2->uuid,
+            ])
+            ->assertJsonMissing([
+                'uuid' => $org1->uuid
+            ]);
+    }
+
+    /**
      * POST
      */
     public function testOrganizationControllerStore()

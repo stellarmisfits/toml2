@@ -13,7 +13,7 @@
         />
       </div>
     </div>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="px-12 py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -21,16 +21,28 @@
           </h2>
           <div class="mt-2 text-sm text-gray-700">
             <div class="max-w-2xl">
-              This principal is tied to the following organizations.
+              This principal is linked to the following organizations.
             </div>
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          Add to org
+          <link-organization
+            resource-type="principal"
+            :resource-uuid="principal.uuid"
+            :unlinked-orgs="unlinkedOrgs"
+            @organizationLinked="updateOrgs"
+          />
         </div>
       </div>
       <div class="mt-4">
-        <OrganizationList />
+        <OrganizationList
+          action="unlink"
+          :orgs="linkedOrgs"
+          empty-message="No organizations found."
+          resource-owner-type="principal"
+          :resource-owner-uuid="principal.uuid"
+          @organizationUnlinked="updateOrgs"
+        />
       </div>
     </div>
   </div>
@@ -39,13 +51,16 @@
 <script>
 import Principal from '~/components/principals/Principal'
 import OrganizationList from '~/components/orgs/List'
+import LinkOrganization from '~/components/orgs/OrganizationLink'
+import { mapGetters } from 'vuex'
 
 export default {
   middleware: 'auth',
 
   components: {
     OrganizationList,
-    Principal
+    Principal,
+    LinkOrganization
   },
 
   props: {
@@ -60,8 +75,22 @@ export default {
     //
   }),
 
+  computed: {
+    ...mapGetters({
+      linkedOrgs: 'principal/linkedOrgs',
+      unlinkedOrgs: 'principal/unlinkedOrgs'
+    })
+  },
+
+  created () {
+    this.updateOrgs()
+  },
+
   methods: {
-    //
+    updateOrgs () {
+      this.$store.dispatch('principal/fetchLinkedOrgs', { resourceUuid: this.principal.uuid, resourceType: 'principals' })
+      this.$store.dispatch('principal/fetchUnlinkedOrgs', { resourceUuid: this.principal.uuid, resourceType: 'principals' })
+    }
   }
 }
 </script>

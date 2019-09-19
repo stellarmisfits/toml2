@@ -86,6 +86,6 @@ class LinkResourceController extends Controller
                 break;
         }
 
-        return response()->json(null, 201);
+        return response()->json(null, 204);
     }
 }

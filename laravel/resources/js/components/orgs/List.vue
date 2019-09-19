@@ -1,5 +1,5 @@
 <template>
-  <div v-if="orgs" class="spaced-y-6">
+  <div v-if="orgs && orgs.length" class="spaced-y-6">
     <organization
       v-for="org in orgs"
       :key="org.uuid"

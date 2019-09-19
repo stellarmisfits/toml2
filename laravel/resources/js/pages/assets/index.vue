@@ -26,7 +26,7 @@
         <AssetList
           :assets="assets"
           action="navigate"
-          message="No asset records have been added."
+          empty-message="No asset records have been added."
         />
       </div>
     </div>

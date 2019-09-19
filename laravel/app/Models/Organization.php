@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Builder;
 use App\Http\Resources\Organization as OrganizationResource;
 
- use Spatie\Image\Manipulations;
+use Illuminate\Validation\ValidationException;
+use Spatie\Image\Manipulations;
  use Spatie\MediaLibrary\Models\Media;
  use Spatie\MediaLibrary\HasMedia\HasMedia;
  use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -163,67 +164,38 @@ class Organization extends BaseModel implements HasMedia
 
     /**
      * @param Builder $query
-     * @param string $account_uuid
+     * @param string $resource_uuid
+     * @param string $resource_type
+     * @param string $resource_query
      * @return Builder
+     * @throws
      */
-    public function scopeAccountUuidFilter($query, string $account_uuid = null)
-    {
-        if (!empty($account_uuid)) {
-            $query->whereHas('accounts', function ($query) use ($account_uuid) {
-                $query->where('accounts.uuid', $account_uuid);
-            });
+    public function scopeResourceFilter(
+        $query,
+        string $resource_uuid = null,
+        string $resource_type = null,
+        string $resource_query = null
+    ){
+        if ($resource_uuid && $resource_type && $resource_query) {
+            $types = ['assets', 'accounts', 'principals', 'validators'];
+            throw_unless(in_array($resource_type, $types), new \LogicException('Incorrect resource_type'));
+
+            if($resource_query ==='linked'){
+                $query->whereHas($resource_type, function ($query) use ($resource_uuid, $resource_type) {
+                    $query->where($resource_type . '.uuid', $resource_uuid);
+                });
+            }
+
+            if($resource_query ==='unlinked'){
+                $query->whereDoesntHave($resource_type, function ($query) use ($resource_uuid, $resource_type) {
+                    $query->where($resource_type . '.uuid', $resource_uuid);
+                });
+            }
         }
 
         return $query;
     }
 
-    /**
-     * @param Builder $query
-     * @param string $account_uuid
-     * @return Builder
-     */
-    public function scopeAccountMissingUuidFilter($query, string $account_uuid = null)
-    {
-        if (!empty($account_uuid)) {
-            $query->whereDoesntHave('accounts', function ($query) use ($account_uuid) {
-                $query->where('accounts.uuid', $account_uuid);
-            });
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param Builder $query
-     * @param string $asset_uuid
-     * @return Builder
-     */
-    public function scopeAssetUuidFilter($query, string $asset_uuid = null)
-    {
-        if (!empty($asset_uuid)) {
-            $query->whereHas('assets', function ($query) use ($asset_uuid) {
-                $query->where('assets.uuid', $asset_uuid);
-            });
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param Builder $query
-     * @param string $asset_uuid
-     * @return Builder
-     */
-    public function scopeAssetMissingUuidFilter($query, string $asset_uuid = null)
-    {
-        if (!empty($asset_uuid)) {
-            $query->whereDoesntHave('assets', function ($query) use ($asset_uuid) {
-                $query->where('assets.uuid', $asset_uuid);
-            });
-        }
-
-        return $query;
-    }
 
     /**
      * @param Builder $query

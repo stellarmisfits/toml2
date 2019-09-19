@@ -147,7 +147,7 @@ class LinkResourceControllerTest extends TestCase
             'resource_uuid' => $account->uuid,
             'resource_type' => 'account'
         ])
-            ->assertStatus(201);
+            ->assertStatus(204);
 
         $this->assertDatabaseMissing('organization_accounts', [
             'organization_id' => $org->id,
@@ -178,7 +178,7 @@ class LinkResourceControllerTest extends TestCase
             'resource_uuid' => $asset->uuid,
             'resource_type' => 'asset'
         ])
-            ->assertStatus(201);
+            ->assertStatus(204);
 
         $this->assertDatabaseMissing('organization_assets', [
             'organization_id' => $org->id,
@@ -209,7 +209,7 @@ class LinkResourceControllerTest extends TestCase
             'resource_uuid' => $principal->uuid,
             'resource_type' => 'principal'
         ])
-            ->assertStatus(201);
+            ->assertStatus(204);
 
         $this->assertDatabaseMissing('organization_principals', [
             'organization_id' => $org->id,
@@ -240,7 +240,7 @@ class LinkResourceControllerTest extends TestCase
             'resource_uuid' => $validator->uuid,
             'resource_type' => 'validator'
         ])
-            ->assertStatus(201);
+            ->assertStatus(204);
 
         $this->assertDatabaseMissing('organization_validators', [
             'organization_id' => $org->id,

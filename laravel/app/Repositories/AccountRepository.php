@@ -19,6 +19,7 @@ class AccountRepository
     {
         $a = new Account();
         $a->team_id     = $user->currentTeam()->id;
+        $a->name        = $data['name'];
         $a->alias       = str_slug($data['alias']);
         $a->public_key  = strtoupper($data['public_key']);
         $a->verified     = false;

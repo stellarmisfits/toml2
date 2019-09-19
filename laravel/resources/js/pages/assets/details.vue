@@ -43,7 +43,9 @@
           action="unlink"
         />
         <a-well class="px-6 py-6">
-          <a-empty-list>
+          <a-empty-list
+            empty-message="No account found"
+          >
             No account found.
           </a-empty-list>
         </a-well>
@@ -55,20 +57,29 @@
           <h2 class="text-lg">
             Organizations
           </h2>
-          <div class="mt-1 text-sm text-gray-700">
+          <div class="mt-2 text-sm text-gray-700">
             <div class="max-w-2xl">
-              This asset is tied to the following organizations
+              This Asset is linked to the following organizations.
             </div>
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          Add to org
+          <link-organization
+            resource-type="asset"
+            :resource-uuid="asset.uuid"
+            :unlinked-orgs="unlinkedOrgs"
+            @organizationLinked="updateOrgs"
+          />
         </div>
       </div>
       <div class="mt-4">
         <OrganizationList
           action="unlink"
-          empty-message="This asset has not been linked to any organizations"
+          :orgs="linkedOrgs"
+          empty-message="No organizations found."
+          resource-owner-type="asset"
+          :resource-owner-uuid="asset.uuid"
+          @organizationUnlinked="updateOrgs"
         />
       </div>
     </div>
@@ -80,11 +91,13 @@ import Asset from '~/components/assets/Asset'
 import Account from '~/components/accounts/Account'
 import AssetMetrics from '~/components/assets/Metrics'
 import OrganizationList from '~/components/orgs/List'
+import LinkOrganization from '~/components/orgs/OrganizationLink'
 import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
 
   components: {
+    LinkOrganization,
     OrganizationList,
     Asset,
     AssetMetrics,
@@ -104,7 +117,11 @@ export default {
   }),
 
   computed: {
-    ...mapGetters('account', ['getAccountByUuid']),
+    ...mapGetters({
+      getAccountByUuid: 'account/getAccountByUuid',
+      linkedOrgs: 'asset/linkedOrgs',
+      unlinkedOrgs: 'asset/unlinkedOrgs'
+    }),
     account: function () {
       return this.getAccountByUuid(this.asset.account_uuid)
     }
@@ -114,10 +131,15 @@ export default {
     if (this.asset.account_uuid) {
       this.$store.dispatch('account/fetchAccount', this.asset.account_uuid)
     }
+
+    this.updateOrgs()
   },
 
   methods: {
-    //
+    updateOrgs () {
+      this.$store.dispatch('asset/fetchLinkedOrgs', { resourceUuid: this.asset.uuid, resourceType: 'assets' })
+      this.$store.dispatch('asset/fetchUnlinkedOrgs', { resourceUuid: this.asset.uuid, resourceType: 'assets' })
+    }
   }
 }
 </script>

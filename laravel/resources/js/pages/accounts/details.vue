@@ -93,8 +93,8 @@ export default {
 
   methods: {
     updateOrgs () {
-      this.$store.dispatch('account/fetchLinkedOrgs', this.account.uuid)
-      this.$store.dispatch('account/fetchUnlinkedOrgs', this.account.uuid)
+      this.$store.dispatch('account/fetchLinkedOrgs', { resourceUuid: this.account.uuid, resourceType: 'accounts' })
+      this.$store.dispatch('account/fetchUnlinkedOrgs', { resourceUuid: this.account.uuid, resourceType: 'accounts' })
     }
   }
 }

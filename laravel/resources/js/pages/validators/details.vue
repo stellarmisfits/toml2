@@ -58,24 +58,36 @@
         </a-well>
       </div>
     </div>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="px-12 py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
             Organizations
           </h2>
-          <div class="mt-1 text-sm text-gray-700">
+          <div class="mt-2 text-sm text-gray-700">
             <div class="max-w-2xl">
-              This validator record is published by the following organizations:
+              This validator is linked to the following organizations.
             </div>
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <!-- Add to org -->
+          <link-organization
+            resource-type="validator"
+            :resource-uuid="validator.uuid"
+            :unlinked-orgs="unlinkedOrgs"
+            @organizationLinked="updateOrgs"
+          />
         </div>
       </div>
       <div class="mt-4">
-        <OrganizationList />
+        <OrganizationList
+          action="unlink"
+          :orgs="linkedOrgs"
+          empty-message="No organizations found."
+          resource-owner-type="validator"
+          :resource-owner-uuid="validator.uuid"
+          @organizationUnlinked="updateOrgs"
+        />
       </div>
     </div>
   </div>
@@ -84,13 +96,15 @@
 <script>
 import ValidatorCreate from '~/components/validators/Upsert'
 import OrganizationList from '~/components/orgs/List'
-
+import LinkOrganization from '~/components/orgs/OrganizationLink'
+import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
 
   components: {
     OrganizationList,
-    ValidatorCreate
+    ValidatorCreate,
+    LinkOrganization
   },
 
   props: {
@@ -105,8 +119,22 @@ export default {
     //
   }),
 
+  computed: {
+    ...mapGetters({
+      linkedOrgs: 'validator/linkedOrgs',
+      unlinkedOrgs: 'validator/unlinkedOrgs'
+    })
+  },
+
+  created () {
+    this.updateOrgs()
+  },
+
   methods: {
-    //
+    updateOrgs () {
+      this.$store.dispatch('validator/fetchLinkedOrgs', { resourceUuid: this.validator.uuid, resourceType: 'validators' })
+      this.$store.dispatch('validator/fetchUnlinkedOrgs', { resourceUuid: this.validator.uuid, resourceType: 'validators' })
+    }
   }
 }
 </script>

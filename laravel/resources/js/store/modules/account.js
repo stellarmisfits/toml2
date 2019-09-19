@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { fetchLinkedOrgs, fetchUnlinkedOrgs } from '~/store/linked-orgs'
 
 export const state = {
   accounts: [],
@@ -15,7 +16,7 @@ export const getters = {
     return state.accounts.find(account => account.slug === slug)
   },
   accounts: state => (state.accounts.length) ? state.accounts : null,
-  linkedOrgs: state => (state.linkedOrgs.length) ? state.linkedOrgs : null,
+  linkedOrgs: state => state.linkedOrgs,
   unlinkedOrgs: state => state.unlinkedOrgs
 }
 
@@ -35,15 +36,8 @@ export const actions = {
     }
   },
 
-  async fetchLinkedOrgs ({ commit }, uuid) {
-    const { data } = await axios.get('/api/organizations', { params: { 'linked_account_uuid': uuid } })
-    commit('SET_LINKED_ORGS', { orgs: data.data })
-  },
-
-  async fetchUnlinkedOrgs ({ commit }, uuid) {
-    const { data } = await axios.get('/api/organizations', { params: { 'unlinked_account_uuid': uuid } })
-    commit('SET_UNLINKED_ORGS', { orgs: data.data })
-  }
+  fetchLinkedOrgs,
+  fetchUnlinkedOrgs
 }
 
 // mutations

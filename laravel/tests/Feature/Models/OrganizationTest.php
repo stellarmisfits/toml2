@@ -80,7 +80,7 @@ class OrganizationTest extends TestCase
 
         $this->assertCount(2, $team->organizations);
 
-        $results = (new Organization)->accountUuidFilter($account1->uuid)->get();
+        $results = (new Organization)->resourceFilter($account1->uuid, 'accounts', 'linked')->get();
         $this->assertCount(1, $results);
         $this->assertEquals($org1->id, $results[0]->id);
     }
@@ -99,7 +99,7 @@ class OrganizationTest extends TestCase
         $account = $this->seeder->seedAccount($team);
         $or->addAccount($org1, $account);
 
-        $results = (new Organization)->accountMissingUuidFilter($account->uuid)->get();
+        $results = (new Organization)->resourceFilter($account->uuid, 'accounts', 'unlinked')->get();
         $this->assertCount(1, $results);
         $this->assertEquals($org2->id, $results[0]->id);
     }
@@ -114,12 +114,12 @@ class OrganizationTest extends TestCase
         $org2 = $this->seeder->seedOrganization($team);
         $asset = $this->seeder->seedAsset($team);
 
-        $this->assertCount(0, (new Organization)->assetUuidFilter($asset->uuid)->get());
+        $this->assertCount(0, (new Organization)->resourceFilter($asset->uuid, 'assets', 'linked')->get());
 
         $or = new OrganizationRepository();
         $or->addAsset($org1, $asset);
 
-        $this->assertCount(1, (new Organization)->assetUuidFilter($asset->uuid)->get());
+        $this->assertCount(1, (new Organization)->resourceFilter($asset->uuid, 'assets', 'linked')->get());
     }
 
     /**
@@ -135,7 +135,7 @@ class OrganizationTest extends TestCase
         $asset = $this->seeder->seedAsset($team);
         $or->addAsset($org1, $asset);
 
-        $results = (new Organization)->assetMissingUuidFilter($asset->uuid)->get();
+        $results = (new Organization)->resourceFilter($asset->uuid, 'assets', 'unlinked')->get();
         $this->assertCount(1, $results);
         $this->assertEquals($org2->id, $results[0]->id);
     }

@@ -1,7 +1,10 @@
 import axios from 'axios'
+import { fetchLinkedOrgs, fetchUnlinkedOrgs } from '~/store/linked-orgs'
 
 export const state = {
-  assets: []
+  assets: [],
+  linkedOrgs: [],
+  unlinkedOrgs: []
 }
 
 // getters
@@ -12,7 +15,9 @@ export const getters = {
   getAssetBySlug: (state) => (slug) => {
     return state.assets.find(asset => asset.slug === slug)
   },
-  assets: state => (state.assets.length) ? state.assets : null
+  assets: state => (state.assets.length) ? state.assets : null,
+  linkedOrgs: state => state.linkedOrgs,
+  unlinkedOrgs: state => state.unlinkedOrgs
 }
 
 // actions
@@ -29,7 +34,10 @@ export const actions = {
       const { data } = await axios.get('/api/assets/' + options.uuid)
       commit('SET_ASSET', { asset: data.data })
     }
-  }
+  },
+
+  fetchLinkedOrgs,
+  fetchUnlinkedOrgs
 }
 
 // mutations
@@ -42,5 +50,11 @@ export const mutations = {
       ...state.assets.filter(element => element.uuid !== asset.uuid),
       asset
     ]
+  },
+  SET_LINKED_ORGS (state, { orgs }) {
+    state.linkedOrgs = orgs
+  },
+  SET_UNLINKED_ORGS (state, { orgs }) {
+    state.unlinkedOrgs = orgs
   }
 }
