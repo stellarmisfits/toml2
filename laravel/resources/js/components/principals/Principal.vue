@@ -15,7 +15,7 @@
       </div>
     </div>
     <div slot="action">
-      <unlink v-if="action==='unlink'" resource-type="PRINCIPAL" :resource="principal" />
+      <unlink v-if="action==='unlink'" resource-type="principal" :resource-uuid="principal.uuid" />
       <edit
         v-if="action==='edit'"
         :principal="principal"
@@ -52,7 +52,7 @@
 </template>
 <script>
 import Edit from '~/components/principals/Upsert'
-import Unlink from '~/components/orgs/Unlink'
+import Unlink from '~/components/orgs/ResourceUnlink'
 export default {
   components: {
     Unlink,

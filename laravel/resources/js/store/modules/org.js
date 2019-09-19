@@ -23,16 +23,16 @@ export const getters = {
   },
   orgs: state => (state.orgs.length) ? state.orgs : null,
   linkedAccounts: state => (state.linkedAccounts.length) ? state.linkedAccounts : null,
-  unlinkedAccounts: state => (state.unlinkedAccounts.length) ? state.unlinkedAccounts : null,
+  unlinkedAccounts: state => state.unlinkedAccounts,
 
   linkedAssets: state => (state.linkedAssets.length) ? state.linkedAssets : null,
-  unlinkedAssets: state => (state.unlinkedAssets.length) ? state.unlinkedAssets : null,
+  unlinkedAssets: state => state.unlinkedAssets,
 
   linkedPrincipals: state => (state.linkedPrincipals.length) ? state.linkedPrincipals : null,
-  unlinkedPrincipals: state => (state.unlinkedPrincipals.length) ? state.unlinkedPrincipals : null,
+  unlinkedPrincipals: state => state.unlinkedPrincipals,
 
   linkedValidators: state => (state.linkedValidators.length) ? state.linkedValidators : null,
-  unlinkedValidators: state => (state.unlinkedValidators.length) ? state.unlinkedValidators : null
+  unlinkedValidators: state => state.unlinkedValidators
 }
 
 // actions

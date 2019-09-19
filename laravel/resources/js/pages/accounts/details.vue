@@ -26,16 +26,23 @@
           </h2>
           <div class="mt-2 text-sm text-gray-700">
             <div class="max-w-2xl">
-              This account is tied to the following organizations
+              This account is linked to the following organizations.
             </div>
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          Add to org
+          <link-organization
+            resource-type="account"
+            :resource-uuid="account.uuid"
+          />
         </div>
       </div>
       <div class="mt-4">
-        <OrganizationList />
+        <OrganizationList
+          action="unlink"
+          :orgs="linkedOrgs"
+          empty-message="No organizations found."
+        />
       </div>
     </div>
   </div>
@@ -44,12 +51,15 @@
 <script>
 import Account from '~/components/accounts/Account'
 import OrganizationList from '~/components/orgs/List'
+import LinkOrganization from '~/components/orgs/LinkOrganization'
+import { mapGetters } from 'vuex'
 
 export default {
   middleware: 'auth',
 
   components: {
     OrganizationList,
+    LinkOrganization,
     Account
   },
 
@@ -64,6 +74,16 @@ export default {
   data: () => ({
     //
   }),
+
+  computed: {
+    ...mapGetters({
+      linkedOrgs: 'account/linkedOrgs'
+    })
+  },
+
+  created () {
+    this.$store.dispatch('account/fetchLinkedOrgs', this.$route.params.uuid)
+  },
 
   methods: {
     //

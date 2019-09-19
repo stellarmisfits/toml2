@@ -9,7 +9,7 @@
   </div>
   <a-well v-else class="px-6 py-12">
     <a-empty-list
-      :message="message"
+      :message="emptyMessage"
     />
   </a-well>
 </template>
@@ -22,8 +22,10 @@ export default {
   },
   props: {
     accounts: { type: Array, default: () => [] },
-    message: { type: String, required: true },
-    action: { type: String, default: null }
+    action: { type: String, default: null },
+    emptyMessage: { type: String, required: true },
+    resourceOwnerUuid: { type: String, default: null },
+    resourceOwnerType: { type: String, default: null }
   },
   data: () => ({
     //

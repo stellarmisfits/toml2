@@ -32,7 +32,7 @@
       </div>
     </div>
     <div slot="action">
-      <unlink v-if="action==='unlink'" resource-type="ASSET" :resource="asset" />
+      <unlink v-if="action==='unlink'" resource-type="asset" :resource-uuid="asset.uuid" />
       <update-asset
         v-if="action==='edit'"
         :asset="asset"
@@ -56,7 +56,7 @@
   </a-list-item>
 </template>
 <script>
-import Unlink from '~/components/orgs/Unlink'
+import Unlink from '~/components/orgs/ResourceUnlink'
 import ImageAdd from '~/components/ImageAdd'
 import ImageRemove from '~/components/ImageRemove'
 import UpdateAsset from '~/components/assets/Upsert'

@@ -22,7 +22,9 @@ export default {
   props: {
     orgs: { type: Array, default: () => [] },
     action: { type: String, default: null },
-    emptyMessage: { type: String, required: true }
+    emptyMessage: { type: String, required: true },
+    resourceOwnerUuid: { type: String, default: null },
+    resourceOwnerType: { type: String, default: null }
   },
   data: () => ({
     //

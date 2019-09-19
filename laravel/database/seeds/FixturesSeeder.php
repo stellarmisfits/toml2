@@ -47,12 +47,14 @@ class FixturesSeeder extends Seeder
     public function seedLottoGelato(Team $team) {
         $account = factory(Account::class)->create([
             'team_id'           => $team->id,
+            'name'              => 'Second Account',
             'alias'             => 'second-account',
             'public_key'        => 'GC4FWA3O7WTLYPTIOK73JN5JBBRAPJBKKZBLS27SIT5OFFIQNFSVFXVV',
         ]);
 
         $account = factory(Account::class)->create([
             'team_id'           => $team->id,
+            'name'              => 'Coupon Issuer',
             'alias'             => 'coupon-issuer',
             'public_key'        => 'GCICTL4FMNDBOKYTCTETK25P5C3YV4Q6A6JZFTAFC7ISEENPPXXYLKXJ',
         ]);
@@ -91,8 +93,8 @@ class FixturesSeeder extends Seeder
             'license_number'        => 'FB-226894',
         ]);
         // set logo
-        $logo = storage_path('fixtures/gelato-logo.jpg');
-        $org->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
+        // $logo = storage_path('fixtures/gelato-logo.jpg');
+        // $org->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
 
         $this->or->addAccount($org, $account);
 
@@ -115,9 +117,9 @@ class FixturesSeeder extends Seeder
             'redemption_instructions'   => 'To redeem this voucher just bring your mobile phone with your voucher app installed into the store and mention you\'re redeeming a voucher.',
         ]);
 
-         // set image
-         $image = storage_path('fixtures/free-scoop.jpg');
-         $asset1->addMedia($image)->preservingOriginal()->toMediaCollection('logo');
+         // set asset1 logo
+         // $logo = storage_path('fixtures/free-scoop.jpg');
+         // $asset1->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
 
         $principal = factory(Principal::class)->create([
             'team_id'                   => $team->id

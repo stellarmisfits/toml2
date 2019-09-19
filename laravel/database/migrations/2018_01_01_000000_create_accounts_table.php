@@ -17,6 +17,7 @@ class CreateAccountsTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('uuid');
             $table->unsignedBigInteger('team_id');
+            $table->string('name');
             $table->string('alias')->unique()->index();
             $table->string('public_key', 56)->unique()->index();
             $table->boolean('verified')->default(false);

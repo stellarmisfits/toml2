@@ -55,6 +55,7 @@ class AccountController extends Controller
     public function store(Request $request, AccountRepository $ac): AccountResource
     {
         $data = $request->validate([
+            'name'         =>  'required|string|max:50',
             'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
             'public_key'   => ['required', 'string', 'size:56', new PublicKey, Rule::unique('accounts', 'public_key')]
         ]);
@@ -86,6 +87,7 @@ class AccountController extends Controller
     public function update(Request $request, Account $account): AccountResource
     {
         $data = $request->validate([
+            'name'         =>  'required|string|max:50',
             'alias'        => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('accounts', 'alias')->ignore($account->id)],
             'public_key'   => ['required', 'string', new PublicKey, Rule::unique('accounts', 'public_key')->ignore($account->id)]
         ]);

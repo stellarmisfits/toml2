@@ -14,6 +14,7 @@ class Account extends BaseModel
     protected $casts = ['verified' => 'boolean'];
 
     protected $fillable = [
+        'name',
         'alias',
         'public_key',
     ];

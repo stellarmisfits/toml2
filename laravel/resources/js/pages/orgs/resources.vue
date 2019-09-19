@@ -15,7 +15,12 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <LinkAccount :org="organization" />
+          <resource-link
+            :org="organization"
+            :unlinked-resources="unlinkedAccounts"
+            resource-type="account"
+            @success="updateAccounts"
+          />
         </div>
       </div>
       <div class="mt-4">
@@ -42,7 +47,12 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <LinkAsset :org="organization" />
+          <resource-link
+            :org="organization"
+            :unlinked-resources="unlinkedAssets"
+            resource-type="asset"
+            @success="updateAssets"
+          />
         </div>
       </div>
       <div class="mt-4">
@@ -69,14 +79,19 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <LinkPrincipal :org="organization" />
+          <resource-link
+            :org="organization"
+            :unlinked-resources="unlinkedPrincipals"
+            resource-type="principal"
+            @success="updatePrincipals"
+          />
         </div>
       </div>
       <div class="mt-4">
         <PrincipalList
           :principals="linkedPrincipals"
           empty-message="No principals records have been linked to this organization"
-          :linked="true"
+          action="unlink"
         />
       </div>
     </div>
@@ -96,14 +111,19 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <LinkValidator :org="organization" />
+          <resource-link
+            :org="organization"
+            :unlinked-resources="unlinkedValidators"
+            resource-type="validator"
+            @success="updateValidators"
+          />
         </div>
       </div>
       <div class="mt-4">
         <ValidatorList
           :validators="linkedValidators"
           empty-message="No validators records have been linked to this organization"
-          :linked="true"
+          action="unlink"
         />
       </div>
     </div>
@@ -112,13 +132,10 @@
 
 <script>
 import AccountList from '~/components/accounts/List'
-import LinkAccount from '~/components/orgs/LinkAccount'
 import AssetList from '~/components/assets/List'
-import LinkAsset from '~/components/orgs/LinkAsset'
 import PrincipalList from '~/components/principals/List'
-import LinkPrincipal from '~/components/orgs/LinkPrincipal'
 import ValidatorList from '~/components/validators/List'
-import LinkValidator from '~/components/orgs/LinkValidator'
+import ResourceLink from '~/components/orgs/ResourceLink'
 import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
@@ -128,14 +145,11 @@ export default {
   },
 
   components: {
-    LinkAccount,
     AccountList,
-    LinkAsset,
     AssetList,
     PrincipalList,
-    LinkPrincipal,
     ValidatorList,
-    LinkValidator
+    ResourceLink
   },
 
   props: {
@@ -147,19 +161,39 @@ export default {
       linkedAccounts: 'org/linkedAccounts',
       linkedAssets: 'org/linkedAssets',
       linkedPrincipals: 'org/linkedPrincipals',
-      linkedValidators: 'org/linkedValidators'
+      linkedValidators: 'org/linkedValidators',
+
+      unlinkedAccounts: 'org/unlinkedAccounts',
+      unlinkedAssets: 'org/unlinkedAssets',
+      unlinkedPrincipals: 'org/unlinkedPrincipals',
+      unlinkedValidators: 'org/unlinkedValidators'
     })
   },
 
   created () {
-    this.$store.dispatch('org/fetchLinkedAccounts', this.$route.params.uuid)
-    this.$store.dispatch('org/fetchLinkedAssets', this.$route.params.uuid)
-    this.$store.dispatch('org/fetchLinkedPrincipals', this.$route.params.uuid)
-    this.$store.dispatch('org/fetchLinkedValidators', this.$route.params.uuid)
+    this.updateAccounts()
+    this.updateValidators()
+    this.updateAssets()
+    this.updatePrincipals()
   },
 
   methods: {
-    //
+    updateValidators () {
+      this.$store.dispatch('org/fetchLinkedValidators', this.organization.uuid)
+      this.$store.dispatch('org/fetchUnlinkedValidators', this.organization.uuid)
+    },
+    updateAccounts () {
+      this.$store.dispatch('org/fetchLinkedAccounts', this.organization.uuid)
+      this.$store.dispatch('org/fetchUnlinkedAccounts', this.organization.uuid)
+    },
+    updatePrincipals () {
+      this.$store.dispatch('org/fetchLinkedPrincipals', this.organization.uuid)
+      this.$store.dispatch('org/fetchUnlinkedPrincipals', this.organization.uuid)
+    },
+    updateAssets () {
+      this.$store.dispatch('org/fetchLinkedAssets', this.organization.uuid)
+      this.$store.dispatch('org/fetchUnlinkedAssets', this.organization.uuid)
+    }
   }
 }
 </script>

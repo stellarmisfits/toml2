@@ -17,8 +17,9 @@ class Account extends JsonResource
     {
         return [
             'uuid'              => $this->uuid,
-            'public_key'        => $this->public_key,
+            'name'              => $this->name,
             'alias'             => $this->alias,
+            'public_key'        => $this->public_key,
             'verified'          => $this->verified,
             'created_at'        => $this->created_at->toAtomString(),
             'updated_at'        => $this->updated_at->toAtomString()

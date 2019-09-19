@@ -23,7 +23,7 @@ export default {
     validators: { type: Array, default: () => [] },
     emptyMessage: { type: String, required: true },
     action: {
-      type: Boolean,
+      type: String,
       required: true,
       validator: (val) => ['edit', 'unlink', 'navigate'].includes(val)
     }

@@ -29,7 +29,12 @@
       </div>
     </div>
     <div slot="action">
-      <unlink v-if="action==='unlink'" resource-type="ORGANIZATION" :resource="organization" />
+      <unlink
+        v-if="action==='unlink'"
+        :resource-type="resourceOwnerType"
+        :resource-uuid="resourceOwnerUuid"
+        :org-uuid="org.uuid"
+      />
       <edit-organization
         v-if="action==='edit'"
         :organization="org"
@@ -57,10 +62,12 @@
 </template>
 <script>
 import EditOrganization from '~/components/orgs/Upsert'
+import Unlink from '~/components/orgs/ResourceUnlink'
 import ImageAdd from '~/components/ImageAdd'
 import ImageRemove from '~/components/ImageRemove'
 export default {
   components: {
+    Unlink,
     EditOrganization,
     ImageAdd,
     ImageRemove
@@ -71,7 +78,9 @@ export default {
       type: String,
       required: true,
       validator: (val) => ['edit', 'unlink', 'navigate'].includes(val)
-    }
+    },
+    resourceOwnerUuid: { type: String, default: null },
+    resourceOwnerType: { type: String, default: null }
   },
   data: () => ({
     //
