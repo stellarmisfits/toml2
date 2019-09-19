@@ -5,7 +5,7 @@
     </a>
     <Modal :open="modal" @close="close">
       <div slot="title">
-        Are you sure you want to delete the image for asset {{ asset.name }}?
+        Are you sure you want to delete the logo for this {{ modelType }}?
       </div>
       <div slot="actions">
         <button class="btn btn-white transition-all" @click="close">
@@ -22,16 +22,24 @@
 import Form from 'vform'
 export default {
   props: {
-    asset: { type: Object, required: true }
+    modelUuid: { type: String, required: true },
+    modelType: {
+      type: String,
+      required: true,
+      validator: (val) => ['asset', 'organization'].includes(val)
+    }
   },
   data: () => ({
     modal: false,
     form: new Form({
-      asset_uuid: ''
+      model_uuid: '',
+      model_type: '',
+      collection: 'logo'
     })
   }),
   created () {
-    this.form.asset_uuid = this.asset.uuid
+    this.form.model_uuid = this.modelUuid
+    this.form.model_type = this.modelType
   },
   methods: {
     close () {
@@ -39,16 +47,18 @@ export default {
       this.$emit('close')
     },
     async save () {
-      const assetUuid = this.$route.params.uuid
-      await this.form.delete('/api/assets/' + assetUuid + '/image')
+      const { data } = await this.form.delete('/api/image')
 
-      this.$store.dispatch('asset/fetchAsset', {
-        uuid: this.$route.params.uuid,
-        force: true
-      })
+      if (this.modelType === 'asset') {
+        this.$store.commit('asset/SET_ASSET', { asset: data.data })
+      }
+
+      if (this.modelType === 'organization') {
+        this.$store.commit('org/SET_ORG', { org: data.data })
+      }
 
       this.form.reset()
-      this.modal = false
+      this.close()
     }
   }
 }

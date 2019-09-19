@@ -20,19 +20,26 @@
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <create-org />
+          <create-org
+            action="create"
+          />
         </div>
       </div>
       <div class="mt-4">
-        <list-orgs />
+        <list-orgs
+          :orgs="orgs"
+          action="navigate"
+          message="No organizations have been added to this account."
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ListOrgs from '~/components/orgs/List'
-import CreateOrg from '~/components/orgs/Create'
+import CreateOrg from '~/components/orgs/Upsert'
 export default {
   components: {
     ListOrgs,
@@ -40,11 +47,15 @@ export default {
   },
   middleware: 'auth',
   data: () => ({
-    createAccountModal: false,
-    createOrganizationModal: false
+    //
   }),
   metaInfo () {
     return { title: this.$t('home') }
+  },
+  computed: {
+    ...mapGetters({
+      orgs: 'org/orgs'
+    })
   }
 }
 </script>

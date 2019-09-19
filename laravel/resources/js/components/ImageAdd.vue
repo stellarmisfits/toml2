@@ -5,7 +5,7 @@
     </a>
     <Modal :open="modal" @close="close">
       <div slot="title">
-        Upload an image for asset {{ asset.name }}.
+        Upload a logo for this {{ modelType }}.
       </div>
       <div slot="body">
         <input id="file" ref="file" type="file">
@@ -26,24 +26,33 @@ import Form from 'vform'
 import Vapor from 'laravel-vapor'
 export default {
   props: {
-    asset: { type: Object, required: true }
+    modelUuid: { type: String, required: true },
+    modelType: {
+      type: String,
+      required: true,
+      validator: (val) => ['asset', 'organization'].includes(val)
+    }
   },
   data: () => ({
     modal: false,
     form: new Form({
-      uuid: '',
+      model_uuid: '',
+      model_type: '',
+      image_uuid: '',
       filename: '',
-      content_type: ''
+      collection: 'logo'
     })
   }),
+  created () {
+    this.form.model_uuid = this.modelUuid
+    this.form.model_type = this.modelType
+  },
   methods: {
     close () {
       this.modal = false
       this.$emit('close')
     },
     async save () {
-      const assetUuid = this.$route.params.uuid
-
       try {
         const response = await Vapor.store(this.$refs.file.files[0], {
           progress: progress => {
@@ -51,21 +60,25 @@ export default {
           }
         })
 
-        this.form.uuid = response.uuid
-        this.form.filename = this.$refs.file.files[0].name
+        this.form.image_uuid = response.uuid
         this.form.content_type = this.$refs.file.files[0].type
+        this.form.filename = this.$refs.file.files[0].name
 
-        await this.form.post('/api/assets/' + assetUuid + '/image')
+        const { data } = await this.form.post('/api/image')
 
-        this.$store.dispatch('asset/fetchAsset', {
-          uuid: this.$route.params.uuid,
-          force: true
-        })
+        if (this.modelType === 'asset') {
+          this.$store.commit('asset/SET_ASSET', { asset: data.data })
+        }
+
+        if (this.modelType === 'organization') {
+          this.$store.commit('org/SET_ORG', { org: data.data })
+        }
 
         this.form.reset()
-        this.modal = false
+        this.close()
       } catch (e) {
         console.log(e)
+        throw e
       }
     }
   }

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Org from '~/components/orgs/ListItem'
+import Org from '~/components/orgs/Organization'
 import { mapState } from 'vuex'
 export default {
   middleware: 'auth',

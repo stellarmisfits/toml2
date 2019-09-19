@@ -9,6 +9,7 @@ use App\Rules\ValidateUuid;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 
 class OrganizationController extends Controller
@@ -71,6 +72,25 @@ class OrganizationController extends Controller
     public function show(Organization $organization): OrganizationResource
     {
         $this->authorize('view', $organization);
+        return new OrganizationResource($organization);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request  $request
+     * @param  Organization $organization
+     * @return  OrganizationResource
+     */
+    public function update(Request $request, Organization $organization): OrganizationResource
+    {
+        $data = $request->validate([
+            'name'       => ['required', 'string', 'max:20'],
+            'alias'      => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('organizations', 'alias')->ignore($organization->id)],
+        ]);
+
+        $organization->update($data);
+
         return new OrganizationResource($organization);
     }
 

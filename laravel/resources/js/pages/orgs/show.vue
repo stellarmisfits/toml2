@@ -1,7 +1,21 @@
 <template>
-  <div class="flex-grow">
+  <div v-if="organization" class="flex-grow">
     <a-breadcrumbs :tabs="tabs">
-      <span slot="title">Organizations <span class="mx-3 text-gray-400 font-light text-2xl leading-none">/</span>{{ organization.name }}</span>
+      <span slot="title">
+        <router-link :to="{ name: 'dashboard' }">
+          Dashboard
+        </router-link>
+        <span class="mx-3 text-gray-400 font-light text-2xl leading-none">/</span>{{ organization.name }}
+      </span>
+      <delete-resource
+        slot="dropdown"
+        :resource="organization"
+        resource-type="ORGANIZATION"
+      >
+        <span slot="title">
+          Are you sure you want to delete the "{{ organization.name }}" organization?
+        </span>
+      </delete-resource>
     </a-breadcrumbs>
     <div class="px-12 py-8 mx-auto max-w-4xl">
       <transition name="fade" mode="out-in">
@@ -13,9 +27,10 @@
 
 <script>
 import ABreadcrumbs from '~/components/Breadcrumbs'
+import DeleteResource from '~/components/DeleteResource'
 import { mapGetters } from 'vuex'
 export default {
-  components: { ABreadcrumbs },
+  components: { ABreadcrumbs, DeleteResource },
   middleware: 'auth',
   data () {
     return {

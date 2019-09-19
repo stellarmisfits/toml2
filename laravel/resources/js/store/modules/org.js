@@ -103,7 +103,10 @@ export const mutations = {
     state.orgs = orgs
   },
   SET_ORG (state, { org }) {
-    state.orgs.push(org)
+    state.orgs = [
+      ...state.orgs.filter(element => element.uuid !== org.uuid),
+      org
+    ]
   },
   SET_TOML (state, { toml }) {
     state.toml = toml

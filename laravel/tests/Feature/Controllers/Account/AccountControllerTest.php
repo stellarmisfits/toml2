@@ -77,6 +77,27 @@ class AccountControllerTest extends TestCase
     }
 
     /**
+     * PATCH Resource
+     */
+    public function testAccountControllerUpdate()
+    {
+        $account = $this->seeder->seedAccount();
+        $user = $this->seeder->seedUserWithTeam($account->team);
+        $this->actingAs($user);
+
+        $updatedValues = factory(Account::class)->make();
+
+        $this->patchJson(route('accounts.update', $account->uuid), $updatedValues->toArray())
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('accounts', [
+            'uuid'          => $account->uuid,
+            'alias'         => $updatedValues->alias,
+            'public_key'    => $updatedValues->public_key
+        ]);
+    }
+
+    /**
      * DELETE Resource
      */
     public function testAccountControllerDelete()

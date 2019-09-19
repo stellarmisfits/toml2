@@ -1,7 +1,7 @@
 <template>
   <a-list-item
-    :image-url="asset.logo"
-    :image-title="asset.name"
+    :image-url="org.logo"
+    :image-title="org.name"
     :action="action"
   >
     <dropdown v-if="action==='edit'" slot="imageAction">
@@ -10,65 +10,63 @@
       </div>
       <template v-slot:dropdown="dropdownProps">
         <div class="py-2 w-32">
-          <image-add model-type="asset" :model-uuid="asset.uuid" @close="dropdownProps.closeDropdown" />
-          <image-remove v-if="asset.logo" model-type="asset" :model-uuid="asset.uuid" @close="dropdownProps.closeDropdown" />
+          <image-add model-type="organization" :model-uuid="org.uuid" @close="dropdownProps.closeDropdown" />
+          <image-remove v-if="org.logo" model-type="organization" :model-uuid="org.uuid" @close="dropdownProps.closeDropdown" />
         </div>
       </template>
     </dropdown>
     <div slot="body">
       <div class="flex items-center spaced-x-1">
         <h4 class="font-semibold text-lg leading-tight truncate">
-          {{ asset.name }}
+          {{ org.name }}
         </h4>
         <a-pill class="ml-2" color="blue">
-          {{ asset.status }}
+          <span>{{ (org.published) ? 'Published' : 'Not Published' }}</span>
         </a-pill>
       </div>
       <div class="mt-1">
-        {{ asset.code }}
-      </div>
-      <div class="mt-2">
-        {{ asset.desc }}
+        {{ org.alias }}
       </div>
     </div>
     <div slot="action">
-      <unlink v-if="action==='unlink'" resource-type="ASSET" :resource="asset" />
-      <update-asset
+      <unlink v-if="action==='unlink'" resource-type="ORGANIZATION" :resource="organization" />
+      <edit-organization
         v-if="action==='edit'"
-        :asset="asset"
+        :organization="org"
         action="update"
       />
       <router-link
         v-if="action==='navigate'"
-        :to="{ name: 'asset.details', params: { uuid: asset.uuid }}"
+        :to="{ name: 'org.details', params: { uuid: org.uuid }}"
       >
         <fa icon="chevron-circle-right" class="hover:text-gray-400 cursor-pointer" />
       </router-link>
     </div>
     <div v-if="action==='edit'" slot="details">
       <div class="mt-2">
-        {{ asset.code_template }}
+        {{ org.description }}
       </div>
       <div class="mt-2">
-        {{ asset.conditions }}
+        {{ org.url }}
+      </div>
+      <div class="mt-2">
+        {{ org.dba }}
       </div>
     </div>
   </a-list-item>
 </template>
 <script>
-import Unlink from '~/components/orgs/Unlink'
+import EditOrganization from '~/components/orgs/Upsert'
 import ImageAdd from '~/components/ImageAdd'
 import ImageRemove from '~/components/ImageRemove'
-import UpdateAsset from '~/components/assets/Upsert'
 export default {
   components: {
-    Unlink,
+    EditOrganization,
     ImageAdd,
-    ImageRemove,
-    UpdateAsset
+    ImageRemove
   },
   props: {
-    asset: { type: Object, required: true },
+    org: { type: Object, required: true },
     action: {
       type: String,
       required: true,

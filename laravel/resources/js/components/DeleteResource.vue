@@ -33,7 +33,7 @@ export default {
     resourceType: {
       type: String,
       required: true,
-      validator: (val) => ['ACCOUNT', 'ASSET', 'PRINCIPAL', 'VALIDATOR'].includes(val)
+      validator: (val) => ['ACCOUNT', 'ASSET', 'PRINCIPAL', 'VALIDATOR', 'ORGANIZATION'].includes(val)
     }
   },
   data: () => ({
@@ -73,6 +73,12 @@ export default {
         await this.form.delete('/api/validators/' + uuid)
         this.$store.dispatch('validator/fetchValidators')
         this.$router.push({ name: 'validators' })
+      }
+
+      if (this.resourceType === 'ORGANIZATION') {
+        await this.form.delete('/api/organizations/' + uuid)
+        this.$store.dispatch('org/fetchOrgs')
+        this.$router.push({ name: 'dashboard' })
       }
 
       this.form.reset()

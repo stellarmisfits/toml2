@@ -43,14 +43,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
+    Route::post('image', 'ImageController@store')->name('image.create');
+    Route::delete('image', 'ImageController@destroy')->name('image.destroy');
+
     Route::group(['namespace' => 'Account'], function () {
         Route::resource('accounts', 'AccountController');
     });
 
     Route::group(['namespace' => 'Asset'], function () {
         Route::resource('assets', 'AssetController');
-        Route::post('assets/{asset}/image', 'AssetImageController@store')->name('assets.image-add');
-        Route::delete('assets/{asset}/image', 'AssetImageController@destroy')->name('assets.image-delete');
     });
 
     Route::group(['namespace' => 'Organization'], function () {

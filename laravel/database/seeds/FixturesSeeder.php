@@ -101,7 +101,6 @@ class FixturesSeeder extends Seeder
             'team_id'                   => $team->id,
             'code'                      => 'FREESCOOP',
             'name'                      => 'Free Scoop',
-            'published'                 => true,
             'account_id'                => $account->id,
             'status'                    => 'test',
             'display_decimals'           => 0,
@@ -118,7 +117,7 @@ class FixturesSeeder extends Seeder
 
          // set image
          $image = storage_path('fixtures/free-scoop.jpg');
-         $asset1->addMedia($image)->preservingOriginal()->toMediaCollection('image');
+         $asset1->addMedia($image)->preservingOriginal()->toMediaCollection('logo');
 
         $principal = factory(Principal::class)->create([
             'team_id'                   => $team->id

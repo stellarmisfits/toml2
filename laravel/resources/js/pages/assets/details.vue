@@ -66,7 +66,10 @@
         </div>
       </div>
       <div class="mt-4">
-        <OrganizationList />
+        <OrganizationList
+          action="unlink"
+          empty-message="This asset has not been linked to any organizations"
+        />
       </div>
     </div>
   </div>

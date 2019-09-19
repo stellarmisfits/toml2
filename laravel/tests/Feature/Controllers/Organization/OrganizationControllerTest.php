@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Controllers\Organization;
 
+use App\Models\Account;
 use App\Models\Organization;
 use App\Models\User;
 use App\Repositories\OrganizationRepository;
@@ -75,6 +76,27 @@ class OrganizationControllerTest extends TestCase
             ->assertJsonFragment([
                 'uuid' => $org->uuid
             ]);
+    }
+
+    /**
+     * PATCH Resource
+     */
+    public function testOrganizationControllerUpdate()
+    {
+        $organization = $this->seeder->seedOrganization();
+        $user = $this->seeder->seedUserWithTeam($organization->team);
+        $this->actingAs($user);
+
+        $updatedValues = factory(Organization::class)->make();
+
+        $this->patchJson(route('organizations.update', $organization->uuid), $updatedValues->toArray())
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('organizations', [
+            'uuid'          => $organization->uuid,
+            'name'          => $updatedValues->name,
+            'alias'         => $updatedValues->alias
+        ]);
     }
 
     /**

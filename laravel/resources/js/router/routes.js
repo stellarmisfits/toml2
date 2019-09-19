@@ -27,7 +27,7 @@ export default [
    */
   { path: '/app/orgs/:uuid',
     name: 'org',
-    component: page('orgs/index.vue'),
+    component: page('orgs/show.vue'),
     children: [
       { path: '', redirect: { name: 'org.details' } },
       { path: 'details', name: 'org.details', component: page('orgs/details.vue') },

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Query\Builder;
+use App\Http\Resources\Organization as OrganizationResource;
 
  use Spatie\Image\Manipulations;
  use Spatie\MediaLibrary\Models\Media;
@@ -30,15 +31,14 @@ class Organization extends BaseModel implements HasMedia
      */
     protected $fillable = [
         'name',
+        'alias',
         'description',
         'details',
-        'slug',
         'url',
         'official_email',
         'phone_number',
         'physical_address'
     ];
-
 
     public function registerMediaCollections()
     {
@@ -77,6 +77,14 @@ class Organization extends BaseModel implements HasMedia
         }
 
         return null;
+    }
+
+    /**
+     * @return OrganizationResource
+     */
+    public function getResourceAttribute(): OrganizationResource
+    {
+        return new OrganizationResource($this);
     }
 
     /*

@@ -79,12 +79,11 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  Account  $account
      * @return AccountResource
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Account $account)
+    public function update(Request $request, Account $account): AccountResource
     {
         $data = $request->validate([
             'alias'        => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('accounts', 'alias')->ignore($account->id)],

@@ -1,31 +1,31 @@
 <template>
   <div v-if="orgs" class="spaced-y-6">
-    <list-item
+    <organization
       v-for="org in orgs"
       :key="org.uuid"
       :org="org"
+      :action="action"
     />
   </div>
   <a-well v-else class="px-6 py-12">
     <a-empty-list
-      message="No organizations have been added to this account."
+      :message="emptyMessage"
     />
   </a-well>
 </template>
 <script>
-import ListItem from '~/components/orgs/ListItem'
-import { mapGetters } from 'vuex'
+import Organization from '~/components/orgs/Organization'
 export default {
   components: {
-    ListItem
+    Organization
+  },
+  props: {
+    orgs: { type: Array, default: () => [] },
+    action: { type: String, default: null },
+    emptyMessage: { type: String, required: true }
   },
   data: () => ({
     //
-  }),
-  computed: {
-    ...mapGetters({
-      orgs: 'org/orgs'
-    })
-  }
+  })
 }
 </script>

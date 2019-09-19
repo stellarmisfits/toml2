@@ -28,7 +28,7 @@ class Asset extends JsonResource
             'status'                    => $this->status,
             'display_decimals'          => $this->display_decimals,
             'conditions'                => $this->conditions,
-            'image'                     => $this->image,
+            'logo'                      => $this->logo,
             'fixed_number'              => $this->fixed_number,
             'max_number'                => $this->max_number,
             'is_unlimited'              => $this->is_unlimited,

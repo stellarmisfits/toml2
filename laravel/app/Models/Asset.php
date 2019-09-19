@@ -10,6 +10,7 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use App\Http\Resources\Asset as AssetResource;
 
 class Asset extends BaseModel implements HasMedia
 {
@@ -28,14 +29,19 @@ class Asset extends BaseModel implements HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection('image')->singleFile();
+        $this->addMediaCollection('images');
+        $this->addMediaCollection('logo')->singleFile();
     }
 
     public function registerMediaConversions(Media $media = null)
     {
-        $this->addMediaConversion('image')
+        $this->addMediaConversion('images')
+            ->fit(Manipulations::FIT_CROP, 1000, 750)
+            ->performOnCollections('images');
+
+        $this->addMediaConversion('logo')
             ->fit(Manipulations::FIT_CROP, 250, 250)
-            ->performOnCollections('image');
+            ->performOnCollections('logo');
     }
 
     /*
@@ -50,14 +56,22 @@ class Asset extends BaseModel implements HasMedia
      * @param  mixed
      * @return string
      */
-    public function getImageAttribute(): ?string
+    public function getLogoAttribute(): ?string
     {
-        $url = $this->getFirstMediaUrl('image', 'image');
+        $url = $this->getFirstMediaUrl('logo', 'logo');
         if ($url) {
             return url($url);
         }
 
         return null;
+    }
+
+    /**
+     * @return AssetResource
+     */
+    public function getResourceAttribute(): AssetResource
+    {
+        return new AssetResource($this);
     }
 
     /*

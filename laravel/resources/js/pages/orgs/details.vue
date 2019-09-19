@@ -1,6 +1,12 @@
 <template>
   <div class="flex-grow">
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="py-8 mx-auto">
+      <organization
+        action="edit"
+        :org="organization"
+      />
+    </div>
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -22,6 +28,7 @@
 </template>
 
 <script>
+import Organization from '~/components/orgs/Organization'
 import Global from '~/components/orgs/Global'
 import GlobalUpdate from '~/components/orgs/GlobalUpdate'
 export default {
@@ -33,7 +40,8 @@ export default {
 
   components: {
     Global,
-    GlobalUpdate
+    GlobalUpdate,
+    Organization
   },
 
   props: {
