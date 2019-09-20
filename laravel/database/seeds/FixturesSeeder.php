@@ -63,7 +63,6 @@ class FixturesSeeder extends Seeder
             'team_id'               => $team->id,
             'alias'                 => 'lotto-gelato',
             'published'             => true,
-            'details'               => 'At Lotto Gelato we\'re serving up huge portions of our famous gelato flavors. Our scoops are so big when you see them you can\'t help but say "WOW! That\'s a Lotto\' Gelato!"',
 
             // begin sep-0001 global properties
             'federation_server'             => 'https://api.domain.com/federation',
@@ -79,7 +78,7 @@ class FixturesSeeder extends Seeder
             'name'                  => 'Lotto\' Gelato, Inc.',
             'dba'                   => 'Lotto\' Gelato',
             'url'                   => 'lottogelato.com',
-            'description'           => 'Big scoops of Gelato sold at reasonable prices',
+            'description'           => 'At Lotto Gelato we\'re serving up huge portions of our famous gelato flavors. Our scoops are so big when you see them you can\'t help but say "WOW! That\'s a Lotto\' Gelato!"',
             'address'               => '{"suggestion": {"value": "2800 East Observatory Road, Los Angeles, California, United States of America"}}',
             'address_attestation'   => 'https://www.corp.att.com/newbill/images/standard-thumbnail.png',
             'phone'                 => '{"country":"US","countryCallingCode":"1","valid":true,"possible":true,"phone":"2133734253"}',
@@ -93,8 +92,8 @@ class FixturesSeeder extends Seeder
             'license_number'        => 'FB-226894',
         ]);
         // set logo
-        // $logo = storage_path('fixtures/gelato-logo.jpg');
-        // $org->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
+        $logo = storage_path('fixtures/gelato-logo.jpg');
+        $org->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
 
         $this->or->addAccount($org, $account);
 
@@ -106,7 +105,7 @@ class FixturesSeeder extends Seeder
             'account_id'                => $account->id,
             'status'                    => 'test',
             'display_decimals'           => 0,
-            'desc'                      => 'This voucher entitles the user to one giant scoop of any of our delicious flavors. Now that\'s a Lotto Gelato!',
+            'description'               => 'This voucher entitles the user to one giant scoop of any of our delicious flavors. Now that\'s a Lotto Gelato!',
             'conditions'                => 'This offer expires on ' . Carbon::today()->toDateString(),
             'fixed_number'              => null,
             'max_number'                => null,
@@ -118,8 +117,8 @@ class FixturesSeeder extends Seeder
         ]);
 
          // set asset1 logo
-         // $logo = storage_path('fixtures/free-scoop.jpg');
-         // $asset1->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
+         $logo = storage_path('fixtures/free-scoop.jpg');
+         $asset1->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
 
         $principal = factory(Principal::class)->create([
             'team_id'                   => $team->id
@@ -184,8 +183,8 @@ class FixturesSeeder extends Seeder
             'published'                 => true,
             'account_id'                => $account->id,
             'status'                    => 'test',
-            'display_decimals'           => 0,
-            'desc'                      => 'Get one month of fast VPN access and secure your network traffic today!',
+            'display_decimals'          => 0,
+            'description'               => 'Get one month of fast VPN access and secure your network traffic today!',
             'conditions'                => 'This voucher may be redeemed for one month of our vpn service. By redeeming this voucher you agree not to hold the National Security Agency doing business as Tunnel Tusk liable for any damages resulting from the use of this service. This offer expires on ' . Carbon::today()->toDateString() . ' and cannot be exchanged.',
             'fixed_number'              => null,
             'max_number'                => null,
@@ -201,8 +200,8 @@ class FixturesSeeder extends Seeder
             'code'                      => 'WOOLLY',
             'account_id'                => $account->id,
             'status'                    => 'test',
-            'display_decimals'           => 0,
-            'desc'                      => 'Get one year of fast VPN access and secure your network traffic today!',
+            'display_decimals'          => 0,
+            'description'               => 'Get one year of fast VPN access and secure your network traffic today!',
             'conditions'                => 'This voucher may be redeemed for one year of our vpn service. By redeeming this voucher you agree not to hold the National Security Agency doing business as Tunnel Tusk liable for any damages resulting from the use of this service. This offer expires on ' . Carbon::today()->toDateString() . ' and cannot be exchanged.',
             'fixed_number'              => null,
             'max_number'                => null,
@@ -261,8 +260,8 @@ class FixturesSeeder extends Seeder
             'code'                      => 'OPEN_HOUSE',
             'account_id'                => $account->id,
             'status'                    => 'test',
-            'display_decimals'           => 0,
-            'desc'                      => 'Open house for non-members to meet fellow kale enthusiasts, try new recipes, and learn more about our beloved Brassica Oleracea.',
+            'display_decimals'          => 0,
+            'description'               => 'Open house for non-members to meet fellow kale enthusiasts, try new recipes, and learn more about our beloved Brassica Oleracea.',
             'conditions'                => 'Reserve your spot now. Demand is high and this event sells out every year. This year is expected to be our biggest event ever as we\'re combining our event with the Cow Hollow chapter.',
             'fixed_number'              => null,
             'max_number'                => null,

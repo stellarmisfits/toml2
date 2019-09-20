@@ -21,7 +21,7 @@ class CreateAssetsTable extends Migration
 
             $table->string('name');
             $table->string('code');
-            $table->string('desc');
+            $table->string('description');
             $table->string('code_template')->nullable();
             // $table->string('issuer'); // obtain through account_id
             $table->string('status')->nullable();

@@ -7,7 +7,7 @@ $factory->define(App\Models\Asset::class, function (Faker $faker) {
         'code' => strtoupper(str_random(12)),
         'display_decimals' => 0,
         'name' => substr($faker->company, 0, 20),
-        'desc' => $faker->text(),
+        'description' => $faker->text(),
         'conditions' => $faker->text()
     ];
 });

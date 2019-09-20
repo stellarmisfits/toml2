@@ -98,7 +98,7 @@ class AssetControllerTest extends TestCase
             'uuid'          => $asset->uuid,
             'name'          => $updatedValues->name,
             'code'          => $updatedValues->code,
-            'desc'          => $updatedValues->desc,
+            'description'   => $updatedValues->description,
             'account_id'    => $newAccount->id,
         ]);
     }

@@ -28,7 +28,7 @@
         {{ asset.code }}
       </div>
       <div class="mt-2">
-        {{ asset.desc }}
+        {{ asset.description }}
       </div>
     </div>
     <div slot="action">

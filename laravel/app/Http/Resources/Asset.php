@@ -22,7 +22,7 @@ class Asset extends JsonResource
 
             'name'                      => $this->name,
             'code'                      => $this->code,
-            'desc'                      => $this->desc,
+            'description'               => $this->description,
             'code_template'             => $this->code_template,
             // 'issuer'                 => $this->issuer, // obtain through account_uuid
             'status'                    => $this->status,

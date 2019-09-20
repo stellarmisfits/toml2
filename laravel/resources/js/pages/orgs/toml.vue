@@ -4,30 +4,27 @@
       <div>
         <h2 class="text-lg">
           Toml Preview
+          <a-pill class="ml-2" color="blue">
+            <span>{{ (organization.published) ? 'Published' : 'Not Published' }}</span>
+          </a-pill>
         </h2>
         <div class="mt-2 text-sm text-gray-700">
           <div class="max-w-2xl">
-            Below you will find a generated TOML file for this organization.
-            Feel free to copy it to your hosting provider. Or take advantage of
-            our free hosting as part of our PRO plan>
+            <template v-if="organization.published">
+              Below you will find a generated TOML file for this organization.
+            </template>
           </div>
         </div>
       </div>
       <div class="flex-shrink-0 ml-4">
-        <button class="inline-flex items-center spaced-x-2 btn btn-sm btn-white transition-all" @click.prevent="">
+        <a class="inline-flex items-center spaced-x-2 btn btn-sm btn-white transition-all" :href="download" :download="organization.alias + '.toml'">
           Download
-        </button>
+        </a>
       </div>
     </div>
     <div>
       <a-well class="mt-4">
-        <Org :org="organization" />
         <div>
-          <div
-            class="px-6 py-2 bg-gray-100 border-t text-xs text-gray-700 font-bold uppercase tracking-wider"
-          >
-            TOML Preview
-          </div>
           <div class="bg-white px-6 py-4 overflow-auto">
             <pre class="font-mono text-xs text-gray-700">{{ toml }}</pre>
           </div>
@@ -38,13 +35,12 @@
 </template>
 
 <script>
-import Org from '~/components/orgs/Organization'
 import { mapState } from 'vuex'
 export default {
   middleware: 'auth',
 
   components: {
-    Org
+    //
   },
 
   props: {
@@ -52,7 +48,11 @@ export default {
   },
 
   computed: {
-    ...mapState('org', ['toml'])
+    ...mapState('org', ['toml']),
+    download () {
+      const blob = new Blob([this.toml], { type: 'text/plain' })
+      return window.URL.createObjectURL(blob)
+    }
   },
 
   created () {

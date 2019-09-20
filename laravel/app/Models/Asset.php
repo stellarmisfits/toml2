@@ -21,7 +21,7 @@ class Asset extends BaseModel implements HasMedia
         'account_id',
         'display_decimals',
         'name',
-        'desc',
+        'description',
         'details',
         'conditions',
         'redemption_instructions',

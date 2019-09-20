@@ -19,7 +19,6 @@ class CreateOrganizationsTable extends Migration
             $table->boolean('published')->default(false);
             $table->unsignedBigInteger('team_id')->index();
             $table->string('alias', 15)->unique()->index();
-            $table->text('details')->nullable();
 
             // begin sep-0001 properties
             // https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#account-information

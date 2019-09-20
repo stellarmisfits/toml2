@@ -68,7 +68,7 @@ class TomlService
         $this->add($this->org, 'name', 'ORG_NAME');
         $this->add($this->org, 'dba', 'ORG_DBA');
         $this->add($this->org, 'url', 'ORG_URL');
-        // $this->add($this->org, 'logo', 'ORG_LOGO');
+        $this->add($this->org, 'logo', 'ORG_LOGO');
         $this->add($this->org, 'description', 'ORG_DESCRIPTION');
         $this->add($this->org, 'address', 'ORG_PHYSICAL_ADDRESS');
         $this->add($this->org, 'address_attestation', 'ORG_PHYSICAL_ADDRESS_ATTESTATION');
@@ -137,10 +137,9 @@ class TomlService
             $this->add($asset, 'status', 'status');
             $this->add($asset, 'display_decimals', 'display_decimals');
             $this->add($asset, 'name', 'name');
-            $this->add($asset, 'desc', 'desc');
+            $this->add($asset, 'description', 'desc');
             $this->add($asset, 'conditions', 'conditions');
-            $this->add($asset, 'image', 'image');
-            $this->add($asset, 'image', 'image');
+            $this->add($asset, 'logo', 'image');
             $this->add($asset, 'fixed_number', 'fixed_number');
             $this->add($asset, 'is_unlimited', 'is_unlimited');
             $this->add($asset, 'is_asset_anchored', 'is_asset_anchored');

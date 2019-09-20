@@ -73,13 +73,13 @@
           <label class="block">
             <span class="form-label">Description</span>
             <textarea
-              v-model="form.desc"
-              :class="{ 'is-invalid': form.errors.has('desc') }"
+              v-model="form.description"
+              :class="{ 'is-invalid': form.errors.has('description') }"
               class="form-textarea mt-1"
               rows="3"
-              name="desc"
+              name="description"
             />
-            <has-error :form="form" field="desc" />
+            <has-error :form="form" field="description" />
           </label>
         </form>
       </div>
@@ -112,7 +112,7 @@ export default {
       name: null,
       code: null,
       account_uuid: null,
-      desc: null
+      description: null
     })
   }),
   computed: {
@@ -133,7 +133,7 @@ export default {
         this.form.name = this.asset.name
         this.form.code = this.asset.code
         this.form.account_uuid = this.asset.account_uuid
-        this.form.desc = this.asset.desc
+        this.form.desc = this.asset.description
       }
     }
   },

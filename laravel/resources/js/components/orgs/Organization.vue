@@ -18,7 +18,9 @@
     <div slot="body">
       <div class="flex items-center spaced-x-1">
         <h4 class="font-semibold text-lg leading-tight truncate">
-          {{ org.name }}
+          {{ org.name }} <template v-if="org.dba">
+            ({{ org.dba }})
+          </template>
         </h4>
         <a-pill class="ml-2" color="blue">
           <span>{{ (org.published) ? 'Published' : 'Not Published' }}</span>
@@ -26,6 +28,9 @@
       </div>
       <div class="mt-1">
         {{ org.alias }}
+      </div>
+      <div class="mt-1">
+        {{ org.description }}
       </div>
     </div>
     <div slot="action">
@@ -50,13 +55,7 @@
     </div>
     <div v-if="action==='edit'" slot="details">
       <div class="mt-2">
-        {{ org.description }}
-      </div>
-      <div class="mt-2">
         {{ org.url }}
-      </div>
-      <div class="mt-2">
-        {{ org.dba }}
       </div>
     </div>
   </a-list-item>
