@@ -1,6 +1,6 @@
 <template>
   <div class="flex-grow">
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -96,7 +96,7 @@
       </div>
     </div>
 
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">

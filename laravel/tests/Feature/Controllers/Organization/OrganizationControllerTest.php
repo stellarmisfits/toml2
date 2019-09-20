@@ -148,7 +148,7 @@ class OrganizationControllerTest extends TestCase
     /**
      * DELETE Resource
      */
-    public function testAccountControllerDelete()
+    public function testOrganizationControllerDelete()
     {
         $team       = $this->seeder->seedTeam();
         $org        = $this->seeder->seedOrganization($team);
@@ -159,8 +159,8 @@ class OrganizationControllerTest extends TestCase
         $or = new OrganizationRepository();
         $or->addAccount($org, $account);
 
-        $this->deleteJson(route('accounts.destroy', [
-                $account->uuid
+        $this->deleteJson(route('organizations.destroy', [
+                $org->uuid
             ]))
             ->assertStatus(204);
     }

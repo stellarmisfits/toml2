@@ -20,7 +20,7 @@ class AssetRepository
         $a->team_id     = $user->currentTeam()->id;
         $a->code        = strtoupper($data['code']);
         $a->name        = $data['name'];
-        $a->desc        = $data['desc'];
+        $a->description = $data['description'];
         $a->account_id  = $account->id;
         $a->save();
 

@@ -22,9 +22,10 @@
         {{ title }}
       </div>
       <div slot="body">
-        <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
+        <form class="spaced-y-6" @submit.prevent="update" @keydown="form.onKeydown($event)">
           <label class="block">
             <span class="form-label">Name</span>
+            <span class="form-label-subtext">The name of your organization. Between 4 and 53 characters</span>
             <input
               v-model="form.name"
               :class="{ 'is-invalid': form.errors.has('name') }"
@@ -33,10 +34,15 @@
               required="required"
               class="form-input mt-1"
             >
+            <span class="form-label-subtext">* required</span>
             <has-error :form="form" field="name" />
           </label>
           <label class="block">
             <span class="form-label">Alias</span>
+            <span class="form-label-subtext">
+              Between 4 and 15 characters. Must be unique across all organizations
+              maintained at astrify.com.
+            </span>
             <input
               v-model="form.alias"
               :class="{ 'is-invalid': form.errors.has('alias') }"
@@ -45,8 +51,54 @@
               required="required"
               class="form-input mt-1"
             >
+            <span class="form-label-subtext">* required</span>
             <has-error :form="form" field="alias" />
           </label>
+          <template v-if="action==='update'">
+            <label class="block">
+              <span class="form-label">Description</span>
+              <span class="form-label-subtext">
+                Short description of your organization.
+              </span>
+              <textarea
+                v-model="form.description"
+                :class="{ 'is-invalid': form.errors.has('description') }"
+                class="form-textarea mt-1"
+                rows="3"
+              />
+              <has-error :form="form" field="description" />
+            </label>
+            <label class="block">
+              <span class="form-label">Home Domain</span>
+              <span class="form-label-subtext">
+                Your organization's official URL. If omitted a subdomain of
+                astrify.com matching the organization's alias will be
+                used instead.
+              </span>
+              <input
+                v-model="form.custom_url"
+                :class="{ 'is-invalid': form.errors.has('custom_url') }"
+                type="text"
+                name="custom_url"
+                class="form-input mt-1"
+              >
+              <has-error :form="form" field="custom_url" />
+            </label>
+            <label class="block">
+              <span class="form-label">DBA</span>
+              <span class="form-label-subtext">
+                The operating name of the organization (if different from the given name).
+              </span>
+              <input
+                v-model="form.dba"
+                :class="{ 'is-invalid': form.errors.has('dba') }"
+                type="text"
+                name="dba"
+                class="form-input mt-1"
+              >
+              <has-error :form="form" field="dba" />
+            </label>
+          </template>
         </form>
       </div>
       <div slot="actions">
@@ -75,7 +127,10 @@ export default {
     modal: false,
     form: new Form({
       name: null,
-      alias: null
+      alias: null,
+      custom_url: null,
+      dba: null,
+      description: null
     })
   }),
   computed: {
@@ -88,6 +143,9 @@ export default {
       if (this.modal && this.action === 'update') {
         this.form.name = this.organization.name
         this.form.alias = this.organization.alias
+        this.form.custom_url = this.organization.custom_url
+        this.form.dba = this.organization.dba
+        this.form.description = this.organization.description
       }
     }
   },

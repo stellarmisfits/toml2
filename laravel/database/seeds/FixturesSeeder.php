@@ -77,7 +77,6 @@ class FixturesSeeder extends Seeder
             // begin sep-0001 documentation properties
             'name'                  => 'Lotto\' Gelato, Inc.',
             'dba'                   => 'Lotto\' Gelato',
-            'url'                   => 'lottogelato.com',
             'description'           => 'At Lotto Gelato we\'re serving up huge portions of our famous gelato flavors. Our scoops are so big when you see them you can\'t help but say "WOW! That\'s a Lotto\' Gelato!"',
             'address'               => '{"suggestion": {"value": "2800 East Observatory Road, Los Angeles, California, United States of America"}}',
             'address_attestation'   => 'https://www.corp.att.com/newbill/images/standard-thumbnail.png',
@@ -139,7 +138,7 @@ class FixturesSeeder extends Seeder
         $org = factory(Organization::class)->create([
             'name'                  => 'Tunnel Tusk, Ltd',
             'dba'                   => 'Tunnel Tusk',
-            'url'                   => 'tunneltusk.com',
+            'custom_url'            => 'tunneltusk.com',
             'slug'                  => 'tunneltusk',
             'description'           => 'Secure VPN service provider',
             'physical'              => '{"suggestion": {"value": "611 Folsom Street in San Francisco, California, United States of America"}}',

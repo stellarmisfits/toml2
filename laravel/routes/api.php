@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('organizations/{organization}/toml', 'TomlController@show')->name('organizations.toml');
         Route::post('organizations/{organization}/link', 'LinkResourceController@store')->name('organizations.link');
         Route::delete('organizations/{organization}/link', 'LinkResourceController@destroy')->name('organizations.unlink');
+        Route::post('organizations/{organization}/publish', 'PublishController@store')->name('organizations.publish');
+        Route::delete('organizations/{organization}/publish', 'PublishController@destroy')->name('organizations.unpublish');
     });
 
     Route::group(['namespace' => 'Principal'], function () {

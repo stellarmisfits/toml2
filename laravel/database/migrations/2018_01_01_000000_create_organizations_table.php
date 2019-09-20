@@ -19,6 +19,7 @@ class CreateOrganizationsTable extends Migration
             $table->boolean('published')->default(false);
             $table->unsignedBigInteger('team_id')->index();
             $table->string('alias', 15)->unique()->index();
+            $table->string('custom_url')->nullable();
 
             // begin sep-0001 properties
             // https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#account-information
@@ -35,7 +36,7 @@ class CreateOrganizationsTable extends Migration
             // https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#issuer-documentation
             $table->string('name');
             $table->string('dba')->nullable();
-            $table->string('url')->nullable();
+            // $table->string('url')->nullable(); Either $slug . '.astrify.com' or custom_url defined above.
             $table->string('logo')->nullable();
             $table->string('description')->nullable();
             $table->jsonb('address')->nullable();

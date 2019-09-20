@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="px-12 py-8 mx-auto">
+    <div class="py-8 mx-auto">
       <div class="mt-4">
         <asset :asset="asset" action="edit" />
       </div>
     </div>
-    <div class="px-12 py-8 mx-auto">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -20,7 +20,7 @@
         <asset-metrics :asset="asset" />
       </div>
     </div>
-    <div class="px-12 py-8 mx-auto">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -51,7 +51,7 @@
         </a-well>
       </div>
     </div>
-    <div class="px-12 py-8 mx-auto">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">

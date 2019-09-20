@@ -19,6 +19,8 @@ class Organization extends JsonResource
             'uuid'                          => $this->uuid,
             'published'                     => $this->published,
             'alias'                         => $this->alias,
+            'custom_url'                    => $this->custom_url,
+            'hosted_url'                    => $this->hosted_url,
 
             // begin sep-0001 global properties
             'federation_server'             => $this->federation_server,

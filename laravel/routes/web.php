@@ -17,6 +17,10 @@ Route::get('/clear', function () {
 
 Route::get('/toml/{key}/.well-known/stellar.toml', 'TomlController@show');
 
+Route::group(['domain' => '{slug}.' . parse_url(config('app.url'))['host']], function() {
+    Route::get('/.well-known/stellar.toml', 'TomlController@show');
+});
+
 Route::get('{path}', function () {
     return view('index');
 })->where('path', '^(?!api).*');

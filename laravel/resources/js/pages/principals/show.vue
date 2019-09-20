@@ -12,7 +12,7 @@
         resource-type="PRINCIPAL"
       />
     </a-breadcrumbs>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="py-8 mx-auto max-w-4xl">
       <transition name="fade" mode="out-in">
         <router-view :principal="principal" />
       </transition>

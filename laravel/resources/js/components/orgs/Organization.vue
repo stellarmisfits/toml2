@@ -18,15 +18,12 @@
     <div slot="body">
       <div class="flex items-center spaced-x-1">
         <h4 class="font-semibold text-lg leading-tight truncate">
-          {{ org.name }} <template v-if="org.dba">
+          {{ org.name }} <span v-if="org.dba" class="font-normal text-base">
             ({{ org.dba }})
-          </template>
+          </span>
         </h4>
-        <a-pill class="ml-2" color="blue">
-          <span>{{ (org.published) ? 'Published' : 'Not Published' }}</span>
-        </a-pill>
       </div>
-      <div class="mt-1">
+      <div class="text-sm">
         {{ org.alias }}
       </div>
       <div class="mt-1">
@@ -41,11 +38,15 @@
         :org="org"
         @organizationUnlinked="$emit('organizationUnlinked', $event)"
       />
-      <edit-organization
-        v-if="action==='edit'"
-        :organization="org"
-        action="update"
-      />
+      <div v-if="action==='edit'" class="flex items-center">
+        <a-pill class="mr-2" color="blue">
+          <span>{{ (org.published) ? 'Published' : 'Not Published' }}</span>
+        </a-pill>
+        <edit-organization
+          :organization="org"
+          action="update"
+        />
+      </div>
       <router-link
         v-if="action==='navigate'"
         :to="{ name: 'org.details', params: { uuid: org.uuid }}"
@@ -54,8 +55,20 @@
       </router-link>
     </div>
     <div v-if="action==='edit'" slot="details">
-      <div class="mt-2">
-        {{ org.url }}
+      <div class="pb-6">
+        <span class="form-label">Official URL</span>
+        <span class="form-label-subtext">
+          Note that the organization's stellar.toml must be hosted on this domain.
+        </span>
+        <span class="block mt-2">
+          {{ org.url }}
+        </span>
+      </div>
+      <div>
+        <organization-url
+          :key="org.uuid + org.published"
+          :organization="org"
+        />
       </div>
     </div>
   </a-list-item>
@@ -65,12 +78,14 @@ import EditOrganization from '~/components/orgs/Upsert'
 import Unlink from '~/components/orgs/OrganizationUnlink'
 import ImageAdd from '~/components/ImageAdd'
 import ImageRemove from '~/components/ImageRemove'
+import OrganizationUrl from '~/components/orgs/Published'
 export default {
   components: {
     Unlink,
     EditOrganization,
     ImageAdd,
-    ImageRemove
+    ImageRemove,
+    OrganizationUrl
   },
   props: {
     org: { type: Object, required: true },

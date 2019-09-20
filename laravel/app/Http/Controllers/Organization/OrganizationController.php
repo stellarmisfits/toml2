@@ -49,7 +49,7 @@ class OrganizationController extends Controller
     public function store(Request $request, OrganizationRepository $or): OrganizationResource
     {
         $data = $request->validate([
-            'name'         => 'required|string|max:50',
+            'name'         => ['required', 'string', 'min:3', 'max:23'],
             'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:organizations',
         ]);
 
@@ -81,8 +81,11 @@ class OrganizationController extends Controller
     public function update(Request $request, Organization $organization): OrganizationResource
     {
         $data = $request->validate([
-            'name'       => ['required', 'string', 'max:20'],
-            'alias'      => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('organizations', 'alias')->ignore($organization->id)],
+            'name'          => ['required', 'string', 'min:3', 'max:23'],
+            'alias'         => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('organizations', 'alias')->ignore($organization->id)],
+            'custom_url'    => ['nullable', 'url', 'max:255'],
+            'description'   => ['nullable', 'string', 'max:255'],
+            'dba'           => ['nullable', 'string', 'max:50'],
         ]);
 
         $organization->update($data);

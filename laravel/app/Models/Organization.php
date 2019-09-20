@@ -21,6 +21,7 @@ class Organization extends BaseModel implements HasMedia
     // use HasMediaTrait;
 
     protected $casts = [
+        'published' => 'boolean',
         'physical_address' => 'array',
         'phone_number' => 'array'
     ];
@@ -34,8 +35,8 @@ class Organization extends BaseModel implements HasMedia
         'name',
         'alias',
         'description',
-        'details',
-        'url',
+        'dba',
+        'custom_url',
         'official_email',
         'phone_number',
         'physical_address'
@@ -86,6 +87,35 @@ class Organization extends BaseModel implements HasMedia
     public function getResourceAttribute(): OrganizationResource
     {
         return new OrganizationResource($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrlAttribute(): string
+    {
+        if($this->custom_url){
+            return $this->custom_url;
+        }
+
+        return $this->hosted_url;
+
+        return $url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostedUrlAttribute(): string
+    {
+        $appUrl = parse_url(config('app.url'));
+        $url = $this->alias . '.' . $appUrl['host'];
+
+        if(!empty($appUrl['port'])){
+            $url = $url . ':' . $appUrl['port'];
+        }
+
+        return $url;
     }
 
     /*
