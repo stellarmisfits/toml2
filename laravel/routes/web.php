@@ -15,7 +15,10 @@ Route::get('/clear', function () {
     return (string) opcache_reset();
 });
 
-Route::get('/toml/{key}/.well-known/stellar.toml', 'TomlController@show');
+Route::group(['middleware' => 'cors'], function () {
+    Route::get('federation', 'FederationController@index')->name('federation');
+    Route::get('/toml/{key}/.well-known/stellar.toml', 'TomlController@show')->name('toml');
+});
 
 Route::group(['domain' => '{slug}.' . parse_url(config('app.url'))['host']], function() {
     Route::get('/.well-known/stellar.toml', 'TomlController@show');
