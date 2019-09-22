@@ -11,6 +11,8 @@ use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use App\Http\Resources\Asset as AssetResource;
+use App\Models\Traits\BelongsToTeam;
+use App\Models\Traits\HasOrganizations;
 
 class Asset extends BaseModel implements HasMedia
 {

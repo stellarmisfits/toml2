@@ -42,7 +42,8 @@ class ImageController extends Controller
              [
                  'collection.in' => 'The :attribute must be equal to \'logo\'',
                  'model_type.in' => 'The :attribute must be one of \'organization\' or \'asset\'',
-             ]);
+             ]
+         );
 
         switch ($model_type) {
             case 'organization':
@@ -88,7 +89,8 @@ class ImageController extends Controller
             [
                 'collection.in' => 'The :attribute must be equal to \'logo\'',
                 'model_type.in' => 'The :attribute must be one of \'organization\' or \'asset\'',
-            ]);
+            ]
+        );
 
         switch ($model_type) {
             case 'organization':

@@ -26,9 +26,9 @@ class PublicKey implements Rule
      */
     public function passes($attribute, $value)
     {
-        try{
+        try {
             Keypair::newFromPublicKey($value);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return false;
         }
 

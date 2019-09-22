@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\CanJoinTeams;
 use App\Notifications\VerifyEmail;
 use App\Notifications\ResetPassword;
 use Dyrynda\Database\Support\GeneratesUuid;

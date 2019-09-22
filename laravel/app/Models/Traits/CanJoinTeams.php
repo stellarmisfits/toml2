@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Traits;
 
 use InvalidArgumentException;
+use App\Models\Team;
 
 trait CanJoinTeams
 {

@@ -28,6 +28,6 @@ class FederationControllerTest extends TestCase
         $this->get(route('federation', [
             'q' => $account->alias,
             'type' => 'name'
-        ]))->dump()->assertStatus(200);
+        ]))->assertStatus(200);
     }
 }

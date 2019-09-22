@@ -18,7 +18,7 @@ class AccountPolicy
      */
     public function before($user, $ability)
     {
-        if($user->email === 'admin@astrify.com'){
+        if ($user->email === 'admin@astrify.com') {
             return true;
         }
     }
@@ -56,7 +56,7 @@ class AccountPolicy
      */
     public function update(User $user, Account $account)
     {
-        if($user->email === 'admin@astrify.com'){
+        if ($user->email === 'admin@astrify.com') {
             return true;
         }
 
@@ -72,7 +72,7 @@ class AccountPolicy
      */
     public function delete(User $user, Account $account)
     {
-        if($user->email === 'admin@astrify.com'){
+        if ($user->email === 'admin@astrify.com') {
             return true;
         }
 

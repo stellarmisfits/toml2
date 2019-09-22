@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\BelongsToTeam;
+use App\Models\Traits\HasOrganizations;
 
 class Principal extends BaseModel
 {
-    Use BelongsToTeam, HasOrganizations;
+    use BelongsToTeam, HasOrganizations;
 
     /**
      * The attributes that are mass assignable.

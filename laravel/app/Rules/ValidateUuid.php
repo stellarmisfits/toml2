@@ -29,7 +29,7 @@ class ValidateUuid implements Rule
             return false;
         }
 
-        if (36 !== strlen($value)){
+        if (36 !== strlen($value)) {
             return false;
         }
 

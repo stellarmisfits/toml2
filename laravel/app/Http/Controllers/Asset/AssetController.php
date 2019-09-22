@@ -54,7 +54,7 @@ class AssetController extends Controller
             'account_uuid'          =>  ['required', new ValidateUuid, 'exists:accounts,uuid'],
         ]);
 
-        $asset = $ar->create(auth()->user(),  $data);
+        $asset = $ar->create(auth()->user(), $data);
 
         return new AssetResource($asset);
     }

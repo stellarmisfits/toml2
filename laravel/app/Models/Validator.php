@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Traits\BelongsToTeam;
+use App\Models\Traits\HasOrganizations;
 
 class Validator extends BaseModel
 {
-    Use BelongsToTeam, HasOrganizations;
+    use BelongsToTeam, HasOrganizations;
 
     /**
      * The attributes that are mass assignable.

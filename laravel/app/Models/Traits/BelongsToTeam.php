@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Team;
 
 trait BelongsToTeam
 {

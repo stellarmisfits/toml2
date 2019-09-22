@@ -94,7 +94,7 @@ class Organization extends BaseModel implements HasMedia
      */
     public function getUrlAttribute(): string
     {
-        if($this->custom_url){
+        if ($this->custom_url) {
             return $this->custom_url;
         }
 
@@ -111,7 +111,7 @@ class Organization extends BaseModel implements HasMedia
         $appUrl = parse_url(config('app.url'));
         $url = $this->alias . '.' . $appUrl['host'];
 
-        if(!empty($appUrl['port'])){
+        if (!empty($appUrl['port'])) {
             $url = $url . ':' . $appUrl['port'];
         }
 
@@ -205,18 +205,18 @@ class Organization extends BaseModel implements HasMedia
         string $resource_uuid = null,
         string $resource_type = null,
         string $resource_query = null
-    ){
+    ) {
         if ($resource_uuid && $resource_type && $resource_query) {
             $types = ['assets', 'accounts', 'principals', 'validators'];
             throw_unless(in_array($resource_type, $types), new \LogicException('Incorrect resource_type'));
 
-            if($resource_query ==='linked'){
+            if ($resource_query ==='linked') {
                 $query->whereHas($resource_type, function ($query) use ($resource_uuid, $resource_type) {
                     $query->where($resource_type . '.uuid', $resource_uuid);
                 });
             }
 
-            if($resource_query ==='unlinked'){
+            if ($resource_query ==='unlinked') {
                 $query->whereDoesntHave($resource_type, function ($query) use ($resource_uuid, $resource_type) {
                     $query->where($resource_type . '.uuid', $resource_uuid);
                 });

@@ -53,7 +53,7 @@ class OrganizationController extends Controller
             'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:organizations',
         ]);
 
-        $org = $or->create(auth()->user(),  $data);
+        $org = $or->create(auth()->user(), $data);
 
         return new OrganizationResource($org);
     }
