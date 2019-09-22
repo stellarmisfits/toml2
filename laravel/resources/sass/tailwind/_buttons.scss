@@ -26,9 +26,9 @@
 }
 
 .btn-primary {
-  @apply text-white bg-purple-600;
+  @apply text-white bg-blue-800;
   &:hover {
-    @apply bg-transparent bg-purple-700;
+    @apply bg-transparent bg-gray-600;
   }
 }
 

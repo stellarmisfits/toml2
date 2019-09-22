@@ -1,54 +1,35 @@
 <template>
-  <div class="container mx-auto flex justify-center items-center">
-    <tw-card class="max-w-md" :title="$t('reset_password')">
-      <form @submit.prevent="send" @keydown="form.onKeydown($event)">
-        <alert-success :form="form" :message="status" />
-
-        <!-- Email -->
-        <div class="mt-4">
-          <label class="uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
-            {{ $t('email') }}
-          </label>
-          <input id="email" v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-input mt-2 mb-4 w-full" type="email" name="email">
-          <has-error :form="form" field="email" />
-        </div>
-
-        <!-- Submit Button -->
-        <div class="mt-4">
-          <tw-button :loading="form.busy">
-            {{ $t('send_password_reset_link') }}
-          </tw-button>
-        </div>
-      </form>
-    </tw-card>
+  <div class="min-h-screen flex flex-col justify-center items-center bg-gray-200">
+    <router-link :to="{ name: 'dashboard' }">
+      <a-logo class="h-24 w-24 text-blue-800 hover:text-gray-600" />
+    </router-link>
+    <a-well class="mt-6 w-96">
+      <email class="px-6 py-6 max-w-md" />
+    </a-well>
   </div>
 </template>
 
 <script>
-import Form from 'vform'
+import Email from '~/components/auth/Email'
 
 export default {
+  layout: 'auth',
   middleware: 'guest',
 
   metaInfo () {
     return { title: this.$t('reset_password') }
   },
 
+  components: {
+    Email
+  },
+
   data: () => ({
-    status: '',
-    form: new Form({
-      email: ''
-    })
+    //
   }),
 
   methods: {
-    async send () {
-      const { data } = await this.form.post('/api/password/email')
-
-      this.status = data.status
-
-      this.form.reset()
-    }
+    //
   }
 }
 </script>

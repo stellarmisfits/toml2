@@ -30,6 +30,7 @@
         <ValidatorList
           :validators="validators"
           empty-message="No validators have been added to your current team."
+          action="navigate"
         />
       </div>
     </div>

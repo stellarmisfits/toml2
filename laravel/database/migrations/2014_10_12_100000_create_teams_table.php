@@ -18,7 +18,7 @@ class CreateTeamsTable extends Migration
             $table->unsignedBigInteger('owner_id')->index();
             $table->uuid('uuid')->index();
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users');

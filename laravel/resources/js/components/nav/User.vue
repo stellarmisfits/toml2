@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Dropdown>
+    <Dropdown v-if="user">
       <span slot="link" class="flex items-center">
         <img :src="user.photo_url" class="h-8 w-8 rounded-full">
         <span class="ml-3">

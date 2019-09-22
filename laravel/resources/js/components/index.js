@@ -13,6 +13,7 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
 import TwCard from './TwCard'
 import TwCheckbox from './TwCheckbox'
 import Well from './Well'
+import Logo from './Logo'
 
 // Components that are registered globaly.
 [
@@ -23,6 +24,7 @@ import Well from './Well'
   Child,
   Modal,
   Button,
+  Logo,
   Dropdown,
   EmptyList,
   ListItem,

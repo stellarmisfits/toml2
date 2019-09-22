@@ -10,14 +10,22 @@ class RegisterTest extends TestCase
     /** @test */
     public function canRegister()
     {
+        $user = factory(User::class)->make();
+
         $this->postJson('/api/register', [
             'name' => 'Test User',
-            'email' => 'test@test.app',
+            'email' => $user->email,
             'password' => 'secret',
             'password_confirmation' => 'secret',
         ])
         ->assertSuccessful()
         ->assertJsonStructure(['uuid', 'name', 'email']);
+
+        $user = User::where('email', $user->email)->firstOrFail();
+
+        $this->assertDatabaseHas('teams', [
+            'owner_id' => $user->id
+        ]);
     }
 
     /** @test */

@@ -44,6 +44,13 @@ services:
       - "8000:80"
       - "8001:81"
 
+    mailhog:
+      container_name: astrify-mailhog
+      image: mailhog/mailhog:latest
+      ports:
+        - "8025:8025"
+        - "1025:1025"
+
     #/
     #|--------------------------------------------------------------------------
     #| Applications
@@ -59,6 +66,7 @@ services:
        APP_MODE: api
        DB_HOST: astrify-mysql
        REDIS_HOST: astrify-redis
+       MAIL_HOST: astrify-mailhog
       working_dir: /var/www
       volumes:
        - ./laravel:/var/www
