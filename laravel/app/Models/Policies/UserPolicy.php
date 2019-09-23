@@ -10,6 +10,19 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can view the validator.
+     *
+     * @param  User  $user
+     * @return bool
+     */
+    public function before($user)
+    {
+        if ($user->email === 'admin@astrify.com') {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
@@ -17,7 +30,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return false;
     }
 
     /**
@@ -29,7 +42,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return $user->is($model);
     }
 
     /**
@@ -40,7 +53,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
     /**
@@ -52,7 +65,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        //
+        return $user->is($model);
     }
 
     /**
@@ -64,7 +77,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        return false;
     }
 
     /**
@@ -76,7 +89,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        return false;
     }
 
     /**
@@ -88,7 +101,7 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        return false;
     }
 
     /**

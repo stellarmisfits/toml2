@@ -23,10 +23,11 @@ class ValidatorControllerTest extends TestCase
     {
         $validator1 = $this->seeder->seedValidator();
         $user = $this->seeder->seedUserWithTeam($validator1->team);
-        $this->actingAs($user);
 
         $this->assertEquals($validator1->team->id, $user->currentTeam()->id);
         $validator2= $this->seeder->seedValidator();
+
+        $this->actingAs($user);
 
         $this->getJson(route('validators.index'))
             ->assertStatus(200)

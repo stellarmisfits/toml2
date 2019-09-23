@@ -23,10 +23,11 @@ class AccountControllerTest extends TestCase
         $account1 = $this->seeder->seedAccount();
         $user = $this->seeder->seedUserWithTeam($account1->team);
         $org = $this->seeder->seedOrganization($account1->team);
-        $this->actingAs($user);
 
         $this->assertEquals($account1->team->id, $user->currentTeam()->id);
         $account2 = $this->seeder->seedAccount();
+
+        $this->actingAs($user);
 
         $this->getJson(route('accounts.index', ['uninked_organization_uuid' => $org->uuid]))
             ->assertStatus(200)

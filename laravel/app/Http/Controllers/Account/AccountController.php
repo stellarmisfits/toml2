@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Models\Organization;
 use App\Repositories\AccountRepository;
 use App\Rules\PublicKey;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -23,9 +24,12 @@ class AccountController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return AnonymousResourceCollection
+     * @throws AuthorizationException
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Account::class);
+
         $request->validate([
             'public_key'                    => ['nullable', 'string', 'size:56', new PublicKey],
             'linked_organization_uuid'      => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
@@ -50,10 +54,12 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  AccountRepository  $ac
      * @return AccountResource
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function store(Request $request, AccountRepository $ac): AccountResource
     {
+        $this->authorize('create', Account::class);
+
         $data = $request->validate([
             'name'         =>  'required|string|max:50',
             'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
@@ -70,10 +76,11 @@ class AccountController extends Controller
      *
      * @param  Account  $account
      * @return AccountResource
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function show(Account $account): AccountResource
     {
+        $this->authorize('view', $account);
         return new AccountResource($account);
     }
 
@@ -83,9 +90,12 @@ class AccountController extends Controller
      * @param  Request  $request
      * @param  Account  $account
      * @return AccountResource
+     * @throws AuthorizationException
      */
     public function update(Request $request, Account $account): AccountResource
     {
+        $this->authorize('update', $account);
+
         $data = $request->validate([
             'name'         =>  'required|string|max:50',
             'alias'        => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('accounts', 'alias')->ignore($account->id)],
@@ -102,10 +112,12 @@ class AccountController extends Controller
      *
      * @param  Account  $account
      * @return \Illuminate\Http\Response
-     * @throws
+     * @throws AuthorizationException
      */
     public function destroy(Account $account)
     {
+        $this->authorize('delete', $account);
+
         \DB::transaction(function () use ($account) {
             $account->organizations()->detach();
             $account->delete();

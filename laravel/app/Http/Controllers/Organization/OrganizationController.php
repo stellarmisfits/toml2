@@ -6,6 +6,7 @@ use App\Http\Resources\Organization as OrganizationResource;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
 use App\Rules\ValidateUuid;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -63,7 +64,7 @@ class OrganizationController extends Controller
      *
      * @param  Organization  $organization
      * @return OrganizationResource
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function show(Organization $organization): OrganizationResource
     {
@@ -77,9 +78,12 @@ class OrganizationController extends Controller
      * @param  Request  $request
      * @param  Organization $organization
      * @return  OrganizationResource
+     * @throws AuthorizationException
      */
     public function update(Request $request, Organization $organization): OrganizationResource
     {
+        $this->authorize('update', $organization);
+
         $data = $request->validate([
             'name'          => ['required', 'string', 'min:3', 'max:23'],
             'alias'         => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('organizations', 'alias')->ignore($organization->id)],
@@ -98,10 +102,12 @@ class OrganizationController extends Controller
      *
      * @param  Organization  $organization
      * @return \Illuminate\Http\Response
-     * @throws
+     * @throws AuthorizationException
      */
     public function destroy(Organization $organization)
     {
+        $this->authorize('delete', $organization);
+
         \DB::transaction(function () use ($organization) {
             $organization->accounts()->detach();
             $organization->assets()->detach();

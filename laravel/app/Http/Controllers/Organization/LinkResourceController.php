@@ -9,8 +9,10 @@ use App\Models\Principal;
 use App\Models\Validator;
 use App\Repositories\OrganizationRepository;
 use App\Rules\ValidateUuid;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class LinkResourceController extends Controller
 {
@@ -18,12 +20,15 @@ class LinkResourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  Organization $organization
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function store(Request $request, Organization $organization)
     {
+        $this->authorize('update', $organization);
+
         $request->validate([
             'resource_uuid'     =>  ['required', new ValidateUuid],
             'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
@@ -34,18 +39,22 @@ class LinkResourceController extends Controller
         switch ($request->resource_type) {
             case 'account':
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $account);
                 $or->addAccount($organization, $account);
                 break;
             case 'asset':
                 $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $asset);
                 $or->addAsset($organization, $asset);
                 break;
             case 'principal':
                 $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $principal);
                 $or->addPrincipal($organization, $principal);
                 break;
             case 'validator':
                 $validator = (new Validator())->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $validator);
                 $or->addValidator($organization, $validator);
                 break;
         }
@@ -56,12 +65,15 @@ class LinkResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  Organization $organization
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Request $request, Organization $organization)
     {
+        $this->authorize('update', $organization);
+
         $request->validate([
             'resource_uuid'     =>  ['required', new ValidateUuid],
             'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
@@ -70,18 +82,22 @@ class LinkResourceController extends Controller
         switch ($request->resource_type) {
             case 'account':
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $account);
                 $organization->accounts()->detach($account->id);
                 break;
             case 'asset':
                 $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $asset);
                 $organization->assets()->detach($asset->id);
                 break;
             case 'principal':
                 $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $principal);
                 $organization->principals()->detach($principal->id);
                 break;
             case 'validator':
                 $validator = (new Validator())->whereUuid($request->resource_uuid)->firstOrFail();
+                $this->authorize('update', $validator);
                 $organization->validators()->detach($validator->id);
                 break;
         }

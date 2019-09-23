@@ -22,10 +22,11 @@ class AssetControllerTest extends TestCase
     {
         $asset1 = $this->seeder->seedAsset();
         $user = $this->seeder->seedUserWithTeam($asset1->team);
-        $this->actingAs($user);
 
         $this->assertEquals($asset1->team->id, $user->currentTeam()->id);
         $asset2 = $this->seeder->seedAsset();
+
+        $this->actingAs($user);
 
         $this->getJson(route('assets.index'))
             ->assertStatus(200)

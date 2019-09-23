@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\BelongsToTeam;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -16,7 +17,7 @@ use Spatie\Image\Manipulations;
 
 class Organization extends BaseModel implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, BelongsToTeam;
 
     // use HasMediaTrait;
 
@@ -125,14 +126,6 @@ class Organization extends BaseModel implements HasMedia
     |
     |
     */
-
-    /**
-     * Get the team that owns the validator.
-     */
-    public function team()
-    {
-        return $this->belongsTo(Team::class, 'team_id');
-    }
 
     /**
      * Organization->Users relationship

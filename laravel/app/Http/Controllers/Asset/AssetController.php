@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Asset;
 use App\Repositories\AssetRepository;
 use App\Rules\ValidateUuid;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Asset as AssetResource;
@@ -17,9 +18,12 @@ class AssetController extends Controller
      * Display a listing of the resource.
      *
      * @return AnonymousResourceCollection
+     * @throws AuthorizationException
      */
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Asset::class);
+
         $request->validate([
             'account_uuid'                  => ['nullable', new ValidateUuid, 'exists:accounts,uuid'],
             'linked_organization_uuid'      => ['nullable', new ValidateUuid, 'exists:organizations,uuid'],
@@ -44,9 +48,12 @@ class AssetController extends Controller
      * @param  Request  $request
      * @param  AssetRepository  $ar
      * @return AssetResource
+     * @throws AuthorizationException
      */
     public function store(Request $request, AssetRepository $ar)
     {
+        $this->authorize('create', Asset::class);
+
         $data = $request->validate([
             'name'                  =>  ['required', 'string', 'max:20'],
             'code'                  =>  ['required', 'string', 'max:12'],
@@ -63,10 +70,12 @@ class AssetController extends Controller
      * Display the specified resource.
      *
      * @param  Asset  $asset
-     * @return \Illuminate\Http\Response
+     * @return AssetResource
+     * @throws AuthorizationException
      */
     public function show(Asset $asset)
     {
+        $this->authorize('view', $asset);
         return new AssetResource($asset);
     }
 
@@ -76,9 +85,12 @@ class AssetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  Asset $asset
      * @return  AssetResource
+     * @throws AuthorizationException
      */
     public function update(Request $request, Asset $asset)
     {
+        $this->authorize('update', $asset);
+
         $data = $request->validate([
             'name'                  =>  ['required', 'string', 'max:20'],
             'code'                  =>  ['required', 'string', 'max:12'],
@@ -98,10 +110,12 @@ class AssetController extends Controller
      *
      * @param  Asset  $asset
      * @return \Illuminate\Http\Response
-     * @throws
+     * @throws AuthorizationException
      */
     public function destroy(Asset $asset)
     {
+        $this->authorize('delete', $asset);
+
         \DB::transaction(function () use ($asset) {
             $asset->organizations()->detach();
             $asset->delete();

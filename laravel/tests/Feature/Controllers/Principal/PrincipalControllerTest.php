@@ -20,10 +20,11 @@ class PrincipalControllerTest extends TestCase
     {
         $principal1 = $this->seeder->seedPrincipal();
         $user = $this->seeder->seedUserWithTeam($principal1->team);
-        $this->actingAs($user);
 
         $this->assertEquals($principal1->team->id, $user->currentTeam()->id);
         $principal2= $this->seeder->seedPrincipal();
+
+        $this->actingAs($user);
 
         $this->getJson(route('principals.index'))
             ->assertStatus(200)

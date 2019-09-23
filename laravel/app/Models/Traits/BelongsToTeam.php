@@ -2,12 +2,30 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Observers\TeamIdObserver;
+use App\Models\Scopes\TeamForeignKeyScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Team;
 
 trait BelongsToTeam
 {
+
+    public static function bootBelongsToTeam()
+    {
+        // limits writes
+        $class = get_called_class();
+        $class::observe(new TeamIdObserver());
+
+        // limits reads
+        static::addGlobalScope(new TeamForeignKeyScope());
+    }
+
+    public function getCasts(){
+        $casts = parent::getCasts();
+        return array_unique(array_merge($casts, ['team_id' => 'integer']));
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Accessors & Mutators

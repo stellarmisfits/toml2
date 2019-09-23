@@ -13,7 +13,9 @@ class Account extends BaseModel
 {
     use BelongsToTeam, HasOrganizations;
 
-    protected $casts = ['verified' => 'boolean'];
+    protected $casts = [
+        'verified' => 'boolean'
+    ];
 
     protected $fillable = [
         'name',

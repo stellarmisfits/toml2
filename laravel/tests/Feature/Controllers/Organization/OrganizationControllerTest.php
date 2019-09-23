@@ -19,11 +19,11 @@ class OrganizationControllerTest extends TestCase
     {
         $org1 = $this->seeder->seedOrganization();
         $user = $this->seeder->seedUserWithTeam($org1->team);
-        $this->actingAs($user);
 
         $this->assertEquals($org1->team->id, $user->currentTeam()->id);
-
         $org2 = $this->seeder->seedOrganization();
+
+        $this->actingAs($user);
 
         $this->getJson(route('organizations.index'))
             ->assertStatus(200)

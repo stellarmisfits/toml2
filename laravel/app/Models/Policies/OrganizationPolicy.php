@@ -3,12 +3,25 @@
 namespace App\Models\Policies;
 
 use App\Models\User;
-use App\ModelsOrganization;
+use App\Models\Organization;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrganizationPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view the organization.
+     *
+     * @param  User  $user
+     * @return bool
+     */
+    public function before($user)
+    {
+        if ($user->email === 'admin@astrify.com') {
+            return true;
+        }
+    }
 
     /**
      * Determine whether the user can view any models organizations.
@@ -18,77 +31,53 @@ class OrganizationPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return (bool) $user->currentTeam();
     }
 
     /**
-     * Determine whether the user can view the models organization.
+     * Determine whether the user can view the organization.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\ModelsOrganization  $modelsOrganization
+     * @param  User  $user
+     * @param  Organization  $organization
      * @return mixed
      */
-    public function view(User $user, ModelsOrganization $modelsOrganization)
+    public function view(User $user, Organization $organization)
     {
-        //
+        return $organization->team_id === $user->currentTeam()->id;
     }
 
     /**
-     * Determine whether the user can create models organizations.
+     * Determine whether the user can create organizations.
      *
-     * @param  \App\Models\User  $user
+     * @param  User  $user
      * @return mixed
      */
     public function create(User $user)
     {
-        //
+        return request()->input('team_id') === $user->currentTeam()->id;
     }
 
     /**
-     * Determine whether the user can update the models organization.
+     * Determine whether the user can update the organization.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\ModelsOrganization  $modelsOrganization
+     * @param  User $user
+     * @param  Organization  $organization
      * @return mixed
      */
-    public function update(User $user, ModelsOrganization $modelsOrganization)
+    public function update(User $user, Organization $organization)
     {
-        //
+        return $user->currentTeam()->id === $organization->team_id;
     }
 
     /**
-     * Determine whether the user can delete the models organization.
+     * Determine whether the user can delete the organization.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\ModelsOrganization  $modelsOrganization
+     * @param  User  $user
+     * @param  Organization  $organization
      * @return mixed
      */
-    public function delete(User $user, ModelsOrganization $modelsOrganization)
+    public function delete(User $user, Organization $organization)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the models organization.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\ModelsOrganization  $modelsOrganization
-     * @return mixed
-     */
-    public function restore(User $user, ModelsOrganization $modelsOrganization)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the models organization.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\ModelsOrganization  $modelsOrganization
-     * @return mixed
-     */
-    public function forceDelete(User $user, ModelsOrganization $modelsOrganization)
-    {
-        //
+        return $user->currentTeam()->id === $organization->team_id;
     }
 }

@@ -3,15 +3,15 @@
 namespace App\Models\Policies;
 
 use App\Models\User;
-use App\Models\Account;
+use App\Models\Asset;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AccountPolicy
+class AssetPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the account.
+     * Determine whether the user can view the asset.
      *
      * @param  User  $user
      * @return bool
@@ -35,19 +35,19 @@ class AccountPolicy
     }
 
     /**
-     * Determine whether the user can view the account.
+     * Determine whether the user can view the asset.
      *
      * @param  User  $user
-     * @param  Account  $account
+     * @param  Asset  $asset
      * @return mixed
      */
-    public function view(User $user, Account $account)
+    public function view(User $user, Asset $asset)
     {
-        return $account->team_id === $user->currentTeam()->id;
+        return $asset->team_id === $user->currentTeam()->id;
     }
 
     /**
-     * Determine whether the user can create accounts.
+     * Determine whether the user can create assets.
      *
      * @param  User  $user
      * @return mixed
@@ -58,26 +58,26 @@ class AccountPolicy
     }
 
     /**
-     * Determine whether the user can update the account.
+     * Determine whether the user can update the asset.
      *
      * @param  User $user
-     * @param  Account  $account
+     * @param  Asset  $asset
      * @return mixed
      */
-    public function update(User $user, Account $account)
+    public function update(User $user, Asset $asset)
     {
-        return $user->currentTeam()->id === $account->team_id;
+        return $user->currentTeam()->id === $asset->team_id;
     }
 
     /**
-     * Determine whether the user can delete the account.
+     * Determine whether the user can delete the asset.
      *
      * @param  User  $user
-     * @param  Account  $account
+     * @param  Asset  $asset
      * @return mixed
      */
-    public function delete(User $user, Account $account)
+    public function delete(User $user, Asset $asset)
     {
-        return $user->currentTeam()->id === $account->team_id;
+        return $user->currentTeam()->id === $asset->team_id;
     }
 }
