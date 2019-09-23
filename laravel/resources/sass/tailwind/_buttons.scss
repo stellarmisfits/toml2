@@ -11,6 +11,13 @@
   }
 }
 
+.btn-flat{
+  @apply px-4 py-2 text-sm rounded tracking-widest font-semibold uppercase ;
+  &:hover{
+    @apply bg-gray-200;
+  }
+}
+
 .btn-sm {
   @apply px-2 py-1 text-xs;
 }
@@ -26,7 +33,7 @@
 }
 
 .btn-primary {
-  @apply text-white bg-blue-800;
+  @apply text-blue-100 bg-blue-800;
   &:hover {
     @apply bg-transparent bg-gray-600;
   }

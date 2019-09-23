@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col justify-center items-center bg-gray-200">
-    <router-link :to="{ name: 'dashboard' }">
+    <router-link :to="{ name: 'welcome' }">
       <a-logo class="h-24 w-24 text-blue-800 hover:text-gray-600" />
     </router-link>
     <a-well class="mt-6">

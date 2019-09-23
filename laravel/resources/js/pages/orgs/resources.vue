@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <div class="mx-auto">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
@@ -96,7 +96,7 @@
       </div>
     </div>
 
-    <div class="mx-auto">
+    <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">

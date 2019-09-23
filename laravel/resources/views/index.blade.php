@@ -15,7 +15,11 @@ $config = [
 
   <title>{{ config('app.name') }}</title>
 
-  <link rel="stylesheet" href="{{ asset(mix('dist/css/app.css')) }}">
+  @if (app()->environment('local'))
+    <link href="{{ mix('dist/css/app.css') }}" rel="stylesheet">
+  @else
+    <link href="{{ asset('dist/css/app.css') }}" rel="stylesheet">
+  @endif
 </head>
 <body class="font-sans font-sans text-gray-900 antialiased">
   <div id="app" />
@@ -25,6 +29,10 @@ $config = [
   </script>
 
   {{-- Load the application scripts --}}
-  <script src="{{ asset(mix('dist/js/app.js')) }}"></script>
+  @if (app()->environment('local'))
+    <script src="{{ mix('dist/js/app.js') }}"></script>
+  @else
+    <script src="{{ asset('dist/js/app.js') }}" defer></script>
+  @endif
 </body>
 </html>

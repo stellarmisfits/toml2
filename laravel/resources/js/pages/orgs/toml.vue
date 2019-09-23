@@ -8,12 +8,8 @@
             <span>{{ (organization.published) ? 'Published' : 'Not Published' }}</span>
           </a-pill>
         </h2>
-        <div class="mt-2 text-sm text-gray-700">
-          <div class="max-w-2xl">
-            <template v-if="organization.published">
-              Below you will find a generated TOML file for this organization.
-            </template>
-          </div>
+        <div v-if="organization.published" class="mt-1 text-sm text-gray-700">
+          <a :href="'https://' + organization.hosted_url + '/.well-known/stellar.toml'" target="_blank">{{ organization.hosted_url }}/.well-known/stellar.toml</a>
         </div>
       </div>
       <div class="flex-shrink-0 ml-4">
@@ -26,7 +22,9 @@
       <a-well class="mt-4">
         <div>
           <div class="bg-white px-6 py-4 overflow-auto">
-            <pre class="font-mono text-xs text-gray-700">{{ toml }}</pre>
+            <div class="whitespace-pre-wrap font-mono text-xs text-gray-700">
+{{ toml }} <!-- eslint-disable-line -->
+            </div>
           </div>
         </div>
       </a-well>
