@@ -61,8 +61,14 @@ export default {
       return this.getOrgByUuid(uuid)
     }
   },
-  created () {
-    this.$store.dispatch('org/fetchOrg', this.$route.params.uuid)
+  async created () {
+    try {
+      await this.$store.dispatch('org/fetchOrg', this.$route.params.uuid)
+    } catch (e) {
+      if (e.response.status === 404) {
+        this.$router.push({ name: '404' })
+      }
+    }
   }
 }
 </script>

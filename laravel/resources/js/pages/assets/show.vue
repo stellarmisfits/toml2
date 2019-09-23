@@ -59,10 +59,16 @@ export default {
       return this.getAssetByUuid(this.$route.params.uuid)
     }
   },
-  created () {
-    this.$store.dispatch('asset/fetchAsset', {
-      uuid: this.$route.params.uuid
-    })
+  async created () {
+    try {
+      await this.$store.dispatch('asset/fetchAsset', {
+        uuid: this.$route.params.uuid
+      })
+    } catch (e) {
+      if (e.response.status === 404) {
+        this.$router.push({ name: '404' })
+      }
+    }
   }
 }
 </script>

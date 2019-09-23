@@ -79,11 +79,13 @@ class LinkResourceController extends Controller
             'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
         ]);
 
+        $or = new OrganizationRepository();
+
         switch ($request->resource_type) {
             case 'account':
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
                 $this->authorize('update', $account);
-                $organization->accounts()->detach($account->id);
+                $or->removeAccount($organization, $account);
                 break;
             case 'asset':
                 $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();

@@ -44,8 +44,14 @@ export default {
       return this.getPrincipalByUuid(this.$route.params.uuid)
     }
   },
-  created () {
-    this.$store.dispatch('principal/fetchPrincipal', this.$route.params.uuid)
+  async created () {
+    try {
+      await this.$store.dispatch('principal/fetchPrincipal', this.$route.params.uuid)
+    } catch (e) {
+      if (e.response.status === 404) {
+        this.$router.push({ name: '404' })
+      }
+    }
   }
 }
 </script>

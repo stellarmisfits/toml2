@@ -97,6 +97,7 @@ class TestCaseSeeder extends Seeder
     }
 
     /**
+     * @param Team $team
      * @param Account $account
      * @return Asset
      */
@@ -119,16 +120,21 @@ class TestCaseSeeder extends Seeder
 
     /**
      * @param Team $team
+     * @param Account $account
      * @return Validator
      */
-    public function seedValidator(Team $team = null): Validator {
+    public function seedValidator(Team $team = null, Account $account = null): Validator {
         if(!$team){
             $team = $this->seedTeam();
         }
 
+        if(!$account){
+            $account = $this->seedAccount($team);
+        }
+
         $validator = factory(Validator::class)->create([
             'team_id' => $team->id,
-            'account_id' => $this->seedAccount($team)->id
+            'account_id' => $account->id
         ]);
 
         return $validator;

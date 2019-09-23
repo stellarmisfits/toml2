@@ -36,7 +36,31 @@ class OrganizationRepository
      */
     public function addAccount(Organization $org, Account $account)
     {
-        $org->accounts()->attach($account);
+        $org->accounts()->syncWithoutDetaching($account);
+    }
+
+    /**
+     *
+     */
+    public function removeAccount(Organization $org, Account $account)
+    {
+        \DB::transaction(function () use ($org, $account) {
+
+            // detach any assets tied to the account
+            $assets = $account->assets;
+            if ($assets){
+                $org->assets()->detach($assets->pluck('id')->toArray());
+            }
+
+            // detach any validators tied to the account
+            $validators = $account->validators;
+            if ($validators){
+                $org->validators()->detach($validators->pluck('id')->toArray());
+            }
+
+            // detach the account
+            $org->accounts()->detach($account);
+        });
     }
 
     /**
@@ -44,7 +68,12 @@ class OrganizationRepository
      */
     public function addAsset(Organization $org, Asset $asset)
     {
-        $org->assets()->attach($asset);
+        \DB::transaction(function () use ($org, $asset) {
+            // automatically attach the asset's account
+            $org->accounts()->syncWithoutDetaching($asset->account);
+
+            $org->assets()->syncWithoutDetaching($asset);
+        });
     }
 
     /**
@@ -52,7 +81,7 @@ class OrganizationRepository
      */
     public function addPrincipal(Organization $org, Principal $account)
     {
-        $org->principals()->attach($account);
+        $org->principals()->syncWithoutDetaching($account);
     }
 
     /**
@@ -60,6 +89,11 @@ class OrganizationRepository
      */
     public function addValidator(Organization $org, Validator $validator)
     {
-        $org->validators()->attach($validator);
+        \DB::transaction(function () use ($org, $validator) {
+            // automatically attach the asset's account
+            $org->accounts()->syncWithoutDetaching($validator->account);
+
+            $org->validators()->syncWithoutDetaching($validator);
+        });
     }
 }

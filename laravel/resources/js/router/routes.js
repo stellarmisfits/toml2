@@ -92,5 +92,5 @@ export default [
     ]
   },
 
-  { path: '*', component: page('errors/404.vue') }
+  { path: '*', name: '404', component: page('errors/404.vue') }
 ]

@@ -51,6 +51,16 @@ class Account extends BaseModel
         return $this->hasMany(Asset::class);
     }
 
+    /**
+     * Account->Validators relationship
+     *
+     * @return HasMany
+     */
+    public function validators(): HasMany
+    {
+        return $this->hasMany(Asset::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Scopes

@@ -49,8 +49,14 @@ export default {
       return this.getAccountByUuid(this.$route.params.uuid)
     }
   },
-  created () {
-    this.$store.dispatch('account/fetchAccount', this.$route.params.uuid)
+  async created () {
+    try {
+      await this.$store.dispatch('account/fetchAccount', this.$route.params.uuid)
+    } catch (e) {
+      if (e.response.status === 404) {
+        this.$router.push({ name: '404' })
+      }
+    }
   }
 }
 </script>
