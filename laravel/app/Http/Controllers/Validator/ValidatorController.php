@@ -32,7 +32,8 @@ class ValidatorController extends Controller
             ->currentTeam()
             ->validators()
             ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
-            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid);
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
+            ->get();
 
         return ValidatorResource::collection($assets);
     }

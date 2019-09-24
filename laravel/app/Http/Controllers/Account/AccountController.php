@@ -42,7 +42,8 @@ class AccountController extends Controller
             ->accounts()
             // ->publicKeyFilter($request->public_key)
             ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
-            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid);
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
+            ->get();
 
         return AccountResource::collection($account);
     }

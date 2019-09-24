@@ -34,7 +34,8 @@ class OrganizationController extends Controller
             ->user()
             ->currentTeam()
             ->organizations()
-            ->resourceFilter($request->resource_uuid, $request->resource_type, $request->resource_query);
+            ->resourceFilter($request->resource_uuid, $request->resource_type, $request->resource_query)
+            ->get();
 
         return OrganizationResource::collection($org);
     }

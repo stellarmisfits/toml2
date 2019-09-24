@@ -36,7 +36,8 @@ class AssetController extends Controller
             ->assets()
             ->accountUuidFilter($request->account_uuid)
             ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
-            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid);
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
+            ->get();
 
         return AssetResource::collection($assets);
     }
