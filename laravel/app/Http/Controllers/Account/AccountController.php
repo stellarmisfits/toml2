@@ -119,7 +119,6 @@ class AccountController extends Controller
         $this->authorize('delete', $account);
 
         \DB::transaction(function () use ($account) {
-            $account->organizations()->detach();
             $account->delete();
         });
 

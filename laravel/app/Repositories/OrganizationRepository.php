@@ -39,7 +39,8 @@ class OrganizationRepository
      */
     public function addAccount(Organization $org, Account $account)
     {
-        $org->accounts()->syncWithoutDetaching($account);
+        $account->organization()->associate($org);
+        $account->save();
     }
 
 
@@ -64,7 +65,8 @@ class OrganizationRepository
             }
 
             // detach the account
-            $org->accounts()->detach($account);
+            $account->organization()->dissociate();
+            $account->save();
         });
     }
 
@@ -77,7 +79,7 @@ class OrganizationRepository
     {
         \DB::transaction(function () use ($org, $asset) {
             // automatically attach the asset's account
-            $org->accounts()->syncWithoutDetaching($asset->account);
+            $this->addAccount($org, $asset->account);
 
             $org->assets()->syncWithoutDetaching($asset);
         });
@@ -102,7 +104,7 @@ class OrganizationRepository
     {
         \DB::transaction(function () use ($org, $validator) {
             // automatically attach the asset's account
-            $org->accounts()->syncWithoutDetaching($validator->account);
+            $this->addAccount($org, $validator->account);
 
             $org->validators()->syncWithoutDetaching($validator);
         });

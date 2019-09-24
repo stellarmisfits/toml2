@@ -11,10 +11,10 @@ use App\Models\Traits\HasOrganizations;
 
 class Account extends BaseModel
 {
-    use BelongsToTeam, HasOrganizations;
+    use BelongsToTeam;
 
     protected $casts = [
-        'verified' => 'datetime'
+        'home_domain_updated_at' => 'datetime'
     ];
 
     protected $fillable = [
@@ -31,7 +31,25 @@ class Account extends BaseModel
     |
     */
 
-    //
+    /**
+     * @return bool
+     */
+    public function getVerifiedAttribute(): bool
+    {
+        if(!$this->organization_id) {
+            return false;
+        }
+
+        if(!$this->home_domain){
+            return false;
+        }
+
+        if($this->home_domain !== $this->organization->url) {
+            return false;
+        }
+
+        return true;
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -40,6 +58,16 @@ class Account extends BaseModel
     |
     |
     */
+
+    /**
+     * Account->Organization relationship
+     *
+     * @return BelongsTo
+     */
+    public function organization(): BelongsTo
+    {
+        return $this->belongsTo(Organization::class);
+    }
 
     /**
      * Account->Assets relationship
@@ -83,6 +111,41 @@ class Account extends BaseModel
 
         return $query;
     }
+
+    /**
+     * @param Builder $query
+     * @param string $organization_uuid
+     * @return Builder
+     */
+    public function scopeLinkedOrganizationUuidFilter($query, string $organization_uuid = null)
+    {
+
+        if (!empty($organization_uuid)) {
+            $query->whereHas('organization', function ($query) use ($organization_uuid) {
+                $query->where('organizations.uuid', $organization_uuid);
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $organization_uuid
+     * @return Builder
+     */
+    public function scopeUnlinkedOrganizationUuidFilter($query, string $organization_uuid = null)
+    {
+
+        if (!empty($organization_uuid)) {
+            $query->whereDoesntHave('organization', function ($query) use ($organization_uuid) {
+                $query->where('organizations.uuid', $organization_uuid);
+            });
+        }
+
+        return $query;
+    }
+
 
     /**
      * @param Builder $query

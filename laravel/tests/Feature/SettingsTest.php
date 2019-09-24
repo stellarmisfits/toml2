@@ -44,7 +44,7 @@ class SettingsTest extends TestCase
                 'password' => 'updated',
                 'password_confirmation' => 'updated',
                 'old_password' => '123',
-            ])->dump()
+            ])
             ->assertSuccessful();
 
         $this->assertTrue(Hash::check('updated', $user->password));

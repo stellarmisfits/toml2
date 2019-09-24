@@ -55,8 +55,6 @@ class CreateOrganizationsTable extends Migration
             $table->timestamps();
 
             $table->foreign('team_id')->references('id')->on('teams');
-            $table->foreign('signing_key_id')->references('id')->on('accounts');
-            $table->foreign('uri_request_signing_key_id')->references('id')->on('accounts');
         });
     }
 

@@ -109,7 +109,11 @@ class OrganizationController extends Controller
         $this->authorize('delete', $organization);
 
         \DB::transaction(function () use ($organization) {
-            $organization->accounts()->detach();
+            $organization->accounts->each(function($account){
+                $account->organization()->dissociate();
+                $account->save();
+            });
+
             $organization->assets()->detach();
             $organization->principals()->detach();
             $organization->validators()->detach();

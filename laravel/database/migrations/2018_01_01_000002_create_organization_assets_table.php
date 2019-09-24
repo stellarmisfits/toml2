@@ -19,7 +19,7 @@ class CreateOrganizationAssetsTable extends Migration
             $table->unsignedBigInteger('asset_id');
             $table->timestamps();
 
-            $table->unique(['asset_id', 'organization_id']);
+            $table->unique(['asset_id']);
             $table->foreign('asset_id')->references('id')->on('assets');
             $table->foreign('organization_id')->references('id')->on('organizations');
         });

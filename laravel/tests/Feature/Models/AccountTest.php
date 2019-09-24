@@ -51,7 +51,7 @@ class AccountTest extends TestCase
         $or = new OrganizationRepository();
         $or->addAccount($org, $account);
 
-        $this->assertEquals($org->id, $account->organizations->first()->id);
+        $this->assertTrue($org->is($account->organization));
     }
 
     /**
