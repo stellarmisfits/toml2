@@ -35,7 +35,7 @@
         "spatie/regex": "^1.4",
         "tymon/jwt-auth": "dev-feature/laravel-6-support",
         "yosymfony/toml": "^1.0",
-        "zulucrypto/stellar-api": "^0.7.0"
+        "zulucrypto/stellar-api": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6eea8c81c59ba9d6329c63b87e358874",
+    "content-hash": "218aeca24fab2e09a7c30a489cb8a52c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.6",
+            "version": "3.112.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8dac6904e89d8fb7dcaf8044b964c7e77f332289"
+                "reference": "5167704e39f4e139152906b3d962aa15692bff07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8dac6904e89d8fb7dcaf8044b964c7e77f332289",
-                "reference": "8dac6904e89d8fb7dcaf8044b964c7e77f332289",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5167704e39f4e139152906b3d962aa15692bff07",
+                "reference": "5167704e39f4e139152906b3d962aa15692bff07",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-23T18:11:10+00:00"
+            "time": "2019-09-24T18:13:32+00:00"
         },
         {
             "name": "christian-riesen/base32",
@@ -1106,16 +1106,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.0.3",
+            "version": "v6.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "56789e9dec750e0fbe8e9e6ae90a01a4e6887902"
+                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/56789e9dec750e0fbe8e9e6ae90a01a4e6887902",
-                "reference": "56789e9dec750e0fbe8e9e6ae90a01a4e6887902",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
+                "reference": "372e0add8a58e0e3deb78f87cbb2dc40d3e0ff08",
                 "shasum": ""
             },
             "require": {
@@ -1247,7 +1247,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-09-10T18:46:24+00:00"
+            "time": "2019-09-24T13:40:36+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -3303,16 +3303,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "7.12.1",
+            "version": "7.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "8c4adaeb16985a108da4e0dab186bc7561bbbf8f"
+                "reference": "43fbf653dbb2abee55529ecc494fe0f9549252d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/8c4adaeb16985a108da4e0dab186bc7561bbbf8f",
-                "reference": "8c4adaeb16985a108da4e0dab186bc7561bbbf8f",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/43fbf653dbb2abee55529ecc494fe0f9549252d9",
+                "reference": "43fbf653dbb2abee55529ecc494fe0f9549252d9",
                 "shasum": ""
             },
             "require": {
@@ -3383,7 +3383,7 @@
                 "media",
                 "spatie"
             ],
-            "time": "2019-09-12T22:01:47+00:00"
+            "time": "2019-09-24T07:11:53+00:00"
         },
         {
             "name": "spatie/pdf-to-image",
@@ -5549,16 +5549,16 @@
         },
         {
             "name": "zulucrypto/stellar-api",
-            "version": "v0.7.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/benbjurstrom/stellar-api.git",
-                "reference": "b73df4f262bf7e1d18ed2157ec10d0634515ed16"
+                "reference": "9b265accaf14adb1ac1fc878f65a2d10886f1974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/benbjurstrom/stellar-api/zipball/b73df4f262bf7e1d18ed2157ec10d0634515ed16",
-                "reference": "b73df4f262bf7e1d18ed2157ec10d0634515ed16",
+                "url": "https://api.github.com/repos/benbjurstrom/stellar-api/zipball/9b265accaf14adb1ac1fc878f65a2d10886f1974",
+                "reference": "9b265accaf14adb1ac1fc878f65a2d10886f1974",
                 "shasum": ""
             },
             "require": {
@@ -5589,9 +5589,9 @@
             ],
             "description": "API client for the Stellar network",
             "support": {
-                "source": "https://github.com/benbjurstrom/stellar-api/tree/v0.7.0"
+                "source": "https://github.com/benbjurstrom/stellar-api/tree/master"
             },
-            "time": "2018-09-22T20:21:05+00:00"
+            "time": "2018-10-12T07:43:50+00:00"
         }
     ],
     "packages-dev": [
@@ -7591,7 +7591,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "nkkollaw/reserved-subdomains": 20,
-        "tymon/jwt-auth": 20
+        "tymon/jwt-auth": 20,
+        "zulucrypto/stellar-api": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

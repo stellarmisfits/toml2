@@ -56,8 +56,8 @@ class OrganizationPolicy
     {
         $team = $user->currentTeam();
 
-        // limit to 50 organizations for the public beta
-        if($team->organizations()->count() > 50){
+        // limit to 10 organizations for the public beta
+        if($team->organizations()->count() > 10){
             return false;
         }
 
