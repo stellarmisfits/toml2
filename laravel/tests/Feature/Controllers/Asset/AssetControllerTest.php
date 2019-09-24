@@ -103,23 +103,4 @@ class AssetControllerTest extends TestCase
             'account_id'    => $newAccount->id,
         ]);
     }
-
-    /**
-     * DELETE Resource
-     */
-    public function testAssetControllerDelete()
-    {
-        $asset = $this->seeder->seedAsset();
-        $org = $this->seeder->seedOrganization($asset->team);
-        $user = $this->seeder->seedUserWithTeam($asset->team);
-        $this->actingAs($user);
-
-        $or = new OrganizationRepository();
-        $or->addAsset($org, $asset);
-
-        $this->deleteJson(route('assets.destroy', [
-            $asset->uuid
-            ]))
-            ->assertStatus(204);
-    }
 }

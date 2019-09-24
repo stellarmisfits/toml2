@@ -21,6 +21,6 @@ class TeamForeignKeyScope implements Scope
         $user = auth()->user();
 
         if(!$user) return;
-        $builder->where('team_id', $user->currentTeam()->id);
+        $builder->where($model->getTable() . '.team_id', $user->currentTeam()->id);
     }
 }

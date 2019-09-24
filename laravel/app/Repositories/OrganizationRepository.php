@@ -52,12 +52,6 @@ class OrganizationRepository
     {
         \DB::transaction(function () use ($org, $account) {
 
-            // detach any assets tied to the account
-            $assets = $account->assets;
-            if ($assets){
-                $org->assets()->detach($assets->pluck('id')->toArray());
-            }
-
             // detach any validators tied to the account
             $validators = $account->validators;
             if ($validators){
@@ -67,21 +61,6 @@ class OrganizationRepository
             // detach the account
             $account->organization()->dissociate();
             $account->save();
-        });
-    }
-
-
-    /**
-     * @param Organization $org
-     * @param Asset $asset
-     */
-    public function addAsset(Organization $org, Asset $asset)
-    {
-        \DB::transaction(function () use ($org, $asset) {
-            // automatically attach the asset's account
-            $this->addAccount($org, $asset->account);
-
-            $org->assets()->syncWithoutDetaching($asset);
         });
     }
 

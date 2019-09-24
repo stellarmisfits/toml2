@@ -33,7 +33,7 @@ class AssetTest extends TestCase
     */
 
     /**
-     * A basic test example.
+     *
      */
     public function testAccountRelationship()
     {
@@ -41,6 +41,22 @@ class AssetTest extends TestCase
         $asset = $this->seeder->seedAsset($account->team, $account);
 
         $this->assertEquals($account->id, $asset->account->id);
+    }
+
+    /**
+     *
+     */
+    public function testOrganizationRelationship()
+    {
+        $org = $this->seeder->seedOrganization();
+        $account = $this->seeder->seedAccount($org->team);
+        $asset = $this->seeder->seedAsset($org->team, $account);
+
+        $this->assertNull($asset->organization);
+
+        (new OrganizationRepository)->addAccount($org, $account);
+
+        $this->assertEquals($org->id, $asset->fresh()->organization->id);
     }
 
     /*
@@ -74,7 +90,7 @@ class AssetTest extends TestCase
         $org   = $this->seeder->seedOrganization($team);
 
         $or = new OrganizationRepository();
-        $or->addAsset($org, $asset1);
+        $or->addAccount($org, $asset1->account);
 
         $results = (new Asset())->linkedOrganizationUuidFilter($org->uuid)->get();
         $this->assertCount(1, $results);

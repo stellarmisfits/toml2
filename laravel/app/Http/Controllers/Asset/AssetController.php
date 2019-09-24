@@ -117,7 +117,6 @@ class AssetController extends Controller
         $this->authorize('delete', $asset);
 
         \DB::transaction(function () use ($asset) {
-            $asset->organizations()->detach();
             $asset->delete();
         });
 

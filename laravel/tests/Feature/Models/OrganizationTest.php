@@ -117,7 +117,7 @@ class OrganizationTest extends TestCase
         $this->assertCount(0, (new Organization)->resourceFilter($asset->uuid, 'assets', 'linked')->get());
 
         $or = new OrganizationRepository();
-        $or->addAsset($org1, $asset);
+        $or->addAccount($org1, $asset->account);
 
         $this->assertCount(1, (new Organization)->resourceFilter($asset->uuid, 'assets', 'linked')->get());
     }
@@ -133,7 +133,7 @@ class OrganizationTest extends TestCase
 
         $or = new OrganizationRepository();
         $asset = $this->seeder->seedAsset($team);
-        $or->addAsset($org1, $asset);
+        $or->addAccount($org1, $asset->account);
 
         $results = (new Organization)->resourceFilter($asset->uuid, 'assets', 'unlinked')->get();
         $this->assertCount(1, $results);

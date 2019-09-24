@@ -150,11 +150,11 @@ class Organization extends BaseModel implements HasMedia
     /**
      * Organization->Assets relationship
      *
-     * @return BelongsToMany
+     * @return HasManyThrough
      */
-    public function assets(): BelongsToMany
+    public function assets(): HasManyThrough
     {
-        return $this->belongsToMany(Asset::class, 'organization_assets');
+        return $this->hasManyThrough(Asset::class, Account::class);
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -16,7 +17,7 @@ use App\Models\Traits\HasOrganizations;
 
 class Asset extends BaseModel implements HasMedia
 {
-    use BelongsToTeam, HasOrganizations, HasMediaTrait;
+    use BelongsToTeam, HasMediaTrait;
 
     protected $fillable = [
         'code',
@@ -94,6 +95,14 @@ class Asset extends BaseModel implements HasMedia
         return $this->belongsTo(Account::class);
     }
 
+    /**
+     * Asset->Organization relationship
+     */
+    public function organization(): ?BelongsTo
+    {
+        return optional($this->account)->organization();
+    }
+
 
     /*
     |--------------------------------------------------------------------------
@@ -102,6 +111,40 @@ class Asset extends BaseModel implements HasMedia
     |
     |
     */
+
+    /**
+     * @param Builder $query
+     * @param string $organization_uuid
+     * @return Builder
+     */
+    public function scopeLinkedOrganizationUuidFilter($query, string $organization_uuid = null)
+    {
+
+        if (!empty($organization_uuid)) {
+            $query->whereHas('account.organization', function ($query) use ($organization_uuid) {
+                $query->where('organizations.uuid', $organization_uuid);
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $organization_uuid
+     * @return Builder
+     */
+    public function scopeUnlinkedOrganizationUuidFilter($query, string $organization_uuid = null)
+    {
+
+        if (!empty($organization_uuid)) {
+            $query->whereDoesntHave('account.organization', function ($query) use ($organization_uuid) {
+                $query->where('organizations.uuid', $organization_uuid);
+            });
+        }
+
+        return $query;
+    }
 
     /**
      * @param Builder $query

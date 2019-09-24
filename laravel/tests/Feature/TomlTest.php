@@ -22,8 +22,8 @@ class TomlTest extends TestCase
 
         $ass1 = $this->seeder->seedAsset($team);
         $ass2 = $this->seeder->seedAsset($team);
-        $or->addAsset($org, $ass1);
-        $or->addAsset($org, $ass2);
+        $or->addAccount($org, $ass1->account);
+        $or->addAccount($org, $ass2->account);
 
         $p1 = $this->seeder->seedPrincipal($team);
         $p2 = $this->seeder->seedPrincipal($team);

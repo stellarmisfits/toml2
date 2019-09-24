@@ -39,35 +39,6 @@ class LinkResourceControllerTest extends TestCase
         ]);
     }
 
-
-    /**
-     * POST
-     */
-    public function testOrganizationControllerStoreAsset()
-    {
-        $team       = $this->seeder->seedTeam();
-        $org        = $this->seeder->seedOrganization($team);
-        $asset    = $this->seeder->seedAsset($team);
-        $user       = $this->seeder->seedUserWithTeam($team);
-        $this->actingAs($user);
-
-        $this->assertDatabaseMissing('organization_assets', [
-            'organization_id' => $org->id,
-            'asset_id' => $asset->id
-        ]);
-
-        $response = $this->postJson('/api/organizations/' . $org->uuid . '/link', [
-            'resource_uuid' => $asset->uuid,
-            'resource_type' => 'asset'
-        ])
-            ->assertStatus(201);
-
-        $this->assertDatabaseHas('organization_assets', [
-            'organization_id' => $org->id,
-            'asset_id' => $asset->id
-        ]);
-    }
-
     /**
      * POST
      */
@@ -158,20 +129,21 @@ class LinkResourceControllerTest extends TestCase
     /**
      * DELETE Resource
      */
-    public function testResourceLinkControllerDeleteAccountWithAssetsAndValidators()
+    public function testResourceLinkControllerDeleteAccountWithPrincipalsAndValidators()
     {
         $or = new OrganizationRepository();
         $team       = $this->seeder->seedTeam();
         $org        = $this->seeder->seedOrganization($team);
         $account    = $this->seeder->seedAccount($team);
         $asset      = $this->seeder->seedAsset($team, $account);
+        $principal  = $this->seeder->seedPrincipal($team);
         $validator  = $this->seeder->seedValidator($team, $account);
         $user       = $this->seeder->seedUserWithTeam($team);
         $this->actingAs($user);
 
-        $or->addAsset($org, $asset);
         $or->addAccount($org, $account);
         $or->addValidator($org, $validator);
+        $or->addPrincipal($org, $principal);
 
         $this->assertDatabaseHas('accounts', [
             'id' => $account->id,
@@ -187,37 +159,6 @@ class LinkResourceControllerTest extends TestCase
         $this->assertDatabaseMissing('accounts', [
             'id' => $account->id,
             'organization_id' => $org->id
-        ]);
-    }
-
-    /**
-     * DELETE Resource
-     */
-    public function testResourceLinkControllerDeleteAsset()
-    {
-        $or = new OrganizationRepository();
-        $team       = $this->seeder->seedTeam();
-        $org        = $this->seeder->seedOrganization($team);
-        $asset    = $this->seeder->seedAsset($team);
-        $user       = $this->seeder->seedUserWithTeam($team);
-        $this->actingAs($user);
-
-        $or->addAsset($org, $asset);
-
-        $this->assertDatabaseHas('organization_assets', [
-            'organization_id' => $org->id,
-            'asset_id' => $asset->id
-        ]);
-
-        $response = $this->deleteJson('/api/organizations/' . $org->uuid . '/link', [
-            'resource_uuid' => $asset->uuid,
-            'resource_type' => 'asset'
-        ])
-            ->assertStatus(204);
-
-        $this->assertDatabaseMissing('organization_assets', [
-            'organization_id' => $org->id,
-            'asset_id' => $asset->id
         ]);
     }
 

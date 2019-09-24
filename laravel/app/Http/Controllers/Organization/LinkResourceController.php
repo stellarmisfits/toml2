@@ -31,7 +31,7 @@ class LinkResourceController extends Controller
 
         $request->validate([
             'resource_uuid'     =>  ['required', new ValidateUuid],
-            'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
+            'resource_type'     =>  ['required', 'in:account,principal,validator']
         ]);
 
         $or = new OrganizationRepository();
@@ -41,11 +41,6 @@ class LinkResourceController extends Controller
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
                 $this->authorize('update', $account);
                 $or->addAccount($organization, $account);
-                break;
-            case 'asset':
-                $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
-                $this->authorize('update', $asset);
-                $or->addAsset($organization, $asset);
                 break;
             case 'principal':
                 $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();
@@ -76,7 +71,7 @@ class LinkResourceController extends Controller
 
         $request->validate([
             'resource_uuid'     =>  ['required', new ValidateUuid],
-            'resource_type'     =>  ['required', 'in:account,asset,principal,validator']
+            'resource_type'     =>  ['required', 'in:account,principal,validator']
         ]);
 
         $or = new OrganizationRepository();
@@ -86,11 +81,6 @@ class LinkResourceController extends Controller
                 $account = (new Account)->whereUuid($request->resource_uuid)->firstOrFail();
                 $this->authorize('update', $account);
                 $or->removeAccount($organization, $account);
-                break;
-            case 'asset':
-                $asset = (new Asset)->whereUuid($request->resource_uuid)->firstOrFail();
-                $this->authorize('update', $asset);
-                $organization->assets()->detach($asset->id);
                 break;
             case 'principal':
                 $principal = (new Principal)->whereUuid($request->resource_uuid)->firstOrFail();

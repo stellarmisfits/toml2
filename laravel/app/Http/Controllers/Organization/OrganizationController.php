@@ -114,7 +114,6 @@ class OrganizationController extends Controller
                 $account->save();
             });
 
-            $organization->assets()->detach();
             $organization->principals()->detach();
             $organization->validators()->detach();
             $organization->delete();

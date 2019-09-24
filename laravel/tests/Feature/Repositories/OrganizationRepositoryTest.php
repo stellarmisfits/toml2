@@ -11,28 +11,6 @@ use Tests\TestCase;
 
 class OrganizationRepositoryTest extends TestCase
 {
-    public function testOrganizationRepositoryAddAsset()
-    {
-        $or = new OrganizationRepository();
-        $team = $this->seeder->seedTeam();
-        $org = $this->seeder->seedOrganization($team);
-        $asset = $this->seeder->seedAsset($team);
-        $user = $this->seeder->seedUserWithTeam($team);
-        $this->actingAs($user);
-
-        $or->addAsset($org, $asset);
-
-        $this->assertDatabaseHas('organization_assets', [
-            'organization_id' => $org->id,
-            'asset_id' => $asset->id
-        ]);
-
-        $this->assertDatabaseHas('accounts', [
-            'id' => $asset->account->id,
-            'organization_id' => $org->id
-        ]);
-    }
-
     public function testOrganizationRepositoryAddValidator()
     {
         $or = new OrganizationRepository();
@@ -66,7 +44,6 @@ class OrganizationRepositoryTest extends TestCase
         $user       = $this->seeder->seedUserWithTeam($team);
         $this->actingAs($user);
 
-        $or->addAsset($org, $asset);
         $or->addAccount($org, $account);
         $or->addValidator($org, $validator);
 
@@ -80,11 +57,6 @@ class OrganizationRepositoryTest extends TestCase
         $this->assertDatabaseMissing('organization_validators', [
             'organization_id' => $org->id,
             'validator_id' => $validator->id
-        ]);
-
-        $this->assertDatabaseMissing('organization_assets', [
-            'organization_id' => $org->id,
-            'asset_id' => $asset->id
         ]);
 
         $this->assertDatabaseMissing('accounts', [
