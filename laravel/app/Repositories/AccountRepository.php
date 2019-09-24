@@ -22,7 +22,6 @@ class AccountRepository
         $a->name        = $data['name'];
         $a->alias       = str_slug($data['alias']);
         $a->public_key  = strtoupper($data['public_key']);
-        $a->verified     = false;
         $a->save();
 
         // dispatch event to check whether the account is verified

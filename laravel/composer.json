@@ -11,16 +11,16 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/jessarcher/laravel-model-uuid"
+            "url": "https://github.com/benbjurstrom/stellar-api"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/benbjurstrom/stellar-api"
+          "type": "vcs",
+          "url": "https://github.com/benbjurstrom/reserved-subdomains"
         }
     ],
     "require": {
         "php": "^7.3",
-        "dyrynda/laravel-model-uuid": "dev-master",
+        "dyrynda/laravel-model-uuid": "^5.0",
         "fideloper/proxy": "^4.0",
         "laravel/dusk": "^5.1",
         "laravel/framework": "^6.0",
@@ -29,8 +29,10 @@
         "laravel/tinker": "^1.0",
         "laravel/vapor-core": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "nkkollaw/reserved-subdomains": "dev-master",
         "spatie/laravel-cors": "^1.6",
         "spatie/laravel-medialibrary": "^7.0.0",
+        "spatie/regex": "^1.4",
         "tymon/jwt-auth": "dev-feature/laravel-6-support",
         "yosymfony/toml": "^1.0",
         "zulucrypto/stellar-api": "^0.7.0"

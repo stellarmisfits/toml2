@@ -54,7 +54,14 @@ class ValidatorPolicy
      */
     public function create(User $user)
     {
-        return request()->input('team_id') === $user->currentTeam()->id;
+        $team = $user->currentTeam();
+
+        // limit to 50 validators for the public beta
+        if($team->validators()->count() > 50){
+            return false;
+        }
+
+        return true;
     }
 
     /**

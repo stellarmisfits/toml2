@@ -54,7 +54,14 @@ class PrincipalPolicy
      */
     public function create(User $user)
     {
-        return request()->input('team_id') === $user->currentTeam()->id;
+        $team = $user->currentTeam();
+
+        // limit to 50 assets for the public beta
+        if($team->principals()->count() > 50){
+            return false;
+        }
+
+        return true;
     }
 
     /**

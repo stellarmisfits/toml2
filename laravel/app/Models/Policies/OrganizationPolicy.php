@@ -54,7 +54,14 @@ class OrganizationPolicy
      */
     public function create(User $user)
     {
-        return request()->input('team_id') === $user->currentTeam()->id;
+        $team = $user->currentTeam();
+
+        // limit to 50 organizations for the public beta
+        if($team->organizations()->count() > 50){
+            return false;
+        }
+
+        return true;
     }
 
     /**

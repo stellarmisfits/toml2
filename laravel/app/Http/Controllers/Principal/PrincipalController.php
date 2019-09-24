@@ -33,8 +33,7 @@ class PrincipalController extends Controller
             ->currentTeam()
             ->principals()
             ->linkedOrganizationUuidFilter($request->linked_organization_uuid)
-            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid)
-            ->paginate(20);
+            ->unlinkedOrganizationUuidFilter($request->unlinked_organization_uuid);
 
         return PrincipalResource::collection($assets);
     }

@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\Principal;
 use App\Models\User;
 use App\Models\Validator;
+use Illuminate\Validation\ValidationException;
 
 class OrganizationRepository
 {
@@ -31,16 +32,20 @@ class OrganizationRepository
         return $o;
     }
 
+
     /**
-     *
+     * @param Organization $org
+     * @param Account $account
      */
     public function addAccount(Organization $org, Account $account)
     {
         $org->accounts()->syncWithoutDetaching($account);
     }
 
+
     /**
-     *
+     * @param Organization $org
+     * @param Account $account
      */
     public function removeAccount(Organization $org, Account $account)
     {
@@ -63,8 +68,10 @@ class OrganizationRepository
         });
     }
 
+
     /**
-     *
+     * @param Organization $org
+     * @param Asset $asset
      */
     public function addAsset(Organization $org, Asset $asset)
     {
@@ -76,16 +83,20 @@ class OrganizationRepository
         });
     }
 
+
     /**
-     *
+     * @param Organization $org
+     * @param Principal $account
      */
     public function addPrincipal(Organization $org, Principal $account)
     {
         $org->principals()->syncWithoutDetaching($account);
     }
 
+
     /**
-     *
+     * @param Organization $org
+     * @param Validator $validator
      */
     public function addValidator(Organization $org, Validator $validator)
     {
@@ -95,5 +106,27 @@ class OrganizationRepository
 
             $org->validators()->syncWithoutDetaching($validator);
         });
+    }
+
+    /**
+     * @param Organization $organization
+     * @throws
+     */
+    public function publish(Organization $organization) {
+        $accounts = $organization->accounts;
+
+        throw_unless($accounts->count(), ValidationException::withMessages([
+            'organization_uuid' => 'The given organization is not associated with any accounts and therefore cannot be published.'
+        ]));
+
+        $accounts->each(function($account) use ($organization){
+            throw_unless($account->verified, ValidationException::withMessages([
+                'organization_uuid' => 'All associated accounts have not been verified. All accounts tied to this organization must have their home directory set to  ' . $organization->url . ' prior to publishing.'
+            ]));
+        });
+
+
+        $organization->published = true;
+        $organization->save();
     }
 }

@@ -54,7 +54,14 @@ class AssetPolicy
      */
     public function create(User $user)
     {
-        return request()->input('team_id') === $user->currentTeam()->id;
+        $team = $user->currentTeam();
+
+        // limit to 200 assets for the public beta
+        if($team->assets()->count() > 200){
+            return false;
+        }
+
+        return true;
     }
 
     /**

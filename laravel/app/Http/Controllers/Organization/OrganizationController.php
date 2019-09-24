@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Organization;
 use App\Http\Resources\Organization as OrganizationResource;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
+use App\Rules\OrganizationAlias;
 use App\Rules\ValidateUuid;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -33,9 +34,7 @@ class OrganizationController extends Controller
             ->user()
             ->currentTeam()
             ->organizations()
-            ->resourceFilter($request->resource_uuid, $request->resource_type, $request->resource_query)
-            // ->slugFilter($request->slug)
-            ->paginate(20);
+            ->resourceFilter($request->resource_uuid, $request->resource_type, $request->resource_query);
 
         return OrganizationResource::collection($org);
     }
@@ -51,7 +50,7 @@ class OrganizationController extends Controller
     {
         $data = $request->validate([
             'name'         => ['required', 'string', 'min:3', 'max:23'],
-            'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:organizations',
+            'alias'        => ['required', 'string', 'min:4', 'max:15', 'unique:organizations', new OrganizationAlias],
         ]);
 
         $org = $or->create(auth()->user(), $data);
@@ -86,7 +85,7 @@ class OrganizationController extends Controller
 
         $data = $request->validate([
             'name'          => ['required', 'string', 'min:3', 'max:23'],
-            'alias'         => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('organizations', 'alias')->ignore($organization->id)],
+            'alias'         => ['required', 'string', 'min:4', 'max:15', new OrganizationAlias, Rule::unique('organizations', 'alias')->ignore($organization->id)],
             'custom_url'    => ['nullable', 'url', 'max:255'],
             'description'   => ['nullable', 'string', 'max:255'],
             'dba'           => ['nullable', 'string', 'max:50'],

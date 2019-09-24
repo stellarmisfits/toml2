@@ -25,8 +25,7 @@ class PublishController extends Controller
     {
         $this->authorize('update', $organization);
 
-        $organization->published = true;
-        $organization->save();
+        $or->publish($organization);
 
         return new OrganizationResource($organization);
     }

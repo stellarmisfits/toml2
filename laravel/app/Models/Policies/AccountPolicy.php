@@ -54,7 +54,14 @@ class AccountPolicy
      */
     public function create(User $user)
     {
-        return request()->input('team_id') === $user->currentTeam()->id;
+        $team = $user->currentTeam();
+
+        // limit to 50 accounts for the public beta
+        if($team->accounts()->count() > 50){
+            return false;
+        }
+
+        return true;
     }
 
     /**
