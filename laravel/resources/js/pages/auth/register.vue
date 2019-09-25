@@ -28,6 +28,12 @@ export default {
     //
   }),
 
+  created () {
+    if (!window.config.registrationEnabled) {
+      this.$router.push('/')
+    }
+  },
+
   methods: {
     //
   }

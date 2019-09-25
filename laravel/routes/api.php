@@ -13,14 +13,19 @@ use Laravel\Vapor\Http\Controllers\SignedStorageUrlController;
 */
 
 Route::group(['middleware' => 'guest:api', 'namespace' => 'Auth'], function () {
-    Route::post('login', 'LoginController@login');
-    Route::post('register', 'RegisterController@register');
 
-    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'ResetPasswordController@reset');
+    if(config('auth.login_enabled')){
+        Route::post('login', 'LoginController@login');
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail');
+        Route::post('password/reset', 'ResetPasswordController@reset');
 
-    Route::post('email/verify/{user}', 'VerificationController@verify')->name('verification.verify');
-    Route::post('email/resend', 'VerificationController@resend');
+        Route::post('email/verify/{user}', 'VerificationController@verify')->name('verification.verify');
+        Route::post('email/resend', 'VerificationController@resend');
+    }
+
+    if(config('auth.registration_enabled')){
+        Route::post('register', 'RegisterController@register');
+    }
 
     Route::post('oauth/{driver}', 'OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'OAuthController@handleProviderCallback')->name('oauth.callback');
@@ -42,15 +47,17 @@ Route::group(['middleware' => 'auth:api'], function () {
         return new UserResource($request->user());
     });
 
+    if(config('auth.login_enabled')){
+        Route::patch('settings/profile', 'Settings\ProfileController@update');
+        Route::patch('settings/password', 'Settings\PasswordController@update');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Accepted Routes
     |--------------------------------------------------------------------------
     */
     Route::group(['middleware' => 'accepted'], function () {
-        Route::patch('settings/profile', 'Settings\ProfileController@update');
-        Route::patch('settings/password', 'Settings\PasswordController@update');
-
         Route::post('image', 'ImageController@store')->name('image.create');
         Route::delete('image', 'ImageController@destroy')->name('image.destroy');
 
@@ -80,8 +87,4 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::resource('validators', 'ValidatorController');
         });
     });
-});
-
-Route::fallback(function () {
-    abort(404);
 });

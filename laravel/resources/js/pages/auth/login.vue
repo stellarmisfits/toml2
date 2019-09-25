@@ -22,6 +22,11 @@ export default {
 
   metaInfo () {
     return { title: this.$t('login') }
+  },
+  created () {
+    if (!window.config.loginEnabled) {
+      this.$router.push('/')
+    }
   }
 }
 </script>

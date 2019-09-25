@@ -27,6 +27,12 @@ export default {
     //
   }),
 
+  created () {
+    if (!window.config.loginEnabled) {
+      this.$router.push('/')
+    }
+  },
+
   methods: {
     //
   }

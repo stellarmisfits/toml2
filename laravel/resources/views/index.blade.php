@@ -5,6 +5,8 @@ $config = [
     'locale' => $locale = app()->getLocale(),
     'locales' => config('app.locales'),
     'githubAuth' => config('services.github.client_id'),
+    'loginEnabled' => config('auth.login_enabled'),
+    'registrationEnabled' => config('auth.registration_enabled'),
 ];
 @endphp
 <!DOCTYPE html>

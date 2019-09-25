@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/clear', function () {
-    if(config('app.env') === 'local') {
+if(config('app.env') === 'local') {
+    Route::get('/clear', function () {
         return (string)opcache_reset();
-    }
-
-    abort(404);
-});
+    });
+}
 
 Route::group(['middleware' => 'cors'], function () {
     Route::get('federation', 'FederationController@index')->name('federation');
