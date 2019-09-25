@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.7",
+            "version": "3.112.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5167704e39f4e139152906b3d962aa15692bff07"
+                "reference": "2a2f2bb0e05c2756573155353648521a9a08f5b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5167704e39f4e139152906b3d962aa15692bff07",
-                "reference": "5167704e39f4e139152906b3d962aa15692bff07",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2a2f2bb0e05c2756573155353648521a9a08f5b3",
+                "reference": "2a2f2bb0e05c2756573155353648521a9a08f5b3",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-24T18:13:32+00:00"
+            "time": "2019-09-25T18:23:09+00:00"
         },
         {
             "name": "christian-riesen/base32",
@@ -1041,16 +1041,16 @@
         },
         {
             "name": "laravel/dusk",
-            "version": "v5.5.1",
+            "version": "v5.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/dusk.git",
-                "reference": "9d2a643dbeb27fafd7f7d3961b74ee62eb5081bf"
+                "reference": "aed755282a13a9b36d26854a0105d519aa22fec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/dusk/zipball/9d2a643dbeb27fafd7f7d3961b74ee62eb5081bf",
-                "reference": "9d2a643dbeb27fafd7f7d3961b74ee62eb5081bf",
+                "url": "https://api.github.com/repos/laravel/dusk/zipball/aed755282a13a9b36d26854a0105d519aa22fec9",
+                "reference": "aed755282a13a9b36d26854a0105d519aa22fec9",
                 "shasum": ""
             },
             "require": {
@@ -1102,7 +1102,7 @@
                 "testing",
                 "webdriver"
             ],
-            "time": "2019-09-12T07:51:16+00:00"
+            "time": "2019-09-24T20:30:07+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3303,16 +3303,16 @@
         },
         {
             "name": "spatie/laravel-medialibrary",
-            "version": "7.12.2",
+            "version": "7.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-medialibrary.git",
-                "reference": "43fbf653dbb2abee55529ecc494fe0f9549252d9"
+                "reference": "af0505b7e1f4c5c92b616aa30e5253f2c98fc647"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/43fbf653dbb2abee55529ecc494fe0f9549252d9",
-                "reference": "43fbf653dbb2abee55529ecc494fe0f9549252d9",
+                "url": "https://api.github.com/repos/spatie/laravel-medialibrary/zipball/af0505b7e1f4c5c92b616aa30e5253f2c98fc647",
+                "reference": "af0505b7e1f4c5c92b616aa30e5253f2c98fc647",
                 "shasum": ""
             },
             "require": {
@@ -3383,7 +3383,7 @@
                 "media",
                 "spatie"
             ],
-            "time": "2019-09-24T07:11:53+00:00"
+            "time": "2019-09-25T09:51:20+00:00"
         },
         {
             "name": "spatie/pdf-to-image",

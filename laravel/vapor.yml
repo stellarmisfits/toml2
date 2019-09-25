@@ -14,8 +14,9 @@ environments:
     staging:
         memory: 1024
         cli-memory: 512
+        balancer: kaboodle
         database: kaboodle
-        domain: staging.astrify.com
+        domain: '*.astrify.com'
         build:
             - 'composer install --classmap-authoritative'
             - 'php artisan event:cache'
