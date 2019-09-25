@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col justify-center items-center bg-gray-200">
     <router-link :to="{ name: 'welcome' }">
-      <a-logo class="h-24 w-24 text-blue-800 hover:text-gray-600" />
+      <a-logo class="mt-6 h-24 w-24 text-blue-800 hover:text-gray-600" />
     </router-link>
     <a-well class="my-6">
       <privacy class="px-6 py-6 w-128" />

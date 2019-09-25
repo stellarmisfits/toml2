@@ -10,7 +10,7 @@
         </h2>
         <div class="mt-2 text-sm text-gray-700">
           You must agree to the latest
-          <a href="/terms" target="_blank" class="underline cursor-pointer">Terms of Service</a> and <span href="/privacy" target="_blank" class="underline cursor-pointer">Privacy Policy</span>
+          <a href="/terms" target="_blank" class="underline cursor-pointer">Terms of Service</a> and <a href="/privacy" target="_blank" class="underline cursor-pointer">Privacy Policy</a>
           before continuing.
         </div>
         <alert-error :form="form" />

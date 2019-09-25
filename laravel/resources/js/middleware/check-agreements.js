@@ -14,6 +14,13 @@ export default async (to, from, next) => {
     return
   }
 
+  // continue if the user is accessing pages that don't require agreements
+  const pages = ['welcome', 'terms', 'privacy', 'login']
+  if (pages.includes(to.name)) {
+    next()
+    return
+  }
+
   // redirect to agreement if the user hasn't agreed to the terms
   if (!user.agreed_to_terms && to.name !== 'agreement') {
     next({ name: 'agreement' })
