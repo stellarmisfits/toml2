@@ -12,6 +12,10 @@ export default [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
+  { path: '/privacy', name: 'privacy', component: page('auth/privacy.vue') },
+  { path: '/terms', name: 'terms', component: page('auth/terms.vue') },
+  { path: '/agreement', name: 'agreement', component: page('auth/agreement.vue') },
+
   { path: '/app', name: 'dashboard', component: page('home.vue') },
   { path: '/settings',
     component: page('settings/index.vue'),

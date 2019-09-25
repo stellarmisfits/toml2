@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('uses_two_factor_auth')->default(0);
             $table->string('two_factor_reset_code', 100)->nullable();
             $table->integer('current_team_id')->nullable();
+            $table->char('current_agreement', 40)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

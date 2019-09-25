@@ -12,7 +12,11 @@
 */
 
 Route::get('/clear', function () {
-    return (string) opcache_reset();
+    if(config('app.env') === 'local') {
+        return (string)opcache_reset();
+    }
+
+    abort(404);
 });
 
 Route::group(['middleware' => 'cors'], function () {

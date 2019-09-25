@@ -131,6 +131,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Current Agreement
+    |--------------------------------------------------------------------------
+    |
+    | This config option holds the git commit hash of the most recent update to
+    | the terms of service and privacy policy files. If the current_agreement
+    | value found in the users table does not match the value found here the
+    | current user should be asked to agree to the latest terms before
+    | continuing. The terms of service are contained in the following files:
+    |
+    | resources/js/components/auth/Privacy.vue
+    | resources/js/components/auth/Terms.vue
+    |
+    */
+
+    'current_agreement' => 'e25fd6b198eb6a11b91efe64f3767db61696686c',
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |

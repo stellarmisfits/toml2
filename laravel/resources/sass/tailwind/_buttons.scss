@@ -12,7 +12,7 @@
 }
 
 .btn-flat{
-  @apply px-4 py-2 text-sm rounded tracking-widest font-semibold uppercase ;
+  @apply px-4 py-2 text-sm rounded tracking-widest font-semibold uppercase cursor-pointer;
   &:hover{
     @apply bg-gray-200;
   }

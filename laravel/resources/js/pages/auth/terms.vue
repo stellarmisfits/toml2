@@ -1,26 +1,26 @@
 <template>
   <div class="min-h-screen flex flex-col justify-center items-center bg-gray-200">
-    <router-link :to="{ name: 'dashboard' }">
+    <router-link :to="{ name: 'welcome' }">
       <a-logo class="h-24 w-24 text-blue-800 hover:text-gray-600" />
     </router-link>
-    <a-well class="mt-6 w-96">
-      <reset class="px-6 py-6" />
+    <a-well class="my-6">
+      <terms class="px-6 py-6 w-128" />
     </a-well>
   </div>
 </template>
 
 <script>
-import Reset from '~/components/auth/Reset'
+import Terms from '~/components/auth/Terms'
+
 export default {
   layout: 'auth',
-  middleware: 'guest',
-
-  metaInfo () {
-    return { title: this.$t('reset_password') }
-  },
 
   components: {
-    Reset
+    Terms
+  },
+
+  metaInfo () {
+    return { title: 'Terms of Use' }
   },
 
   data: () => ({

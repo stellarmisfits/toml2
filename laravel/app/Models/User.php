@@ -77,6 +77,14 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     }
 
     /**
+     * @return bool
+     */
+    public function getAgreedToTermsAttribute()
+    {
+        return $this->current_agreement === config('app.current_agreement');
+    }
+
+    /**
      * @return int
      */
     public function getJWTIdentifier()

@@ -15,9 +15,14 @@ class User extends JsonResource
     public function toArray($request = null)
     {
         return [
-            'name'      => $this->name,
-            'email'     => $this->email,
-            'gravatar'  => md5($this->email)
+            'uuid'                 => $this->uuid,
+            'name'                 => $this->name,
+            'email'                => $this->email,
+            'email_verified_at'    => $this->email_verified_at,
+            'photo_url'            => $this->photo_url,
+            'current_team_id'      => $this->current_team_id,
+            'agreed_to_terms'      => $this->agreed_to_terms,
+            'updated_at'           => $this->current_team_id,
         ];
     }
 }
