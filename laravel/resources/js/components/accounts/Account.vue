@@ -40,15 +40,23 @@
         <fa icon="chevron-circle-right" class="hover:text-gray-400 cursor-pointer" />
       </router-link>
     </div>
+    <div v-if="action==='edit'" slot="details">
+      <div class="pb-6">
+        <account-verify :organization="organization" :account="account" />
+      </div>
+    </div>
   </a-list-item>
 </template>
 <script>
 import Unlink from '~/components/orgs/ResourceUnlink'
 import AccountEdit from '~/components/accounts/Upsert'
+import AccountVerify from '~/components/accounts/Verify'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Unlink,
-    AccountEdit
+    AccountEdit,
+    AccountVerify
   },
 
   props: {
@@ -64,6 +72,12 @@ export default {
 
   data: () => ({
     //
-  })
+  }),
+
+  computed: {
+    ...mapGetters({
+      organization: 'account/organization'
+    })
+  }
 }
 </script>

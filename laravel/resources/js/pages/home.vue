@@ -14,8 +14,7 @@
               All of the organizations your account has access to will be
               listed here. Organizations are the building blocks of TOML files
               on the Stellar network. Assets must be tied to an organization through
-              a Steallar account.
-              To read more about TOML files and organizations <a href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#issuer-documentation">click here</a>.
+              a Steallar account. Read more about TOML files and organizations <a class="underline hover:text-gray-500" target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#issuer-documentation">here</a>.
             </div>
           </div>
         </div>

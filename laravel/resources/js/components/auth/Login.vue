@@ -33,12 +33,13 @@
         {{ $t('login') }}
       </a-button>
       <div class="ml-0 md:ml-2 mb-2">
-        <router-link :to="{ name: 'password.request' }" class="align-baseline uppercase tracking-wide text-grey-darker text-xs no-underline">
+        <router-link :to="{ name: 'password.request' }" class="align-baseline uppercase tracking-wide text-gray-800 text-xs no-underline hover:text-gray-600">
           {{ $t('forgot_password') }}
         </router-link>
       </div>
-
-      <!-- GitHub Login Button -->
+    </div>
+    <!-- GitHub Login Button -->
+    <div class="border-t mt-4 pt-4">
       <login-with-github />
     </div>
   </form>
