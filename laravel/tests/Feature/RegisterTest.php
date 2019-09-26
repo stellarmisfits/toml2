@@ -7,9 +7,11 @@ use Tests\TestCase;
 
 class RegisterTest extends TestCase
 {
+
     /** @test */
     public function canRegister()
     {
+        \Config::set('auth.registration_enabled', true);
         $user = factory(User::class)->make();
 
         $this->postJson('/api/register', [

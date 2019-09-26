@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -66,23 +67,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = \DB::transaction(function () use ($data) {
-            $user = User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-            ]);
-
-            $team = new Team;
-            $team->owner_id = $user->id;
-            $team->name = 'Personal';
-            $team->save();
-
-            $team->users()->attach($user, ['role' => 'OWNER']);
-
-            return $user;
-        });
-
-        return $user;
+        return (new UserRepository)->createFromEmail($data['email'], $data['name'], $data['password']);
     }
 }

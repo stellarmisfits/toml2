@@ -24,6 +24,9 @@ Route::group(['middleware' => 'cors'], function () {
 
 Route::group(['domain' => '{slug}.' . parse_url(config('app.url'))['host']], function() {
     Route::get('/.well-known/stellar.toml', 'TomlController@show');
+    Route::get('{path}', function () {
+        return redirect()->to(config('app.url'));
+    })->where('path', '(.*)');
 });
 
 Route::get('{path}', function () {

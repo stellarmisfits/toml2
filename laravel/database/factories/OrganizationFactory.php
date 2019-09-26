@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Spatie\Regex\Regex;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,9 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Models\Organization::class, function (Faker $faker) {
+    $slug = strtolower(str_random(12));
     return [
         'name' => trim(substr($faker->name, 0, 20)),
-        'alias' => substr($faker->slug, 0, 12),
+        'alias' => Regex::replace('/[^a-z]/', '', $slug)->result()
     ];
 });

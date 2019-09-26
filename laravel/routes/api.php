@@ -23,9 +23,7 @@ Route::group(['middleware' => 'guest:api', 'namespace' => 'Auth'], function () {
         Route::post('email/resend', 'VerificationController@resend');
     }
 
-    if(config('auth.registration_enabled')){
-        Route::post('register', 'RegisterController@register');
-    }
+    Route::post('register', 'RegisterController@register');
 
     Route::post('oauth/{driver}', 'OAuthController@redirectToProvider');
     Route::get('oauth/{driver}/callback', 'OAuthController@handleProviderCallback')->name('oauth.callback');

@@ -42,6 +42,8 @@ class OAuthTest extends TestCase
     /** @test */
     public function createUserAndReturnToken()
     {
+        \Config::set('auth.registration_enabled', true);
+
         $this->mockSocialite('github', [
             'id' => '123',
             'name' => 'Test User',
