@@ -91,8 +91,7 @@ class FixturesSeeder extends Seeder
             'license_number'        => 'FB-226894',
         ]);
         // set logo
-        $logo = \Storage::disk('local')->path('fixtures/gelato-logo.jpg');
-        $org->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
+        $org->addMediaFromUrl('https://astrify-local.s3-us-west-2.amazonaws.com/fixtures/gelato-logo.jpg')->preservingOriginal()->toMediaCollection('logo');
 
         $this->or->addAccount($org, $account);
 
@@ -116,8 +115,7 @@ class FixturesSeeder extends Seeder
         ]);
 
          // set asset1 logo
-         $logo = \Storage::disk('local')->path('fixtures/free-scoop.jpg');
-         $asset1->addMedia($logo)->preservingOriginal()->toMediaCollection('logo');
+         $asset1->addMediaFromUrl('https://astrify-local.s3-us-west-2.amazonaws.com/fixtures/free-scoop.jpg')->preservingOriginal()->toMediaCollection('logo');
 
         $principal = factory(Principal::class)->create([
             'team_id'                   => $team->id
