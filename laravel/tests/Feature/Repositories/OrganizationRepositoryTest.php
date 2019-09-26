@@ -3,6 +3,7 @@
 namespace Tests\Feature\Controllers\Organization;
 
 use App\Models\Organization;
+use App\Http\Resources\Organization as OrganizationResource;
 use App\Models\User;
 use App\Repositories\OrganizationRepository;
 use Illuminate\Validation\ValidationException;
@@ -11,6 +12,54 @@ use Tests\TestCase;
 
 class OrganizationRepositoryTest extends TestCase
 {
+    public function testOrganizationRepositoryUpdateCustomUrl()
+    {
+        $or = new OrganizationRepository();
+        $team = $this->seeder->seedTeam();
+        $org = $this->seeder->seedOrganization($team);
+
+        $data = $org->toArray();
+        $data['custom_url'] =  'https://apples.test.com:8000/.well-known';
+        $or->update($org, $data);
+
+        $this->assertDatabaseHas('organizations', [
+            'id' => $org->id,
+            'custom_url' => 'apples.test.com:8000'
+        ]);
+
+        $data['custom_url'] =  '127.0.0.1';
+        $or->update($org, $data);
+
+        $this->assertDatabaseHas('organizations', [
+            'id' => $org->id,
+            'custom_url' => '127.0.0.1'
+        ]);
+
+        $data['custom_url'] =  '';
+        $or->update($org, $data);
+
+        $this->assertDatabaseHas('organizations', [
+            'id' => $org->id,
+            'custom_url' => null
+        ]);
+
+        $data['custom_url'] =  'localhost';
+        $or->update($org, $data);
+
+        $this->assertDatabaseHas('organizations', [
+            'id' => $org->id,
+            'custom_url' => 'localhost'
+        ]);
+
+        unset($data['custom_url']);
+        $or->update($org, $data);
+
+        $this->assertDatabaseHas('organizations', [
+            'id' => $org->id,
+            'custom_url' => null
+        ]);
+    }
+
     public function testOrganizationRepositoryAddValidator()
     {
         $or = new OrganizationRepository();

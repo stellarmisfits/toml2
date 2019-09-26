@@ -24,6 +24,11 @@ export default {
 
   methods: {
     async login () {
+      if (this.$store.getters['auth/check']) {
+        this.$router.push({ name: 'dashboard' })
+        return
+      }
+
       const newWindow = openWindow('', this.$t('login'))
 
       const url = await this.$store.dispatch('auth/fetchOauthUrl', {

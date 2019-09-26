@@ -61,7 +61,7 @@ class AccountController extends Controller
         $this->authorize('create', Account::class);
 
         $data = $request->validate([
-            'name'         =>  'required|string|max:50',
+            'name'         => 'required|string|max:50',
             'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
             'public_key'   => ['required', 'string', 'size:56', new PublicKey, Rule::unique('accounts', 'public_key')]
         ]);

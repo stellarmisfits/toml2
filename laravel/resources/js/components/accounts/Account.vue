@@ -3,12 +3,13 @@
     :image-url="'https://identicon-api.herokuapp.com/' + account.public_key + '/250?format=png'"
     :image-title="account.alias"
     :action="action"
+    :router-link="routerLink"
   >
     <div slot="body">
       <div class="flex items-center spaced-x-1">
         <h4 class="font-semibold text-lg leading-tight truncate">
           {{ account.name }}
-          <a-pill class="ml-2" color="red">
+          <a-pill class="ml-2" :color="(account.verified) ? 'green' : 'red'">
             {{ (account.verified) ? 'Verified' : 'Not Verified' }}
           </a-pill>
         </h4>
@@ -41,7 +42,7 @@
       </router-link>
     </div>
     <div v-if="action==='edit'" slot="details">
-      <div class="pb-6">
+      <div>
         <account-verify :organization="organization" :account="account" />
       </div>
     </div>
@@ -77,7 +78,10 @@ export default {
   computed: {
     ...mapGetters({
       organization: 'account/organization'
-    })
+    }),
+    routerLink: function () {
+      return (this.action !== 'edit') ? { name: 'account.details', params: { uuid: this.account.uuid } } : null
+    }
   }
 }
 </script>

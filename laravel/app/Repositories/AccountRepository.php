@@ -45,7 +45,7 @@ class AccountRepository
         ]));
 
         throw_unless($account->organization->url === $home_domain, ValidationException::withMessages([
-            'account_uuid' => 'The home domain for the given account does not match the organization\'s url.'
+            'account_uuid' => 'We checked the stellar network and the home domain for the given account does not match the organization\'s url. Use the transaction builder to update the account\'s home domain.'
         ]));
 
         $account->home_domain = $home_domain;

@@ -77,22 +77,23 @@ class OrganizationController extends Controller
      *
      * @param  Request  $request
      * @param  Organization $organization
+     * @param  OrganizationRepository $or
      * @return  OrganizationResource
      * @throws AuthorizationException
      */
-    public function update(Request $request, Organization $organization): OrganizationResource
+    public function update(Request $request, Organization $organization, OrganizationRepository $or): OrganizationResource
     {
         $this->authorize('update', $organization);
 
         $data = $request->validate([
             'name'          => ['required', 'string', 'min:3', 'max:23'],
             'alias'         => ['required', 'string', 'min:4', 'max:15', new OrganizationAlias, Rule::unique('organizations', 'alias')->ignore($organization->id)],
-            'custom_url'    => ['nullable', 'url', 'max:255'],
+            'custom_url'    => ['nullable', 'max:255'],
             'description'   => ['nullable', 'string', 'max:255'],
             'dba'           => ['nullable', 'string', 'max:50'],
         ]);
 
-        $organization->update($data);
+        $organization = $or->update($organization, $data);
 
         return new OrganizationResource($organization);
     }

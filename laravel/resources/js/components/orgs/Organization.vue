@@ -3,6 +3,7 @@
     :image-url="org.logo"
     :image-title="org.name"
     :action="action"
+    :router-link="routerLink"
   >
     <dropdown v-if="action==='edit'" slot="imageAction">
       <div slot="link" class="fill-current h-6 w-6 z-10 absolute right-0 mr-4 mt-2 text-white">
@@ -39,7 +40,7 @@
         @organizationUnlinked="$emit('organizationUnlinked', $event)"
       />
       <div v-if="action==='edit'" class="flex items-center">
-        <a-pill class="mr-2" color="blue">
+        <a-pill class="ml-2" :color="(org.published) ? 'green' : 'red'">
           <span>{{ (org.published) ? 'Published' : 'Not Published' }}</span>
         </a-pill>
         <edit-organization
@@ -55,7 +56,7 @@
       </router-link>
     </div>
     <div v-if="action==='edit'" slot="details">
-      <div class="pb-6">
+      <div>
         <span class="form-label">Official URL</span>
         <span class="form-label-subtext">
           Note that the organization's stellar.toml must be hosted on this domain.
@@ -99,6 +100,11 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  computed: {
+    routerLink: function () {
+      return (this.action !== 'edit') ? { name: 'org.details', params: { uuid: this.org.uuid } } : null
+    }
+  }
 }
 </script>

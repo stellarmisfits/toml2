@@ -6,7 +6,7 @@
         Once published your organization's TOML file will be available at the
         location below. If you've selected a custom domain for your
         organization you should add a CNAME record pointing to the astrify
-        subdomain.
+        subdomain below.
       </span>
       <div class="mt-4">
         <label class="inline-flex items-center">
@@ -31,12 +31,22 @@
         </label>
       </div>
       <div class="mt-4">
-        <pre class="text-sm bg-gray-800 text-white p-2 rounded">{{ organization.hosted_url }}/.well-known/stellar.toml</pre>
+        <div class="font-mono text-sm bg-gray-800 text-white p-2 rounded flex justify-between">
+          <div>{{ organization.hosted_url }}/.well-known/stellar.toml</div>
+          <a v-if="published" class="block mr-2" target="_blank" :href="`https://${organization.hosted_url}/.well-known/stellar.toml`">
+            <fa icon="external-link-square-alt" class="hover:text-gray-400 cursor-pointer" />
+          </a>
+        </div>
       </div>
     </div>
     <Modal :open="modal">
       <div slot="title">
         Are you sure you want to <span>{{ (published) ? 'publish' : 'un-publish' }}</span>  this organization?
+      </div>
+      <div slot="subtitle">
+        <span>Once published the TOML file will be publicly available at https://{{ organization.hosted_url }}/.well-known/stellar.toml</span>
+        <alert-error :form="form" />
+        <has-error class="mt-2" :form="form" field="organization_uuid" />
       </div>
       <div slot="actions">
         <button class="btn btn-white transition-all" @click="close">
@@ -64,6 +74,9 @@ export default {
   computed: {
     published () {
       return this.form.published
+    },
+    hostedUrl () {
+      return this.organization.hosted_url + '/.well-known/stellar.toml'
     }
   },
   watch: {

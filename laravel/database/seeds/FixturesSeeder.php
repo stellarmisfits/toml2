@@ -49,7 +49,7 @@ class FixturesSeeder extends Seeder
             'team_id'           => $team->id,
             'name'              => 'Second Account',
             'alias'             => 'second-account',
-            'public_key'        => 'GC4FWA3O7WTLYPTIOK73JN5JBBRAPJBKKZBLS27SIT5OFFIQNFSVFXVV',
+            'public_key'        => 'GAQ6EUNL46K4BYH5N7YG5VPOF6OD5FTSP5M3HYGLEGQ6SLYDU7OB4M45',
         ]);
 
         $account = factory(Account::class)->create([
@@ -62,7 +62,6 @@ class FixturesSeeder extends Seeder
         $org = factory(Organization::class)->create([
             'team_id'               => $team->id,
             'alias'                 => 'lotto-gelato',
-            'published'             => true,
 
             // begin sep-0001 global properties
             'federation_server'             => 'https://api.domain.com/federation',

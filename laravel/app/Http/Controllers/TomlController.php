@@ -19,7 +19,7 @@ class TomlController extends Controller
      */
     public function show($key)
     {
-        $org = Organization::where('alias', $key)->firstOrFail();
+        $org = Organization::where(['alias' => $key, 'published' => true])->firstOrFail();
         $ts = new TomlService($org);
         $tb = $ts->generateToml();
 

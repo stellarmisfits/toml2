@@ -27,6 +27,18 @@
       <div slot="body">
         <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
           <label class="block">
+            <span class="form-label">Name</span>
+            <input
+              v-model="form.name"
+              :class="{ 'is-invalid': form.errors.has('name') }"
+              type="text"
+              name="name"
+              required="required"
+              class="form-input mt-1"
+            >
+            <has-error :form="form" field="name" />
+          </label>
+          <label class="block">
             <span class="form-label">Alias</span>
             <input
               v-model="form.alias"

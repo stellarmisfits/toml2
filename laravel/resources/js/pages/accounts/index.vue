@@ -12,7 +12,6 @@
           <div class="mt-2 text-sm text-gray-700">
             <div class="max-w-2xl">
               All of the Stellar accounts tied to your user account are listed below.
-              To verify a stellar account you must set the home domain to astrify.com.
             </div>
           </div>
         </div>

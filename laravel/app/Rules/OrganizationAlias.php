@@ -30,6 +30,7 @@ class OrganizationAlias implements Rule
     public function passes($attribute, $value)
     {
         if(!Regex::match('/^[a-z](-?[a-z])*$/', $value)->hasMatch()){
+            $this->message = 'The given alias must contain only lower case letters and dashes. Regex: \'/^[a-z](-?[a-z])*$/\'';
             return false;
         }
 

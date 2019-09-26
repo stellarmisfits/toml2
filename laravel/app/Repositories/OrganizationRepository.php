@@ -32,6 +32,63 @@ class OrganizationRepository
         return $o;
     }
 
+    /**
+     * @param Organization $org
+     * @param array $data
+     * @return Organization
+     */
+    public function update(Organization $org, array $data): Organization
+    {
+        return \DB::transaction(function () use ($org, $data) {
+            if (!empty($data['custom_url'])){
+                $data['custom_url'] = $this->normalizeCustomUrl($data['custom_url']);
+            }else{
+                $data['custom_url'] = null;
+            }
+
+            // If the alias or the custom URL have changed
+            if ($org->alias !== $data['alias'] || $org->custom_url !== $data['custom_url']) {
+
+                // Unverify any verified accounts
+                $org->accounts->each(function ($account) {
+                    if ($account->verified) {
+                        $account->verified = false;
+                        $account->save();
+                    }
+                });
+
+                // Unpublish the organization
+                if ($org->published) {
+                    $org->published = false;
+                    $org->save();
+                }
+            }
+
+            $org->update($data);
+
+            return $org;
+        });
+    }
+
+    protected function normalizeCustomUrl($input): string{
+        $host = parse_url($input, PHP_URL_HOST);
+        $port = parse_url($input, PHP_URL_PORT);
+
+        if(!$host){
+            $host = parse_url($input, PHP_URL_PATH);
+        }
+
+        throw_unless($host, ValidationException::withMessages([
+            'custom_url' => 'The given url must contain a valid host.'
+        ]));
+
+        if(!$port){
+            return $host;
+        }
+
+        return $host . ':' . $port;
+    }
+
 
     /**
      * @param Organization $org
@@ -102,7 +159,7 @@ class OrganizationRepository
 
         $accounts->each(function($account) use ($organization){
             throw_unless($account->verified, ValidationException::withMessages([
-                'organization_uuid' => 'All associated accounts have not been verified. All accounts tied to this organization must have their home directory set to  ' . $organization->url . ' prior to publishing.'
+                'organization_uuid' => 'All associated accounts have not been verified. All accounts tied to this organization must be verified by setting their home directory to  ' . $organization->url . ' on the stellar network. Refer to the accounts page for more details.'
             ]));
         });
 

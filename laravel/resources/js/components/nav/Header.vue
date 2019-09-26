@@ -10,7 +10,7 @@
       </div>
       <div class="flex items-center">
         <div>
-          $300
+          <!--$300-->
         </div>
         <div class="ml-6">
           <User />

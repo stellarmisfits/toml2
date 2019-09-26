@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Services;
 
 use App\Repositories\OrganizationRepository;
 use App\Services\TomlService;

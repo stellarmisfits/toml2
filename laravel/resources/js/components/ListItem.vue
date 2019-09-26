@@ -10,9 +10,12 @@
       </div>
       <div class="flex flex-grow p-6">
         <div class="flex-grow">
-          <slot name="body" />
+          <router-link v-if="routerLink" :to="routerLink" class="hover:bg-gray-100">
+            <slot name="body" />
+          </router-link>
+          <slot v-else name="body" />
         </div>
-        <div class="flex-none">
+        <div v-if="$slots['action']" class="flex-none">
           <slot name="action" />
         </div>
       </div>
@@ -33,7 +36,8 @@ export default {
       required: true,
       validator: prop => typeof prop === 'string' || prop === null
     },
-    imageTitle: { type: String, required: true }
+    imageTitle: { type: String, required: true },
+    routerLink: { type: Object, default: null }
   }
 }
 </script>

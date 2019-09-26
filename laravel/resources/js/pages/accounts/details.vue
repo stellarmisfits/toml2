@@ -7,9 +7,6 @@
             Account Details
           </h2>
         </div>
-        <div class="flex-shrink-0 ml-4">
-          <span>Verify Button</span>
-        </div>
       </div>
       <div class="mt-4">
         <account
