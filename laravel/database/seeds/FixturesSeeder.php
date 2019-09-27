@@ -13,6 +13,7 @@ use App\Models\Organization;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Collection;
 use App\Repositories\OrganizationRepository;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class FixturesSeeder extends Seeder
 {
@@ -77,9 +78,9 @@ class FixturesSeeder extends Seeder
             'name'                  => 'Lotto\' Gelato, Inc.',
             'dba'                   => 'Lotto\' Gelato',
             'description'           => 'At Lotto Gelato we\'re serving up huge portions of our famous gelato flavors. Our scoops are so big when you see them you can\'t help but say "WOW! That\'s a Lotto\' Gelato!"',
-            'address'               => '{"suggestion": {"value": "2800 East Observatory Road, Los Angeles, California, United States of America"}}',
+            'address'               => '2800 East Observatory Road, Los Angeles, CA',
             'address_attestation'   => 'https://www.corp.att.com/newbill/images/standard-thumbnail.png',
-            'phone'                 => '{"country":"US","countryCallingCode":"1","valid":true,"possible":true,"phone":"2133734253"}',
+            'phone'                 => PhoneNumber::make('1(213)555-4253', ['US'])->formatE164(),
             'phone_attestation'     => 'https://www.corp.att.com/newbill/images/standard-thumbnail.png',
             'keybase'               => 'lotto-gelato',
             'twitter'               => 'lotto-gelato',

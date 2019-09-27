@@ -3,6 +3,7 @@ module.exports = {
     customForms: theme => ({
       default: {
         'input, textarea, multiselect, select': {
+          marginTop: theme('spacing.1'),
           width: theme('width.full'),
           borderRadius: theme('borderRadius.default'),
           borderColor: theme('colors.gray.300'),
@@ -30,6 +31,12 @@ module.exports = {
       '100': '100ms'
     },
     extend: {
+      maxHeight: {
+        '1/4': '25%',
+        '1/2': '50%',
+        '3/4': '75%',
+        'full': '100%'
+      },
       fontFamily: {
         sans: [
           'Nunito',

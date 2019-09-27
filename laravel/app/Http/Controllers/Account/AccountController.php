@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Account;
 
 use App\Models\Organization;
 use App\Repositories\AccountRepository;
+use App\Rules\Alias;
 use App\Rules\PublicKey;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class AccountController extends Controller
 
         $data = $request->validate([
             'name'         => 'required|string|max:50',
-            'alias'        => 'required|string|max:15|regex:/^[a-z-].*$/|unique:accounts',
+            'alias'        => ['required', 'string', 'min:5', 'max:20', 'unique:accounts', new Alias],
             'public_key'   => ['required', 'string', 'size:56', new PublicKey, Rule::unique('accounts', 'public_key')]
         ]);
 
@@ -98,7 +99,7 @@ class AccountController extends Controller
 
         $data = $request->validate([
             'name'         =>  'required|string|max:50',
-            'alias'        => ['required', 'string', 'max:15', 'regex:/^[a-z-].*$/', Rule::unique('accounts', 'alias')->ignore($account->id)],
+            'alias'        => ['required', 'string', 'min:5', 'max:20', 'unique:accounts', new Alias, Rule::unique('accounts', 'alias')->ignore($account->id)],
             'public_key'   => ['required', 'string', new PublicKey, Rule::unique('accounts', 'public_key')->ignore($account->id)]
         ]);
 

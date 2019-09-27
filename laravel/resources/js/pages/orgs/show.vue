@@ -17,7 +17,7 @@
         </span>
       </delete-resource>
     </a-breadcrumbs>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="px-12 py-8 mx-auto max-w-5xl">
       <transition name="fade" mode="out-in">
         <router-view :organization="organization" />
       </transition>
@@ -43,6 +43,11 @@ export default {
         {
           name: 'Resources',
           route: 'org.resources',
+          params: { uuid: this.$route.params.uuid }
+        },
+        {
+          name: 'Documentation',
+          route: 'org.documentation',
           params: { uuid: this.$route.params.uuid }
         },
         {

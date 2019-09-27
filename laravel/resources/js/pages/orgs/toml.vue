@@ -4,7 +4,7 @@
       <div>
         <h2 class="text-lg">
           Toml Preview
-          <a-pill class="ml-2" color="blue">
+          <a-pill class="ml-2" :color="(organization.published) ? 'green' : 'red'">
             <span>{{ (organization.published) ? 'Published' : 'Not Published' }}</span>
           </a-pill>
         </h2>

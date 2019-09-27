@@ -28,15 +28,17 @@
         @before-leave="cardLeaving = true"
         @after-leave="cardLeaving = false"
       >
-        <div v-if="showContent" class="relative w-full mx-auto bg-white rounded-lg shadow-2xl overflow-hidden max-w-2xl">
-          <div class="px-6 py-4">
-            <div class="text-lg">
-              <slot name="title" />
-              <div class="mt-1 text-sm text-gray-600">
-                <slot name="subtitle" />
+        <div v-if="showContent" class="flex flex-col justify-center relative w-full mx-auto max-w-2xl h-screen py-6">
+          <div class="flex flex-col bg-white rounded-lg shadow-2xl overflow-hidden max-h-full">
+            <div class="flex-none px-6 py-4">
+              <div class="text-lg">
+                <slot name="title" />
+                <div class="mt-1 text-sm text-gray-600">
+                  <slot name="subtitle" />
+                </div>
               </div>
             </div>
-            <div class="mt-4">
+            <div class="px-6 py-4 overflow-auto">
               <div v-if="alert" class="mb-4">
                 <strong class="text-red-900">Whoops! Something went wrong.</strong>
                 <ul class="mt-3 list-disc list-inside text-red-800 text-sm">
@@ -46,9 +48,9 @@
               </div>
               <slot name="body" />
             </div>
-          </div>
-          <div class="px-6 py-4 bg-gray-100 text-right">
-            <slot name="actions" />
+            <div class="flex-none px-6 py-4 bg-gray-100 text-right">
+              <slot name="actions" />
+            </div>
           </div>
         </div>
       </transition>

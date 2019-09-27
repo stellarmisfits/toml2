@@ -30,6 +30,7 @@
         "laravel/vapor-core": "^1.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "nkkollaw/reserved-subdomains": "dev-master",
+        "propaganistas/laravel-phone": "^4.2",
         "spatie/laravel-cors": "^1.6",
         "spatie/laravel-medialibrary": "^7.0.0",
         "spatie/regex": "^1.4",

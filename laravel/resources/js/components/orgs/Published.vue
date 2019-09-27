@@ -34,7 +34,7 @@
         <div class="font-mono text-sm bg-gray-800 text-white p-2 rounded flex justify-between">
           <div>{{ organization.hosted_url }}/.well-known/stellar.toml</div>
           <a v-if="published" class="block mr-2" target="_blank" :href="`https://${organization.hosted_url}/.well-known/stellar.toml`">
-            <fa icon="external-link-square-alt" class="hover:text-gray-400 cursor-pointer" />
+            <fa icon="external-link-alt" class="hover:text-gray-400 cursor-pointer" />
           </a>
         </div>
       </div>

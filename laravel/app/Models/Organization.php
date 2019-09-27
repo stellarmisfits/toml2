@@ -10,6 +10,7 @@ use Illuminate\Database\Query\Builder;
 use App\Http\Resources\Organization as OrganizationResource;
 
 use Illuminate\Validation\ValidationException;
+use Propaganistas\LaravelPhone\PhoneNumber;
 use Spatie\Image\Manipulations;
  use Spatie\MediaLibrary\Models\Media;
  use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -22,9 +23,7 @@ class Organization extends BaseModel implements HasMedia
     // use HasMediaTrait;
 
     protected $casts = [
-        'published' => 'boolean',
-        'physical_address' => 'array',
-        'phone_number' => 'array'
+        'published' => 'boolean'
     ];
 
     /**
@@ -38,10 +37,37 @@ class Organization extends BaseModel implements HasMedia
         'description',
         'dba',
         'custom_url',
-        'official_email',
-        'phone_number',
-        'physical_address'
+
+        // documentation properties
+        'address',
+        'address_attestation',
+        'phone',
+        'phone_attestation',
+        'keybase',
+        'twitter',
+        'github',
+        'email',
+        'licensing_authority',
+        'license_type',
+        'license_number',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            if($model->phone){
+                $model->phone = PhoneNumber::make($model->phone)->formatE164();
+            }
+        });
+    }
+
 
     public function registerMediaCollections()
     {

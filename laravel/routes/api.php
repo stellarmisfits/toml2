@@ -74,6 +74,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('organizations/{organization}/link', 'LinkResourceController@store')->name('organizations.link');
             Route::delete('organizations/{organization}/link', 'LinkResourceController@destroy')->name('organizations.unlink');
             Route::post('organizations/{organization}/publish', 'PublishController@store')->name('organizations.publish');
+            Route::patch('organizations/{organization}/documentation', 'DocumentationController@update')->name('organizations.documentation');
             Route::delete('organizations/{organization}/publish', 'PublishController@destroy')->name('organizations.unpublish');
         });
 

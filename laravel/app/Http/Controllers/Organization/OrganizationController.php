@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Organization;
 use App\Http\Resources\Organization as OrganizationResource;
 use App\Models\Organization;
 use App\Repositories\OrganizationRepository;
-use App\Rules\OrganizationAlias;
+use App\Rules\Alias;
 use App\Rules\ValidateUuid;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class OrganizationController extends Controller
     {
         $data = $request->validate([
             'name'         => ['required', 'string', 'min:3', 'max:23'],
-            'alias'        => ['required', 'string', 'min:4', 'max:15', 'unique:organizations', new OrganizationAlias],
+            'alias'        => ['required', 'string', 'min:5', 'max:20', 'unique:organizations', new Alias],
         ]);
 
         $org = $or->create(auth()->user(), $data);
@@ -87,7 +87,7 @@ class OrganizationController extends Controller
 
         $data = $request->validate([
             'name'          => ['required', 'string', 'min:3', 'max:23'],
-            'alias'         => ['required', 'string', 'min:4', 'max:15', new OrganizationAlias, Rule::unique('organizations', 'alias')->ignore($organization->id)],
+            'alias'         => ['required', 'string', 'min:5', 'max:20', new Alias, Rule::unique('organizations', 'alias')->ignore($organization->id)],
             'custom_url'    => ['nullable', 'max:255'],
             'description'   => ['nullable', 'string', 'max:255'],
             'dba'           => ['nullable', 'string', 'max:50'],

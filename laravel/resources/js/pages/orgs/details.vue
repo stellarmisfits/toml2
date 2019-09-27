@@ -6,6 +6,8 @@
         :org="organization"
       />
     </div>
+
+    <!-- globals-->
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>

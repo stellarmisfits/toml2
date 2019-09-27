@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 use nkkollaw\Multitenancy\Validators\Subdomain;
 use Spatie\Regex\Regex;
 
-class OrganizationAlias implements Rule
+class Alias implements Rule
 {
     protected $message = 'The given alias is invalid.';
 
