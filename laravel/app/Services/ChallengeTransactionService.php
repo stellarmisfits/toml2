@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Models\Account;
 use App\Services\Contracts\StellarAccountContract;
+use ErrorException;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use mysql_xdevapi\Exception;
@@ -43,28 +44,43 @@ class ChallengeTransactionService
      */
     protected $apiClient;
 
+    /**
+     * @var string
+     */
+    protected $networkPassphrase;
+
 
     /**
      * ChallengeTransactionService constructor.
+     */
+    public function __construct()
+    {
+        $this->apiClient = (config('stellar.horizon.type') === 'testnet') ? ApiClient::newTestnetClient() : ApiClient::newPublicClient();
+        $this->networkPassphrase = $this->apiClient->getNetworkPassphrase();
+        $this->serverSigningKey  = Keypair::newFromSeed(config('stellar.signing_key.secret'));
+    }
+
+    /**
+     * @return string
+     */
+    public function getNetworkPassphrase() {
+        return $this->networkPassphrase;
+    }
+
+    /**
      * @param Keypair $account
      */
-    public function __construct(Keypair $account)
-    {
+    public function setAccount(Keypair $account) {
         $this->account = $account;
-        $this->serverSigningKey = Keypair::newFromSeed(config('stellar.signing_key.secret'));
-
-        if (config('stellar.horizon.type') === 'testnet'){
-            $this->apiClient = ApiClient::newTestnetClient();
-        }else{
-            $this->apiClient = ApiClient::newPublicClient();
-        }
     }
 
     /**
      * @return TransactionEnvelope
-     * @throws \ErrorException
+     * @param Keypair $account
+     * @throws ErrorException
      */
-    public function getChallenge(): TransactionEnvelope{
+    public function getChallenge(Keypair $account): TransactionEnvelope{
+        $this->account = $account;
         $accountId = new AccountId($this->account->getAccountId());
 
         $op = new ManageDataOp('astrify auth');
@@ -87,10 +103,12 @@ class ChallengeTransactionService
 
     /**
      * @param string $base64
-     * @throws \ErrorException
+     * @param Keypair $account
+     * @throws ErrorException
      * @throws Throwable
      */
-    public function verifyChallenge(string $base64) {
+    public function verifyChallenge(string $base64, Keypair $account) {
+        $this->account = $account;
         $xdr = base64_decode($base64);
         $tx = Transaction::fromXdr(new XdrBuffer($xdr));
         $txE = TransactionEnvelope::fromXdr(new XdrBuffer($xdr));

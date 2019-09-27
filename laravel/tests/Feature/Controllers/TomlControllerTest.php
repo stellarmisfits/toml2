@@ -20,6 +20,12 @@ class TomlControllerTest extends TestCase
         $this->actingAs($user);
 
         $this->get('/toml/'. $org->alias .'/.well-known/stellar.toml')
+            ->assertStatus(404);
+
+        $org->published = true;
+        $org->save();
+
+        $this->get('/toml/'. $org->alias .'/.well-known/stellar.toml')
             ->assertStatus(200);
     }
 }

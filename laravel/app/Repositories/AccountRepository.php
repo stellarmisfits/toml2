@@ -36,7 +36,7 @@ class AccountRepository
      * @param StellarAccount $sAccount
      * @throws
      */
-    public function verify(Account $account, StellarAccount $sAccount)
+    public function verifyHomeDomain(Account $account, StellarAccount $sAccount)
     {
         $home_domain = $sAccount->getHomeDomain();
 

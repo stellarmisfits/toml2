@@ -5785,12 +5785,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/benbjurstrom/stellar-api.git",
-                "reference": "9b265accaf14adb1ac1fc878f65a2d10886f1974"
+                "reference": "0ae9dea1c724ce9a36b2062a77141d888d445e19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/benbjurstrom/stellar-api/zipball/9b265accaf14adb1ac1fc878f65a2d10886f1974",
-                "reference": "9b265accaf14adb1ac1fc878f65a2d10886f1974",
+                "url": "https://api.github.com/repos/benbjurstrom/stellar-api/zipball/0ae9dea1c724ce9a36b2062a77141d888d445e19",
+                "reference": "0ae9dea1c724ce9a36b2062a77141d888d445e19",
                 "shasum": ""
             },
             "require": {
@@ -5823,7 +5823,7 @@
             "support": {
                 "source": "https://github.com/benbjurstrom/stellar-api/tree/master"
             },
-            "time": "2018-10-12T07:43:50+00:00"
+            "time": "2019-09-27T23:48:37+00:00"
         }
     ],
     "packages-dev": [

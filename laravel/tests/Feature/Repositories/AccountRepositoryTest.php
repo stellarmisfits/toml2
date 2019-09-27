@@ -23,7 +23,7 @@ class AccountRepositoryTest extends TestCase
         $sAccount = \Mockery::Mock(StellarAccount::class);
         $sAccount->shouldReceive('getHomeDomain')->once()->andReturn($org->url);
 
-        (new AccountRepository())->verify($account, $sAccount);
+        (new AccountRepository())->verifyHomeDomain($account, $sAccount);
 
         $this->assertDatabaseHas('accounts', [
             'id' => $account->id,
@@ -41,7 +41,7 @@ class AccountRepositoryTest extends TestCase
         $sAccount->shouldReceive('getHomeDomain')->once()->andReturn($org->url);
 
         $this->expectException(ValidationException::class);
-        (new AccountRepository())->verify($account, $sAccount);
+        (new AccountRepository())->verifyHomeDomain($account, $sAccount);
 
         $this->assertDatabaseHas('accounts', [
             'id' => $account->id,
@@ -60,7 +60,7 @@ class AccountRepositoryTest extends TestCase
         $sAccount->shouldReceive('getHomeDomain')->once()->andReturn(null);
 
         $this->expectException(ValidationException::class);
-        (new AccountRepository())->verify($account, $sAccount);
+        (new AccountRepository())->verifyHomeDomain($account, $sAccount);
 
         $this->assertDatabaseHas('accounts', [
             'id' => $account->id,

@@ -61,7 +61,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         Route::group(['namespace' => 'Account'], function () {
             Route::resource('accounts', 'AccountController');
+            Route::get('accounts/{account}/verify', 'VerificationController@show')->name('accounts.challenge');
             Route::post('accounts/{account}/verify', 'VerificationController@store')->name('accounts.verify');
+            Route::post('accounts/{account}/domain', 'DomainController@store')->name('accounts.domain');
         });
 
         Route::group(['namespace' => 'Asset'], function () {

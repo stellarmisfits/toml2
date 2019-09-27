@@ -6,74 +6,67 @@ use App\Models\Account;
 use App\Models\Asset;
 use App\Models\User;
 use App\Repositories\OrganizationRepository;
+use App\Services\ChallengeTransactionService;
 use Ramsey\Uuid\Uuid;
-use Tests\Fixtures\StellarHelpers;
 use Tests\TestCase;
+use Laravel\Passport\Passport;
 use App\Http\Resources\Account as AccountResource;
 use ZuluCrypto\StellarSdk\Keypair;
-use App\Services\StellarAccountService;
-use ZuluCrypto\StellarSdk\Model\Account as StellarAccount;
 
-class VerificationControllerTest extends TestCase
+class AccountControllerTest extends TestCase
 {
+    /**
+     * GET Resource
+     */
+    public function testAccountVerificationControllerShow()
+    {
+        $account = $this->seeder->seedAccount();
+        $user = $this->seeder->seedUserWithTeam($account->team);
+        $this->actingAs($user);
+
+        $this->actingAs($user, 'api')
+            ->getJson(route('accounts.challenge', [
+                $account->uuid
+            ]))
+            ->assertStatus(200)
+            ->assertJsonStructure(['transaction', 'network_passphrase']);
+    }
 
     /**
      * POST
      */
-    public function testVerificationControllerStore()
+    public function testAccountVerificationControllerStore()
     {
         $account = $this->seeder->seedAccount();
-        $org = $this->seeder->seedOrganization($account->team);
-        (new OrganizationRepository)->addAccount($org, $account);
+        $account->public_key = env('PUBLIC_KEY1');
+        $account->save();
 
         $user = $this->seeder->seedUserWithTeam($account->team);
         $this->actingAs($user);
 
-        $stellarAccountMock = $this->mock(StellarAccount::class, function ($mock) use ($org) {
-            $mock->shouldReceive('getHomeDomain')->once()->andReturn($org->url);
-        });
-
-        $this->mock(StellarAccountService::class, function ($mock) use ($stellarAccountMock) {
-            $mock->shouldReceive('getAccount')->once()->andReturn($stellarAccountMock);
-        });
-
         $this->assertDatabaseMissing('accounts', [
             'id' => $account->id,
-            'home_domain' => $org->url
+            'verified' => true,
+            'verification_tx' => null
         ]);
 
-        $this->postJson(route('accounts.verify', $account->uuid))
-            ->assertSuccessful()
-            ->assertJsonFragment([
-                'home_domain' => $org->url
-            ]);
+        $avs = new ChallengeTransactionService();
+
+        // Get the challenge
+        $txE = $avs->getChallenge(Keypair::newFromPublicKey($account->public_key));
+
+        // Sign the challenge
+        $txE->sign( env('SECRET_KEY1'));
+
+        $response = $this->postJson(route('accounts.verify', $account->uuid), [
+            'transaction' => $txE->toBase64()
+        ])->assertStatus(200);
 
         $this->assertDatabaseHas('accounts', [
             'id' => $account->id,
-            'home_domain' => $org->url
+            'verified' => true,
+            'verification_tx' => $txE->toBase64()
         ]);
     }
-
-    /**
-     * @group integration
-     */
-//    public function testVerificationControllerStoreIntegration() {
-//        $account = $this->seeder->seedAccount();
-//        $org = $this->seeder->seedOrganization($account->team);
-//        $user = $this->seeder->seedUserWithTeam($account->team);
-//        $this->actingAs($user);
-//
-//        $sh = new StellarHelpers();
-//        $sAccount = $sh->getAccount1();
-//        $account->public_key = $sAccount->getPublicKey();
-//        $account->save();
-//
-//        $sh->setHomeDomain($sAccount, $org->url);
-//
-//        (new OrganizationRepository)->addAccount($org, $account);
-//
-//        $this->postJson(route('accounts.verify', $account->uuid))
-//            ->assertSuccessful();
-//    }
 
 }

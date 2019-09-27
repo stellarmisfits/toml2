@@ -12,7 +12,7 @@ use Laravel\Passport\Passport;
 use App\Http\Resources\Account as AccountResource;
 use ZuluCrypto\StellarSdk\Keypair;
 
-class AccountControllerTest extends TestCase
+class VerificationControllerTest extends TestCase
 {
 
     /**
