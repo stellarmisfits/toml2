@@ -51,6 +51,11 @@ export default {
           params: { uuid: this.$route.params.uuid }
         },
         {
+          name: 'Globals',
+          route: 'org.globals',
+          params: { uuid: this.$route.params.uuid }
+        },
+        {
           name: 'Toml',
           route: 'org.toml',
           params: { uuid: this.$route.params.uuid }

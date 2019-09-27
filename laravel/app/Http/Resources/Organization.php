@@ -26,11 +26,11 @@ class Organization extends JsonResource
             'federation_server'             => $this->federation_server,
             'auth_server'                   => $this->auth_server,
             'transfer_server'               => $this->transfer_server,
-            'kyc_server'                    > $this->kyc_server,
+            'kyc_server'                    => $this->kyc_server,
             'web_auth_endpoint'             => $this->web_auth_endpoint,
-            'signing_key_id'                => $this->signing_key_id,
+            'signing_key_uuid'              => optional($this->signing_key)->uuid,
             'horizon_url'                   => $this->horizon_url,
-            'uri_request_signing_key_id'    => $this->uri_request_signing_key_id,
+            'uri_request_signing_key_uuid'  => optional($this->uri_request_signing_key)->uuid,
 
             // begin sep-0001 documentation properties
             'name'                          => $this->name,

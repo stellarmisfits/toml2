@@ -37,6 +37,7 @@ export default [
       { path: 'details', name: 'org.details', component: page('orgs/details.vue') },
       { path: 'resources', name: 'org.resources', component: page('orgs/resources.vue') },
       { path: 'documentation', name: 'org.documentation', component: page('orgs/documentation.vue') },
+      { path: 'globals', name: 'org.globals', component: page('orgs/globals.vue') },
       { path: 'toml', name: 'org.toml', component: page('orgs/toml.vue') }
     ]
   },

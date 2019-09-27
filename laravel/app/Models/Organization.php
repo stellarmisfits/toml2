@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\BelongsToTeam;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -154,13 +155,23 @@ class Organization extends BaseModel implements HasMedia
     */
 
     /**
-     * Organization->Users relationship
+     * Organization->SigningKey relationship
      *
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function users(): BelongsToMany
+    public function signingKey(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'organization_users');
+        return $this->belongsTo(Account::class, 'signing_key_id');
+    }
+
+    /**
+     * Organization->UriRequestSigningKey relationship
+     *
+     * @return BelongsTo
+     */
+    public function uriRequestSigningKey(): BelongsTo
+    {
+        return $this->belongsTo(Account::class, 'uri_request_signing_key_id');
     }
 
     /**

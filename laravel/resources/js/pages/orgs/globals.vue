@@ -5,23 +5,23 @@
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
-            Issuer Documentation
+            Account Information
           </h2>
           <div class="mt-1 text-sm text-gray-700">
             <div class="max-w-2xl">
-              These fields are added to the DOCUMENTATION table in the organization's stellar.toml file.
+              These are global fields in the stellar.toml file.
             </div>
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">
-          <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#issuer-documentation">
+          <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#account-information">
             <fa class="text-gray-700 hover:bg-gray-500" icon="external-link-alt" />
           </a>
         </div>
       </div>
       <hr class="my-10 border-b">
       <div>
-        <documentation
+        <globals
           :organization="organization"
         />
       </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Documentation from '~/components/orgs/Documentation'
+import Globals from '~/components/orgs/Globals'
 export default {
   middleware: 'auth',
 
@@ -39,7 +39,7 @@ export default {
   },
 
   components: {
-    Documentation
+    Globals
   },
 
   props: {

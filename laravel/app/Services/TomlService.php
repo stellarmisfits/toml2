@@ -31,9 +31,11 @@ class TomlService
      */
     public function generateToml(): TomlBuilder
     {
+        $passphrase = (config('stellar.horizon.type') === 'testnet') ? 'Test SDF Network ; September 2015' : 'Public Global Stellar Network ; September 2015';
+        $this->tb->addValue('NETWORK_PASSPHRASE', $passphrase);
+
         $this->addGlobals();
         $this->addAccounts();
-
         $this->tb->addValue('VERSION', '2.0.0');
 
         $this->addDocumentation();

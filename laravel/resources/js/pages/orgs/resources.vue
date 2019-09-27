@@ -11,6 +11,9 @@
               Lists of the account resources that are tied to this organization.
               Account records that are linked to an organization will show up in the
               organizations TOML file under the ACCOUNTS array.
+              <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#account-information">
+                <fa class="text-xs text-gray-600 hover:text-gray-400" icon="external-link-alt" />
+              </a>
             </div>
           </div>
         </div>
@@ -43,6 +46,9 @@
               Lists of the asset resources that are tied to this organization.
               Asset records that are linked to an organization will show up in the
               organizations TOML file under the CURRENCIES array.
+              <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#currency-documentation">
+                <fa class="text-xs text-gray-600 hover:text-gray-400" icon="external-link-alt" />
+              </a>
             </div>
           </div>
         </div>
@@ -75,6 +81,9 @@
               Lists of the principal resources that are tied to this organization.
               Principal records that are linked to an organization will show up in the
               organizations TOML file under the PRINCIPALS array.
+              <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#point-of-contact-documentation">
+                <fa class="text-xs text-gray-600 hover:text-gray-400" icon="external-link-alt" />
+              </a>
             </div>
           </div>
         </div>
@@ -107,6 +116,9 @@
               Lists of the validator resources that are tied to this organization.
               Validator records that are linked to an organization will show up in the
               organizations TOML file under the VALIDATORS array.
+              <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0001.md#validator-information">
+                <fa class="text-xs text-gray-600 hover:text-gray-400" icon="external-link-alt" />
+              </a>
             </div>
           </div>
         </div>

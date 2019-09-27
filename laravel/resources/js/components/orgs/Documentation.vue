@@ -1,7 +1,5 @@
 <template>
   <div>
-    <hr class="my-10 border-b">
-
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
         <h3 class="text-md font-semibold">
