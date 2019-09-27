@@ -65,12 +65,6 @@
           {{ org.url }}
         </span>
       </div>
-      <div>
-        <organization-url
-          :key="org.uuid + org.published"
-          :organization="org"
-        />
-      </div>
     </div>
   </a-list-item>
 </template>
@@ -79,14 +73,12 @@ import EditOrganization from '~/components/orgs/Upsert'
 import Unlink from '~/components/orgs/OrganizationUnlink'
 import ImageAdd from '~/components/ImageAdd'
 import ImageRemove from '~/components/ImageRemove'
-import OrganizationUrl from '~/components/orgs/Published'
 export default {
   components: {
     Unlink,
     EditOrganization,
     ImageAdd,
-    ImageRemove,
-    OrganizationUrl
+    ImageRemove
   },
   props: {
     org: { type: Object, required: true },

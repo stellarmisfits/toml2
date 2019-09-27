@@ -1,36 +1,40 @@
 <template>
   <div>
-    <div class="py-6 border-t border-gray-200">
-      <span class="form-label">Publish TOML</span>
-      <span class="form-label-subtext">
+    <div class="p-6 bg-white rounded-lg shadow-md overflow-hidden text-gray-600">
+      <h3 class="text-md font-semibold">
+        Publish TOML
+      </h3>
+      <div class="mt-4 text-sm">
         Once published your organization's TOML file will be available at the
         location below. If you've selected a custom domain for your
         organization you should add a CNAME record pointing to the astrify
-        subdomain below.
-      </span>
-      <div class="mt-4">
-        <label class="inline-flex items-center">
-          <input
-            v-model="form.published"
-            :value="true"
-            type="radio"
-            class="form-radio"
-            name="published"
-          >
-          <span class="ml-2">Published</span>
-        </label>
-        <label class="inline-flex items-center ml-6">
-          <input
-            v-model="form.published"
-            :value="false"
-            type="radio"
-            class="form-radio"
-            name="published"
-          >
-          <span class="ml-2">Unpublished</span>
-        </label>
+        subdomain.
       </div>
-      <div class="mt-4">
+      <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
+        <div class="mt-4">
+          <label class="inline-flex items-center">
+            <input
+              v-model="form.published"
+              :value="true"
+              type="radio"
+              class="form-radio"
+              name="published"
+            >
+            <span class="ml-2">Published</span>
+          </label>
+          <label class="inline-flex items-center ml-6">
+            <input
+              v-model="form.published"
+              :value="false"
+              type="radio"
+              class="form-radio"
+              name="published"
+            >
+            <span class="ml-2">Unpublished</span>
+          </label>
+        </div>
+      </form>
+      <div class="mt-4 text-sm text-gray-800">
         <div class="font-mono text-sm bg-gray-800 text-white p-2 rounded flex justify-between">
           <div>{{ organization.hosted_url }}/.well-known/stellar.toml</div>
           <a v-if="published" class="block mr-2" target="_blank" :href="`https://${organization.hosted_url}/.well-known/stellar.toml`">
