@@ -20,7 +20,7 @@
     </div>
 
     <!-- Body -->
-    <div class="pt-4 pb-12 bg-gray-100">
+    <div class="py-12 bg-gray-100">
       <div class="lg:relative px-5 max-w-xl md:max-w-2xl lg:max-w-5xl mx-auto">
         <div class="md:flex md:-mx-4 lg:mt-16">
           <!-- Organizations -->
@@ -73,6 +73,22 @@
         </div>
       </div>
     </div>
+
+    <!-- Open Source -->
+    <a href="https://github.com/benbjurstrom/astrify" target="_blank" class="block px-5 py-12 bg-gray-900 hover:bg-gray-700">
+      <div class="lg:max-w-xl lg:text-center lg:mx-auto  text-white">
+        <div>
+          <fa class="text-5xl" :icon="['fab', 'github']" />
+        </div>
+        <div class="mt-16 text-2xl lg:text-3xl font-headline tracking-tight leading-snug">
+          Open source code available on github.
+        </div>
+
+        <div class="mt-4 text-gray-300">
+          Please submit any bugs or feature request via github issues.
+        </div>
+      </div>
+    </a>
   </div>
 </template>
 

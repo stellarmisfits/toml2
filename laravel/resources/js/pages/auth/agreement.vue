@@ -4,20 +4,32 @@
       <a-logo class="h-24 w-24 text-blue-800 hover:text-gray-600" />
     </router-link>
     <a-well class="my-6 p-6 w-96">
-      <div>
+      <div class="text-gray-700 text-sm spaced-y-4">
         <h2 class="text-lg">
           Privacy and Terms Agreement
         </h2>
-        <div class="mt-2 text-sm text-gray-700">
+        <div>
           You must agree to the latest
           <a href="/terms" target="_blank" class="underline cursor-pointer">Terms of Service</a> and <a href="/privacy" target="_blank" class="underline cursor-pointer">Privacy Policy</a>
           before continuing.
         </div>
+
         <alert-error :form="form" />
         <div class="flex justify-end">
           <a-button class="mt-4" @click="save">
             I Agree
           </a-button>
+        </div>
+
+        <hr class="border-b block">
+
+        <h4 class="text-lg mt-4 block">
+          Public beta notice
+        </h4>
+        <div>
+          This website is currently in public beta. Though effort will be
+          made to ensure continuity of service; there is no guarantee pertaining to
+          system up-time or data integrity.
         </div>
       </div>
     </a-well>

@@ -160,7 +160,7 @@ class OrganizationRepository
         $accounts = $organization->accounts;
 
         throw_unless($accounts->count(), ValidationException::withMessages([
-            'organization_uuid' => 'The given organization is not associated with any accounts and therefore cannot be published.'
+            'organization_uuid' => 'The given organization is not associated with any accounts and therefore cannot be published. You can link existing accounts from the resources tab or navigate to the accounts page to create a new one.'
         ]));
 
         $accounts->each(function($account) use ($organization){

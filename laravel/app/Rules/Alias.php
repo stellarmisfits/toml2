@@ -35,7 +35,7 @@ class Alias implements Rule
         }
 
         if (Subdomain::isReserved($value)) {
-            $this->message = 'This alias has already been reserved.';
+            $this->message = 'The alias has already been taken.';
             return false;
         }
 
