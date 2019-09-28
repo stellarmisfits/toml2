@@ -15,7 +15,7 @@
         </h4>
       </div>
       <div class="mt-1">
-        <span>{{ account.alias }}</span>
+        <span>{{ account.alias }}*astrify.com</span>
       </div>
       <div class="mt-1">
         <span>{{ account.public_key }}</span>

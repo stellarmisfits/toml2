@@ -20,7 +20,10 @@ class FederationController extends Controller
         ]);
 
         $column = ($data['type'] === 'name') ? 'alias' : 'public_key';
-        $account = (new Account())->where($column, $data['q'])->firstOrFail();
+        $account = (new Account())->where([
+            $column => $data['q'],
+            'verified' => true
+        ])->firstOrFail();
 
         return response()->json([
             'stellar_address' => $account->alias . '*astrify.com',

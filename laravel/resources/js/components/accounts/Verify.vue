@@ -1,35 +1,55 @@
 <template>
   <div>
     <alert-success :form="form" message="The account has been successfully verified!" />
-    <div v-if="!account.verified && organization">
+    <div v-if="!account.verified">
       <div>
-        To verify this account you must first set the account's home domain to
-        the organization's url listed below. Once you've submitted the update to
-        the stellar network click verify so astrify can confirm the change.
+        To verify this account you must submit a challenge transaction signed with
+        the account's private key. This process loosely follows the SEP: 0010
+        Stellar Web Authentication defined <a class="hover:text-gray-500" target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md">here <fa class="text-xs" icon="external-link-alt" /></a>.
       </div>
-      <div class="mt-4">
-        <pre class="text-sm bg-gray-800 text-white p-2 rounded">{{ organization.url }}</pre>
-        <alert-error :form="form" />
-        <has-error class="mt-2" :form="form" field="account_uuid" />
-      </div>
-      <div class="mt-4 -mx-2 flex justify-end">
-        <a class="block w-2/3 px-2 mr-4" :href="url" target="_blank">
-          <a-button class="w-full" type="white">build verification transaction</a-button>
-        </a>
-        <a-button class="block w-1/3 px-2" @click="save">
-          verify
-        </a-button>
-      </div>
-    </div>
-    <div v-if="!account.verified && !organization">
-      <div>
-        To verify this account you must first link it to an organization.
+      <hr class="my-8 border-b">
+      <div class="">
+        <div v-if="challenge" class="spaced-y-6">
+          <label class="block">
+            <div class="flex justify-between">
+              <span class="form-label block">Challenge Transaction</span>
+              <a :href="transactionSignerUrl" target="_blank" class="form-label block hover:text-gray-500 ">Open in stellar.org's transaction signer <fa class="text-xs" icon="external-link-alt" /></a>
+            </div>
+            <textarea
+              :value="challenge"
+              disabled
+              class="form-textarea mt-1"
+              rows="6"
+            />
+          </label>
+          <label class="block">
+            <span class="form-label">Paste Signed Transactions Here:</span>
+            <textarea
+              v-model="form.transaction"
+              :class="{ 'is-invalid': form.errors.has('transaction') }"
+              class="form-textarea mt-1"
+              rows="6"
+            />
+            <has-error :form="form" field="transaction" />
+          </label>
+          <div class="flex justify-center">
+            <a-button :loading="form.busy" class="block w-1/2" @click="save">
+              verify
+            </a-button>
+          </div>
+        </div>
+        <div v-else class="flex justify-center">
+          <a-button :loading="challengeForm.busy" class="block w-1/2" type="white" @click="request">
+            Request Challenge
+          </a-button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Form from 'vform'
+import { mapGetters } from 'vuex'
 export default {
   props: {
     account: { type: Object, required: true },
@@ -37,50 +57,19 @@ export default {
   },
 
   data: () => ({
-    modal: false,
     form: new Form({
-      account_uuid: null
-    })
+      transaction: null
+    }),
+    challengeForm: new Form()
   }),
 
   computed: {
-    eligibilityMessage () {
-      if (!this.organization) {
-        return 'To verify this account you must first link it to an organization.'
-      }
+    ...mapGetters({
+      challenge: 'account/challenge'
+    }),
 
-      return 'test'
-    },
-
-    url () {
-      return 'https://www.stellar.org/laboratory/#txbuilder?params=' + this.labParamsBase64 + '&network=test'
-    },
-
-    labParams () {
-      const homeDomain = (this.organization) ? this.organization.url : null
-      return {
-        'attributes': {
-          'sourceAccount': this.account.public_key,
-          'sequence': null,
-          'fee': '100'
-        },
-        'operations': [
-          {
-            'id': 0,
-            'attributes': {
-              'homeDomain': homeDomain
-            },
-            'name': 'setOptions'
-          }
-        ]
-      }
-    },
-
-    labParamsBase64 () {
-      if (!this.labParams) return null
-
-      const dataJsonStr = JSON.stringify(this.labParams)
-      return Buffer.from(dataJsonStr).toString('base64')
+    transactionSignerUrl () {
+      return 'https://www.stellar.org/laboratory/#txsigner?xdr=' + encodeURIComponent(this.challenge)
     }
   },
 
@@ -90,10 +79,12 @@ export default {
 
   methods: {
     async save () {
-      this.form.account_uuid = this.account.uuid
       const { data } = await this.form.post('/api/accounts/' + this.account.uuid + '/verify')
       this.$store.commit('account/SET_ACCOUNT', { account: data.data })
-      this.modal = false
+    },
+    async request () {
+      const { data } = await this.challengeForm.get('/api/accounts/' + this.account.uuid + '/verify')
+      this.$store.commit('account/SET_CHALLENGE', { challenge: data })
     }
   }
 }

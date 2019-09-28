@@ -9,6 +9,7 @@ use App\Models\Principal;
 use App\Models\User;
 use App\Models\Validator;
 use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class OrganizationRepository
 {
@@ -93,9 +94,14 @@ class OrganizationRepository
     /**
      * @param Organization $org
      * @param Account $account
+     * @throws Throwable
      */
     public function addAccount(Organization $org, Account $account)
     {
+        throw_if($org->published && !$account->verified, ValidationException::withMessages([
+            'organization_uuid' => 'You cannot link an unverified account to a published organization. Please navigate to the account details page to perform necessary the verification steps before trying again.'
+        ]));
+
         $account->organization()->associate($org);
         $account->save();
     }
@@ -159,7 +165,7 @@ class OrganizationRepository
 
         $accounts->each(function($account) use ($organization){
             throw_unless($account->verified, ValidationException::withMessages([
-                'organization_uuid' => 'All associated accounts have not been verified. All accounts tied to this organization must be verified by setting their home directory to  ' . $organization->url . ' on the stellar network. Refer to the accounts page for more details.'
+                'organization_uuid' => 'All associated accounts have not been verified. All accounts tied to this organization must be verified before it can be published. Please navigate to the account details page to perform necessary the verification steps.'
             ]));
         });
 

@@ -141,4 +141,20 @@ class OrganizationRepositoryTest extends TestCase
         $this->expectException(ValidationException::class);
         $or->publish($org);
     }
+
+    public function testOrganizationRepositoryCantAddInvalidAccountToPublished()
+    {
+        $or = new OrganizationRepository();
+        $team       = $this->seeder->seedTeam();
+        $org        = $this->seeder->seedOrganization($team);
+        $account    = $this->seeder->seedAccount($team);
+        $user       = $this->seeder->seedUserWithTeam($team);
+        $this->actingAs($user);
+
+        $org->published = true;
+        $org->save();
+
+        $this->expectException(ValidationException::class);
+        $or->addAccount($org, $account);
+    }
 }

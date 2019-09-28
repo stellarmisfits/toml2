@@ -34,7 +34,7 @@ class Account extends BaseModel
     /**
      * @return bool
      */
-    public function getVerifiedAttribute(): bool
+    public function getDomainVerifiedAttribute(): bool
     {
         if(!$this->organization_id) {
             return false;

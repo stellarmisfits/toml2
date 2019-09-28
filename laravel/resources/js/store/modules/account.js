@@ -3,6 +3,10 @@ import { fetchLinkedOrgs, fetchUnlinkedOrgs } from '~/store/linked-orgs'
 
 export const state = {
   accounts: [],
+  challenge: {
+    transaction: null,
+    network_passphrase: null
+  },
   linkedOrgs: [],
   unlinkedOrgs: []
 }
@@ -16,6 +20,7 @@ export const getters = {
     return state.accounts.find(account => account.slug === slug)
   },
   accounts: state => (state.accounts.length) ? state.accounts : null,
+  challenge: state => state.challenge.transaction,
   linkedOrgs: state => state.linkedOrgs,
   unlinkedOrgs: state => state.unlinkedOrgs,
   organization: (state) => state.linkedOrgs[0]
@@ -57,5 +62,8 @@ export const mutations = {
   },
   SET_UNLINKED_ORGS (state, { orgs }) {
     state.unlinkedOrgs = orgs
+  },
+  SET_CHALLENGE (state, { challenge }) {
+    state.challenge = challenge
   }
 }

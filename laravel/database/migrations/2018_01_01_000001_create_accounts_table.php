@@ -22,7 +22,7 @@ class CreateAccountsTable extends Migration
             $table->string('alias')->unique()->index();
             $table->string('public_key', 56)->unique()->index();
             $table->boolean('verified')->nullable();
-            $table->string('verification_tx')->nullable();
+            $table->string('verification_tx', 1000)->nullable();
             $table->string('home_domain')->nullable(); // always obtained from horizon api
             $table->dateTime('home_domain_updated_at')->nullable(); // always obtained from horizon api
             $table->timestamps();
