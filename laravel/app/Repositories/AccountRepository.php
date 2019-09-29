@@ -44,6 +44,12 @@ class AccountRepository
 
            if($account->public_key !== $newPublicKey){
                $account->verified = false;
+
+               $organization = $account->organization;
+               if($organization){
+                   $organization->published = false;
+                   $organization->save();
+               }
            }
 
            $account->name        = $data['name'];
