@@ -2,18 +2,18 @@
   <div>
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-md font-semibold text-light-heading">
           Address & Phone Number
         </h3>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-sm text-light-secondary">
           The phone number must be provided in a valid E.164 format, e.g. +14155552671.
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-sm text-light-secondary">
           Attestations are links to an image or pdf showing both the address or phone number and your organization's name. Only documents from an official third party are acceptable. E.g. a utility bill, mail from a financial institution, or business license.
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- Address -->
             <label class="block">
@@ -54,28 +54,28 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
 
-    <hr class="my-10 border-b">
+    <hr class="my-10 border-b border-gray-800">
 
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-md font-semibold text-light-heading">
           Contact Information
         </h3>
-        <div class="mt-2 text-sm text-gray-800">
+        <div class="mt-2 text-sm text-light-secondary">
           Note that the given keybase account should contain proof of ownership
           of any public online accounts you list here, including your organization's
           domain.
         </div>
-        <div class="mt-2 text-sm text-gray-800">
+        <div class="mt-2 text-sm text-light-secondary">
           Additionally the given email account must be hosted at the ORG_URL domain.
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- Keybase -->
             <label class="block">
@@ -116,25 +116,25 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
 
-    <hr class="my-10 border-b">
+    <hr class="my-10 border-b border-gray-800">
 
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-md font-semibold text-light-heading">
           Licensing Information
         </h3>
-        <div class="mt-2 text-sm text-gray-800">
+        <div class="mt-2 text-sm text-light-secondary">
           If applicable enter the name of the authority or agency that licensed
           your organization, the type of financial or other license your
           organization holds, and the official license number of your organization.
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- licensing_authority -->
             <label class="block">
@@ -168,16 +168,18 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Form from 'vform'
+import AWell from '~/components/Well'
 // import Places from '~/components/Places'
 export default {
   components: {
+    AWell
     // Places
   },
   props: {

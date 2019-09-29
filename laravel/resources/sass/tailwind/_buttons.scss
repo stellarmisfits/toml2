@@ -23,7 +23,7 @@
 }
 
 .btn-white {
-  @apply border border-gray-300 text-gray-600 shadow bg-white;
+  @apply border border-gray-300 text-gray-600 bg-white;
   &:disabled {
     @apply shadow-inner;
     &:hover{

@@ -1,5 +1,5 @@
 <template>
-  <div class="relative shadow-md bg-white flex-shrink-0">
+  <div class="relative bg-white flex-shrink-0">
     <div class="flex justify-between items-center h-16 px-12">
       <div>
         <div class="relative w-64">

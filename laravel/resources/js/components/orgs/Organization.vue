@@ -18,7 +18,7 @@
     </dropdown>
     <div slot="body">
       <div class="flex items-center spaced-x-1">
-        <h4 class="font-semibold text-lg leading-tight truncate">
+        <h4 class="font-semibold text-lg leading-tight truncate text-dark-heading">
           {{ org.name }} <span v-if="org.dba" class="font-normal text-base">
             ({{ org.dba }})
           </span>

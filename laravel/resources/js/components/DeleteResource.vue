@@ -2,7 +2,7 @@
   <div>
     <Dropdown>
       <span slot="link" class="flex items-center">
-        <fa icon="times-circle" class="hover:text-gray-400 cursor-pointer" />
+        <fa icon="times-circle" class="text-light-heading hover:text-gray-500 cursor-pointer" />
       </span>
       <div slot="dropdown" class="py-2 w-64">
         <a href="#" class="dropdown-item" @click.prevent="modal=true">

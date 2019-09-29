@@ -2,10 +2,10 @@
   <div class="py-8 mx-auto">
     <div class="flex items-baseline justify-between">
       <div>
-        <h2 class="text-lg">
+        <h2 class="text-light-heading">
           Asset Regulated
         </h2>
-        <div class="mt-1 text-sm text-gray-700">
+        <div class="mt-1 text-light-secondary">
           <div class="max-w-2xl">
             Indicates whether or not this is a <a target="_blank" class="underline" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0008.md">SEP: 0008</a> regulated asset. If missing, false is assumed.
           </div>

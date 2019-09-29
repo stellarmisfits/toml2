@@ -3,7 +3,7 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Validator Details
           </h2>
         </div>
@@ -16,18 +16,15 @@
       </div>
       <div>
         <a-well class="mt-4">
-          <div class="px-6 py-4">
-            <div class="flex justify-between items-center">
+          <div class="px-6 py-4 bg-blue-800">
+            <div class="text-light-heading">
               {{ validator.name }}
             </div>
-            <div class="mt-2 text-xs text-gray-600">
-              {{ validator.publicKey }}
+            <div class="mt-2 text-light-secondary">
+              {{ validator.account_public_key }}
             </div>
           </div>
           <div>
-            <div class="px-6 py-2 bg-gray-100 border-t text-xs text-gray-700 font-bold uppercase">
-              Details
-            </div>
             <div>
               <div class="flex justify-between items-center px-6 py-4 border-t">
                 <div class="text-sm text-gray-900">
@@ -61,13 +58,11 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Organizations
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
-            <div class="max-w-2xl">
-              This validator is linked to the following organizations.
-            </div>
+          <div class="mt-1 text-light-secondary">
+            This validator is linked to the following organizations.
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">

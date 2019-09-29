@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white overflow-hidden shadow-md rounded-lg text-gray-600"
+    class="bg-white overflow-hidden shadow-md rounded shadow-inner text-gray-600"
   >
     <slot />
   </div>

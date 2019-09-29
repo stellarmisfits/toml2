@@ -1,6 +1,6 @@
 <template>
   <a-well>
-    <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+    <a-well class="px-6 py-4">
       <form v-if="asset.regulated" class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
         <!-- approval_server -->
         <label class="block">
@@ -32,7 +32,7 @@
       <div v-else>
         This asset is not regulated.
       </div>
-    </div>
+    </a-well>
   </a-well>
 </template>
 <script>

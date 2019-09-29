@@ -2,12 +2,13 @@
   <div class="py-8 mx-auto">
     <div class="flex items-baseline justify-between">
       <div>
-        <h2 class="text-lg">
+        <h2 class="text-light-heading">
           Asset Anchor
         </h2>
-        <div class="mt-1 text-sm text-gray-700">
+        <div class="mt-1 text-light-secondary">
           <div class="max-w-2xl">
-            If this token can be redeemed for an underlying asset you can define the details below.
+            If this token can be redeemed for an underlying asset the anchor's
+            details should be defined here.
           </div>
         </div>
       </div>
@@ -15,7 +16,7 @@
         <anchor-switch :key="asset.uuid + asset.anchored" :asset="asset" />
       </div>
     </div>
-    <hr class="my-10 border-b">
+    <hr class="my-10 border-b border-gray-800">
     <div>
       <asset-anchor :asset="asset" />
     </div>

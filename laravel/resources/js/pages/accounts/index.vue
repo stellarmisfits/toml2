@@ -6,13 +6,11 @@
     <div class="px-12 py-8 mx-auto max-w-4xl">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading text-lg font-bold">
             Accounts
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
-            <div class="max-w-2xl">
-              All of the Stellar accounts tied to your user account are listed below.
-            </div>
+          <div class="mt-1 text-light text-sm text-light-secondary">
+            All of the Stellar accounts tied to your user account are listed below.
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">

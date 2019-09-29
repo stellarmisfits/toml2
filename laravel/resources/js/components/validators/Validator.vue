@@ -29,9 +29,7 @@
           Are you sure you want to remove the validator from the organization?
         </div>
       </unlink>
-      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 text-gray-600 fill-current ml-4">
-        <path d="M9.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z" />
-      </svg>
+      <fa icon="chevron-circle-right" class="hover:text-gray-400 cursor-pointer" />
     </router-link>
   </a-well>
 </template>

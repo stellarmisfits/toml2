@@ -9,7 +9,7 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Asset Metrics
           </h2>
         </div>
@@ -21,10 +21,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Asset Account
           </h2>
-          <div class="mt-1 text-sm text-gray-700">
+          <div class="mt-1 text-light-secondary">
             This asset is issued by the following account. You can change the account the asset is tied to by clicking the edit icon above.
           </div>
         </div>
@@ -40,10 +40,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Organizations
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-1 text-light-secondary">
             This Asset is linked to the following organizations through it's issuing account.
           </div>
         </div>

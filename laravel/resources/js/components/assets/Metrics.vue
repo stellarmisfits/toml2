@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+  <a-well class="px-6 py-4">
     <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
       <!-- display_decimals -->
       <label class="block">
@@ -58,7 +58,7 @@
         </a-button>
       </div>
     </form>
-  </div>
+  </a-well>
 </template>
 <script>
 import Form from 'vform'

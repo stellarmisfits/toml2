@@ -1,8 +1,8 @@
 <template>
-  <div class="flex-shrink-0 w-64 bg-gray-800">
+  <div class="flex-shrink-0 w-64 bg-white">
     <router-link :to="{ name: 'dashboard' }" class="hover:text-gray-400">
       <div
-        class="flex items-center h-16 px-4 bg-gray-900 text-3xl text-white font-light"
+        class="flex items-center h-16 px-4 text-3xl text-dark font-light"
       >
         <a-logo
           class="fill-current h-10 w-10"
@@ -13,17 +13,12 @@
       </div>
     </router-link>
     <div v-if="authenticated">
-      <div class="px-6 py-6 text-white">
-        <router-link :to="{ name: 'dashboard' }" active-class="underline" exact>
-          Dashboard
-        </router-link>
-      </div>
-      <div v-if="orgs" class="px-6 py-6 border-t border-gray-700">
-        <h4 class="text-sm text-gray-600 uppercase font-bold tracking-widest">
+      <div class="px-6 py-6 border-t border-gray-400">
+        <router-link class="text-sm text-dark-heading uppercase font-bold tracking-widest" :to="{ name: 'dashboard' }" active-class="underline" exact>
           Organizations
-        </h4>
+        </router-link>
         <ul class="mt-3">
-          <li v-for="org in orgs" :key="org.uuid" class="mt-3 text-white">
+          <li v-for="org in orgs" :key="org.uuid" class="mt-3 text-dark">
             <router-link
               :to="{ name: 'org.details', params: { uuid: org.uuid }}"
               active-class="underline"
@@ -33,13 +28,13 @@
           </li>
         </ul>
       </div>
-      <div class="px-6 py-6 border-t border-gray-700">
+      <div class="px-6 py-6 border-t border-gray-400">
         <h4
-          class="text-sm text-gray-600 uppercase font-bold tracking-widest"
+          class="text-sm text-dark-heading uppercase font-bold tracking-widest"
         >
           Resources
         </h4>
-        <ul class="mt-3 text-white">
+        <ul class="mt-3 text-dark">
           <li class="mt-3">
             <router-link :to="{ name: 'accounts'}" active-class="underline">
               Accounts

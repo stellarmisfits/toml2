@@ -23,7 +23,7 @@ $config = [
     <link href="{{ asset('dist/css/app.css') }}" rel="stylesheet">
   @endif
 </head>
-<body class="font-sans font-sans text-gray-900 antialiased">
+<body class="font-sans font-sans text-ight antialiased">
   <div id="app" />
   {{-- Global configuration object --}}
   <script>

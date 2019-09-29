@@ -3,10 +3,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-lg text-light-heading">
             Accounts
           </h2>
-          <div class="mt-1 text-sm text-gray-700">
+          <div class="mt-1 text-sm text-light-secondary">
             <div class="max-w-2xl">
               Lists of the account resources that are tied to this organization.
               Account records that are linked to an organization will show up in the
@@ -38,10 +38,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-lg text-light-heading">
             Assets
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-2 text-sm text-light-secondary">
             <div class="max-w-2xl">
               Lists of the asset resources that are tied to this organization.
               Asset records that are linked to an organization will show up in the
@@ -73,10 +73,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-lg text-light-heading">
             Principals
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-2 text-sm text-light-secondary">
             <div class="max-w-2xl">
               Lists of the principal resources that are tied to this organization.
               Principal records that are linked to an organization will show up in the
@@ -108,10 +108,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-lg text-light-heading">
             Validators
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-2 text-sm text-light-secondary">
             <div class="max-w-2xl">
               Lists of the validator resources that are tied to this organization.
               Validator records that are linked to an organization will show up in the

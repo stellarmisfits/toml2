@@ -2,7 +2,7 @@
   <div>
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
-        <h2 class="text-lg">
+        <h2 class="text-light-heading">
           Principal Details
         </h2>
       </div>
@@ -16,13 +16,11 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Organizations
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
-            <div class="max-w-2xl">
-              This principal is linked to the following organizations.
-            </div>
+          <div class="mt-1 text-sm text-light-secondary">
+            This principal is linked to the following organizations.
           </div>
         </div>
         <div class="flex-shrink-0 ml-4">

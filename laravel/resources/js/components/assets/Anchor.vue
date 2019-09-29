@@ -2,24 +2,24 @@
   <div v-if="asset.anchored">
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-light-heading">
           Anchor Details
         </h3>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           Assets can be anchored to fiat, crypto, stock, bond, commodity,
           realestate, or other.
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The anchor should be given a descriptor E.g. USD, BTC,
           SBUX, or address of real-estate investment property.
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           Finally define the redemption instructions the asset holder will need
           to follow to redeem the asset for it's anchor.
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- anchor_asset_type -->
             <label class="block">
@@ -67,22 +67,22 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
 
-    <hr class="my-10 border-b">
+    <hr class="my-10 border-b border-gray-800">
 
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-light-heading">
           Collateral Details
         </h3>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           If this is an anchored crypto token, list of one or more public addresses
           that hold the assets for which you are issuing tokens.
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           For each address you list, add a message stating the addresses are
           reserved to back the issued asset, sign each message using the
           address's private key, and add the resulting string
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- collateral_addresses -->
             <label class="block">
@@ -124,7 +124,7 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
   </div>

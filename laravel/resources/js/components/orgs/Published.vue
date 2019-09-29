@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="p-6 bg-white rounded-lg shadow-md overflow-hidden text-gray-600">
-      <h3 class="text-md font-semibold">
+    <a-well class="p-6">
+      <h3 class="text-md text-dark-heading">
         Publish TOML
       </h3>
-      <div class="mt-4 text-sm">
+      <div class="mt-4 text-sm text-dark">
         Once published your organization's TOML file will be available at the
         location below. If you've selected a custom domain for your
         organization you should add a CNAME record pointing to the astrify
@@ -42,7 +42,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </a-well>
     <Modal :open="modal">
       <div slot="title">
         Are you sure you want to <span>{{ (published) ? 'publish' : 'un-publish' }}</span>  this organization?

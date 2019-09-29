@@ -3,7 +3,7 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Account Details
           </h2>
         </div>
@@ -18,10 +18,10 @@
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-light-heading">
             Organizations
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-1 text-light-secondary">
             <div class="max-w-2xl">
               This account is linked to the following organizations.
             </div>

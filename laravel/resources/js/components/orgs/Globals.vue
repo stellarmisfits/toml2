@@ -2,30 +2,30 @@
   <div>
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-md text-light-heading">
           Servers
         </h3>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The Federation Server definition is used for clients to resolve stellar addresses for users on your domain via <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0002.md">SEP-2</a> Federation Protocol
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The Auth Server definition is used for <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0003.md">SEP-3</a> Compliance Protocol
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The Transfer Server definition is used for <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0006.md">SEP-6</a> Anchor/Client interoperability
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The KYC Server definition is used for <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0012.md">SEP-12</a> Anchor/Client customer info transfer.
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The Web Auth Endpoint definition is used for <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md">SEP-10</a> web authentication.
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The Horizon URL definition is the Location of public-facing Horizon instance (if you offer one).
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- Federation Server -->
             <label class="block">
@@ -80,26 +80,26 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
 
-    <hr class="my-10 border-b">
+    <hr class="my-10 border-b border-gray-800">
 
     <div class="flex -mx-4">
       <div class="w-1/3 px-2">
-        <h3 class="text-md font-semibold">
+        <h3 class="text-light-heading">
           Signing Keys
         </h3>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The signing key is used for <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0003.md">SEP-3</a> Compliance Protocol
         </div>
-        <div class="mt-4 text-sm text-gray-800">
+        <div class="mt-4 text-light-secondary">
           The uri request signing key is used for <a target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0007.md">SEP-7</a> delegated signing.
         </div>
       </div>
       <div class="w-2/3 px-2">
-        <div class="px-6 py-4 bg-white rounded-lg shadow-md overflow-hidden">
+        <a-well class="px-6 py-4">
           <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
             <!-- Signing Key -->
             <label class="block">
@@ -126,14 +126,16 @@
               </a-button>
             </div>
           </form>
-        </div>
+        </a-well>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Form from 'vform'
+import AWell from '~/components/Well'
 export default {
+  components: { AWell },
   props: {
     organization: { type: Object, required: true }
   },

@@ -1,6 +1,6 @@
 <template>
   <div id="app2">
-    <div class="min-h-screen flex bg-gray-200">
+    <div class="min-h-screen flex bg-gray-900">
       <Sidebar />
       <div class="flex-grow flex flex-col">
         <Header />

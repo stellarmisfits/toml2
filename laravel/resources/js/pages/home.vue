@@ -6,10 +6,10 @@
     <div class="px-12 py-8 mx-auto max-w-4xl">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-lg text-light-heading">
             Organizations
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-2 text-sm text-light-secondary">
             <div class="max-w-2xl">
               All of the organizations your account has access to will be
               listed here. Organizations are the building blocks of TOML files

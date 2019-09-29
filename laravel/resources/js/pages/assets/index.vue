@@ -6,13 +6,12 @@
     <div class="px-12 py-8 mx-auto max-w-4xl">
       <div class="flex items-baseline justify-between">
         <div>
-          <h2 class="text-lg">
+          <h2 class="text-lg text-light-heading">
             Assets
           </h2>
-          <div class="mt-2 text-sm text-gray-700">
+          <div class="mt-1 text-sm text-light-secondary">
             <div class="max-w-2xl">
-              All of the Stellar assets tied to your user asset are listed below.
-              To verify a stellar asset you must set the home domain to astrify.com.
+              All of the assets tied to your user asset are listed below.
             </div>
           </div>
         </div>

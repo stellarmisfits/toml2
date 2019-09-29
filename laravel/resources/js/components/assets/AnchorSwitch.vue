@@ -1,5 +1,5 @@
 <template>
-  <form class="spaced-y-4" @submit.prevent="update" @keydown="form.onKeydown($event)">
+  <form class="spaced-y-4 text-light" @submit.prevent="update" @keydown="form.onKeydown($event)">
     <div class="mt-4">
       <label class="inline-flex items-center">
         <input

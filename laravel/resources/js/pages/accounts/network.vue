@@ -12,7 +12,7 @@
           occurs when the provided public key has not been funded.
         </div>
         <div v-else>
-          <div class="px-6 py-4 bg-gray-100  text-gray-700">
+          <div class="px-6 py-4 bg-blue-800 text-light">
             <div class="flex justify-between items-center">
               <div class="flex items-center">
                 Network Details
@@ -21,7 +21,7 @@
                 TestNet
               </a-pill>
             </div>
-            <div class="mt-2 text-xs text-gray-600">
+            <div class="mt-2 text-xs">
               {{ horizonAccount.id }}
             </div>
           </div>

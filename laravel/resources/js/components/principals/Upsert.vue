@@ -109,7 +109,7 @@
 
         <!-- id_photo_hash -->
         <label class="block">
-          <span class="form-label">id_photo_hash</span>
+          <span class="form-label">ID Photo Hash</span>
           <input
             v-model="form.id_photo_hash"
             :class="{ 'is-invalid': form.errors.has('id_photo_hash') }"
@@ -122,7 +122,7 @@
 
         <!-- verification_photo_hash -->
         <label class="block">
-          <span class="form-label">verification_photo_hash</span>
+          <span class="form-label">Verification Photo Hash</span>
           <input
             v-model="form.verification_photo_hash"
             :class="{ 'is-invalid': form.errors.has('verification_photo_hash') }"
