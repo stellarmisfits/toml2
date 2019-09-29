@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="my-12">
-          <img class="rounded-lg" src="http://via.placeholder.com/1320x760">
+          <img class="rounded-lg" src="https://astrify-local.s3-us-west-2.amazonaws.com/fixtures/screenshot.png">
         </div>
       </div>
     </div>
