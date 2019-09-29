@@ -3,18 +3,21 @@ name: astrify
 environments:
     production:
         storage: astrify
-        memory: 1024
+        memory: 512
         cli-memory: 512
+        balancer: kaboodle
         database: kaboodle
+        domain: '*.astrify.com'
         build:
             - 'composer install --no-dev --classmap-authoritative'
             - 'php artisan event:cache'
             - 'yarn install && yarn run prod && rm -rf node_modules'
+            - 'mv public/favicon-prod.ico public/favicon.ico'
         deploy:
             - 'php artisan migrate --force'
     staging:
         storage: astrify-dev
-        memory: 1024
+        memory: 512
         cli-memory: 512
         balancer: kaboodle
         database: kaboodle
@@ -24,4 +27,4 @@ environments:
             - 'php artisan event:cache'
             - 'yarn install && yarn run prod && rm -rf node_modules'
         deploy:
-            - 'php artisan migrate:fresh --seed --force'
+            - 'php artisan migrate --force'

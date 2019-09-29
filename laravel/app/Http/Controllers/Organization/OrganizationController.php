@@ -51,7 +51,7 @@ class OrganizationController extends Controller
     {
         $data = $request->validate([
             'name'         => ['required', 'string', 'min:3', 'max:23'],
-            'alias'        => ['required', 'string', 'min:5', 'max:20', 'unique:organizations', new Alias],
+            'alias'        => ['required', 'string', 'min:4', 'max:20', 'unique:organizations', new Alias],
         ]);
 
         $org = $or->create(auth()->user(), $data);
