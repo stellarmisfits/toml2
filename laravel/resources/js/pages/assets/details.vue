@@ -25,28 +25,16 @@
             Asset Account
           </h2>
           <div class="mt-1 text-sm text-gray-700">
-            <div class="max-w-2xl">
-              This asset is issued by the following account.
-            </div>
+            This asset is issued by the following account. You can change the account the asset is tied to by clicking the edit icon above.
           </div>
-        </div>
-        <div class="flex-shrink-0 ml-4">
-          <span>edit button</span>
         </div>
       </div>
       <div class="mt-4">
         <account
           v-if="account"
           :account="account"
-          action="unlink"
+          action="navigate"
         />
-        <a-well class="px-6 py-6">
-          <a-empty-list
-            empty-message="No account found"
-          >
-            No account found.
-          </a-empty-list>
-        </a-well>
       </div>
     </div>
     <div class="py-8 mx-auto">
@@ -56,29 +44,21 @@
             Organizations
           </h2>
           <div class="mt-2 text-sm text-gray-700">
-            <div class="max-w-2xl">
-              This Asset is linked to the following organizations.
-            </div>
+            This Asset is linked to the following organizations through it's issuing account.
           </div>
-        </div>
-        <div class="flex-shrink-0 ml-4">
-          <link-organization
-            resource-type="asset"
-            :resource-uuid="asset.uuid"
-            :unlinked-orgs="unlinkedOrgs"
-            @organizationLinked="updateOrgs"
-          />
         </div>
       </div>
       <div class="mt-4">
-        <OrganizationList
-          action="unlink"
-          :orgs="linkedOrgs"
-          empty-message="No organizations found."
-          resource-owner-type="asset"
-          :resource-owner-uuid="asset.uuid"
-          @organizationUnlinked="updateOrgs"
+        <organization
+          v-if="organization"
+          action="navigate"
+          :org="organization"
         />
+        <a-well v-else class="px-6 py-12">
+          <a-empty-list
+            message="This asset is not tied to an organization."
+          />
+        </a-well>
       </div>
     </div>
   </div>
@@ -88,15 +68,13 @@
 import Asset from '~/components/assets/Asset'
 import Account from '~/components/accounts/Account'
 import AssetMetrics from '~/components/assets/Metrics'
-import OrganizationList from '~/components/orgs/List'
-import LinkOrganization from '~/components/orgs/OrganizationLink'
+import Organization from '~/components/orgs/Organization'
 import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
 
   components: {
-    LinkOrganization,
-    OrganizationList,
+    Organization,
     Asset,
     AssetMetrics,
     Account
@@ -115,13 +93,18 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      getAccountByUuid: 'account/getAccountByUuid',
-      linkedOrgs: 'asset/linkedOrgs',
-      unlinkedOrgs: 'asset/unlinkedOrgs'
-    }),
+    ...mapGetters('account', ['getAccountByUuid']),
+    ...mapGetters('org', ['getOrgByUuid']),
     account: function () {
       return this.getAccountByUuid(this.asset.account_uuid)
+    },
+    organization: function () {
+      if (this.account) {
+        console.log(this.account.organization_uuid)
+        return this.getOrgByUuid(this.account.organization_uuid)
+      }
+
+      return null
     }
   },
 
