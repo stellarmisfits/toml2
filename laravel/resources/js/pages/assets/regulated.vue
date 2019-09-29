@@ -12,7 +12,10 @@
         </div>
       </div>
       <div class="flex-shrink-0 ml-4">
-        <span>regulated toggle</span>
+        <regulated-switch
+          :key="asset.uuid + asset.regulated"
+          :asset="asset"
+        />
       </div>
     </div>
     <div class="mt-4">
@@ -23,12 +26,14 @@
 
 <script>
 import AssetRegulated from '~/components/assets/Regulated'
+import RegulatedSwitch from '~/components/assets/RegulatedSwitch'
 
 export default {
   middleware: 'auth',
 
   components: {
-    AssetRegulated
+    AssetRegulated,
+    RegulatedSwitch
   },
 
   props: {

@@ -3,10 +3,14 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Spatie\Regex\Regex;
 use ZuluCrypto\StellarSdk\Keypair;
 
 class PublicKey implements Rule
 {
+
+    protected $message = 'The given public key is invalid.';
+
     /**
      * Create a new rule instance.
      *
@@ -32,6 +36,11 @@ class PublicKey implements Rule
             return false;
         }
 
+        if(!Regex::match('/[A-Z0-9]{56}$/', $value)->hasMatch()){
+            $this->message = 'The key must be provided in all uppercase letters';
+            return false;
+        }
+
         return true;
     }
 
@@ -42,6 +51,6 @@ class PublicKey implements Rule
      */
     public function message()
     {
-        return 'The given public key is invalid.';
+        return $this->message;
     }
 }

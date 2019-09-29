@@ -36,8 +36,8 @@ export default {
           params: { uuid: this.$route.params.uuid }
         },
         {
-          name: 'Stellar',
-          route: 'account.stellar',
+          name: 'Network Details',
+          route: 'account.network',
           params: { uuid: this.$route.params.uuid }
         }
       ]

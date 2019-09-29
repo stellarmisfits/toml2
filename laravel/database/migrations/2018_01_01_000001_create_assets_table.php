@@ -38,9 +38,9 @@ class CreateAssetsTable extends Migration
             $table->string('collateral_addresses')->nullable();
             $table->string('collateral_address_messages')->nullable();
             $table->string('collateral_address_signatures')->nullable();
-            $table->string('regulated')->nullable();
+            $table->boolean('regulated')->default(false);
             $table->string('approval_server')->nullable();
-            $table->string('approval_criteria')->nullable();
+            $table->string('approval_criteria', 1000)->nullable();
 
             $table->timestamps();
 

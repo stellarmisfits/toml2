@@ -24,6 +24,7 @@ class PublishControllerTest extends TestCase
         $account = $this->seeder->seedAccount($org->team);
         $account->home_domain = $org->url;
         $account->home_domain_updated_at = now();
+        $account->verified = true;
         $account->save();
         (new OrganizationRepository)->addAccount($org, $account);
 

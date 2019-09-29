@@ -13,6 +13,9 @@ class FederationControllerTest extends TestCase
     public function testFederationControllerIndexId()
     {
         $account = $this->seeder->seedAccount();
+        $account->verified = true;
+        $account->save();
+
         $this->get(route('federation', [
             'q' => $account->public_key,
             'type' => 'id'
@@ -25,6 +28,9 @@ class FederationControllerTest extends TestCase
     public function testFederationControllerIndexName()
     {
         $account = $this->seeder->seedAccount();
+        $account->verified = true;
+        $account->save();
+
         $this->get(route('federation', [
             'q' => $account->alias,
             'type' => 'name'

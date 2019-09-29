@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Spatie\Regex\Regex;
 
 $factory->define(App\Models\Account::class, function (Faker $faker) {
     $public_keys = [
@@ -23,10 +24,11 @@ $factory->define(App\Models\Account::class, function (Faker $faker) {
         'GBOK426KPA4ZZD3JQFZ74JO2IA2BIHRVI2IDJH3SRNZA5LVPOXFLMS37',
         'GA3NGTQ7FL6WZ5Z3BAJQWNUJ3PPC3AVQOWSOE474FJ4YPVSQDEV6CN3L'
     ];
+    $slug = strtolower(str_random(12));
 
     return [
         'name' => trim(substr($faker->company, 0, 20)),
-        'alias' => substr($faker->slug, 0, 12),
+        'alias' => Regex::replace('/[^a-z]/', '', $slug)->result(),
         'public_key' => $faker->unique()->randomElement($public_keys)
     ];
 });

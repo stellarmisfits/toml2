@@ -23,7 +23,7 @@ class AccountController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
@@ -52,7 +52,7 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  AccountRepository  $ac
      * @return AccountResource
      * @throws AuthorizationException
@@ -90,20 +90,21 @@ class AccountController extends Controller
      *
      * @param  Request  $request
      * @param  Account  $account
+     * @param  AccountRepository $ac
      * @return AccountResource
      * @throws AuthorizationException
      */
-    public function update(Request $request, Account $account): AccountResource
+    public function update(Request $request, Account $account,  AccountRepository $ac): AccountResource
     {
         $this->authorize('update', $account);
 
         $data = $request->validate([
             'name'         =>  'required|string|max:50',
-            'alias'        => ['required', 'string', 'min:5', 'max:20', 'unique:accounts', new Alias, Rule::unique('accounts', 'alias')->ignore($account->id)],
+            'alias'        => ['required', 'string', 'min:5', 'max:20', new Alias, Rule::unique('accounts', 'alias')->ignore($account->id)],
             'public_key'   => ['required', 'string', new PublicKey, Rule::unique('accounts', 'public_key')->ignore($account->id)]
         ]);
 
-        $account->update($data);
+        $account = $ac->update($account, $data);
 
         return new AccountResource($account);
     }

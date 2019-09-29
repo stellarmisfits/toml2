@@ -152,8 +152,11 @@ class TomlService
             $this->add($asset, 'collateral_address_messages', 'collateral_address_messages');
             $this->add($asset, 'collateral_address_signatures', 'collateral_address_signatures');
             $this->add($asset, 'regulated', 'regulated');
-            $this->add($asset, 'approval_server', 'approval_server');
-            $this->add($asset, 'approval_criteria', 'approval_criteria');
+
+            if ($asset->regulated){
+                $this->add($asset, 'approval_server', 'approval_server');
+                $this->add($asset, 'approval_criteria', 'approval_criteria');
+            }
         });
     }
 

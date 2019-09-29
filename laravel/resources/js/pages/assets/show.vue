@@ -41,13 +41,13 @@ export default {
           params: { uuid: this.$route.params.uuid }
         },
         {
-          name: 'Stellar',
-          route: 'asset.stellar',
+          name: 'Regulated',
+          route: 'asset.regulated',
           params: { uuid: this.$route.params.uuid }
         },
         {
-          name: 'Regulated',
-          route: 'asset.regulated',
+          name: 'Network Details',
+          route: 'asset.network',
           params: { uuid: this.$route.params.uuid }
         }
       ]

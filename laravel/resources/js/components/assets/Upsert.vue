@@ -133,7 +133,7 @@ export default {
         this.form.name = this.asset.name
         this.form.code = this.asset.code
         this.form.account_uuid = this.asset.account_uuid
-        this.form.desc = this.asset.description
+        this.form.description = this.asset.description
       }
     }
   },

@@ -30,6 +30,10 @@ class Asset extends BaseModel implements HasMedia
         'redemption_instructions',
     ];
 
+    protected $casts = [
+        'regulated' => 'boolean'
+    ];
+
     public function registerMediaCollections()
     {
         $this->addMediaCollection('images');

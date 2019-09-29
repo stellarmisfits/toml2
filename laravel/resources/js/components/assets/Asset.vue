@@ -3,6 +3,7 @@
     :image-url="asset.logo"
     :image-title="asset.name"
     :action="action"
+    :router-link="routerLink"
   >
     <dropdown v-if="action==='edit'" slot="imageAction">
       <div slot="link" class="fill-current h-6 w-6 z-10 absolute right-0 mr-4 mt-2 text-white">
@@ -77,6 +78,11 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  computed: {
+    routerLink: function () {
+      return (this.action !== 'edit') ? { name: 'asset.details', params: { uuid: this.asset.uuid } } : null
+    }
+  }
 }
 </script>

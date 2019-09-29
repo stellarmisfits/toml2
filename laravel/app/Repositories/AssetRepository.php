@@ -27,6 +27,19 @@ class AssetRepository
         return $a;
     }
 
+    public function update(Asset $asset, $data){
+        $account = (new Account)->whereUuid($data['account_uuid'])->firstOrFail();
+        $asset->account_id = $account->id;
+
+        $asset->code        = strtoupper($data['code']);
+        $asset->name        = $data['name'];
+        $asset->description = $data['description'];
+        $asset->account_id  = $account->id;
+        $asset->save();
+
+        return $asset;
+    }
+
     /**
      * @param Asset $asset
      */

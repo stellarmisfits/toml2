@@ -4,8 +4,8 @@
     <div v-if="!account.verified">
       <div>
         To verify this account you must submit a challenge transaction signed with
-        the account's private key. This process loosely follows the SEP: 0010
-        Stellar Web Authentication defined <a class="hover:text-gray-500" target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md">here <fa class="text-xs" icon="external-link-alt" /></a>.
+        the account's private key. This process loosely follows the
+        <a class="hover:text-gray-500" target="_blank" href="https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md">SEP: 0010 protocol <fa class="text-xs mb-1" icon="external-link-alt" /></a>.
       </div>
       <hr class="my-8 border-b">
       <div class="">

@@ -38,12 +38,12 @@ class Asset extends JsonResource
             'redemption_instructions'   => $this->redemption_instructions,
             'collateral_address_messages'   => $this->collateral_address_messages,
             'collateral_address_signatures' => $this->collateral_address_signatures,
-            'regulated'                 => $this->regulated,
-            'approval_server'           => $this->approval_server,
-            'approval_criteria'         => $this->approval_criteria,
+            'regulated'                     => $this->regulated,
+            'approval_server'               => $this->approval_server,
+            'approval_criteria'             => $this->approval_criteria,
 
-            'created_at'                => $this->created_at->toAtomString(),
-            'updated_at'                => $this->updated_at->toAtomString(),
+            'created_at'                    => $this->created_at->toAtomString(),
+            'updated_at'                    => $this->updated_at->toAtomString(),
         ];
     }
 }

@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
         Route::group(['namespace' => 'Asset'], function () {
             Route::resource('assets', 'AssetController');
+            Route::patch('assets/{asset}/approval', 'ApprovalController@update')->name('assets.approval');
+            Route::patch('assets/{asset}/regulated', 'RegulatedController@update')->name('assets.regulated');
         });
 
         Route::group(['namespace' => 'Organization'], function () {

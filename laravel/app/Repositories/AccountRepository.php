@@ -33,6 +33,30 @@ class AccountRepository
 
     /**
      * @param Account $account
+     * @param array $data
+     * @return Account
+     */
+    public function update(Account $account, $data): Account
+    {
+       return \DB::transaction(function () use ($account, $data) {
+
+           $newPublicKey = strtoupper($data['public_key']);
+
+           if($account->public_key !== $newPublicKey){
+               $account->verified = false;
+           }
+
+           $account->name        = $data['name'];
+           $account->alias       = str_slug($data['alias']);
+           $account->public_key  = strtoupper($data['public_key']);
+           $account->save();
+
+            return $account;
+        });
+    }
+
+    /**
+     * @param Account $account
      * @param StellarAccount $sAccount
      * @throws
      */

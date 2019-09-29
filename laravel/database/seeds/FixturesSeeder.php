@@ -112,6 +112,8 @@ class FixturesSeeder extends Seeder
             'anchor_asset_type'         => 'good',
             'anchor_asset'              => 'cold hard (soft) gelato',
             'redemption_instructions'   => 'To redeem this voucher just bring your mobile phone with your voucher app installed into the store and mention you\'re redeeming a voucher.',
+            'approval_criteria'         => 'Tag our instagram account @lotto-g in a post to be eligible',
+            'approval_server'           => 'https://giveaway.lotto-gelato.com'
         ]);
 
          // set asset1 logo

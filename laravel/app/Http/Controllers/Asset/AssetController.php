@@ -82,12 +82,13 @@ class AssetController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  Asset $asset
+     * @param AssetRepository $ar
      * @return  AssetResource
      * @throws AuthorizationException
      */
-    public function update(Request $request, Asset $asset)
+    public function update(Request $request, Asset $asset, AssetRepository $ar)
     {
         $this->authorize('update', $asset);
 
@@ -98,9 +99,7 @@ class AssetController extends Controller
             'account_uuid'          =>  ['required', new ValidateUuid, 'exists:accounts,uuid'],
         ]);
 
-        $account = (new Account)->whereUuid($request->account_uuid)->firstOrFail();
-        $asset->account_id = $account->id;
-        $asset->update($data);
+        $asset = $ar->update($asset, $data);
 
         return new AssetResource($asset);
     }

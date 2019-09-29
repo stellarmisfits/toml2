@@ -52,7 +52,7 @@ export default [
     children: [
       { path: '', redirect: { name: 'account.details' } },
       { path: 'details', name: 'account.details', component: page('accounts/details.vue') },
-      { path: 'stellar', name: 'account.stellar', component: page('accounts/stellar.vue') }
+      { path: 'network', name: 'account.network', component: page('accounts/network.vue') }
     ]
   },
 
@@ -68,7 +68,7 @@ export default [
       { path: 'details', name: 'asset.details', component: page('assets/details.vue') },
       { path: 'anchor', name: 'asset.anchor', component: page('assets/anchor.vue') },
       { path: 'regulated', name: 'asset.regulated', component: page('assets/regulated.vue') },
-      { path: 'stellar', name: 'asset.stellar', component: page('assets/stellar.vue') }
+      { path: 'network', name: 'asset.network', component: page('assets/network.vue') }
     ]
   },
 
