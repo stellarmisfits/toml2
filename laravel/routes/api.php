@@ -72,6 +72,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::patch('assets/{asset}/regulated', 'RegulatedController@update')->name('assets.regulated');
             Route::patch('assets/{asset}/anchored', 'AnchoredController@update')->name('assets.anchored');
             Route::patch('assets/{asset}/anchor', 'AnchorController@update')->name('assets.anchor');
+            Route::patch('assets/{asset}/metrics', 'MetricsController@update')->name('assets.metrics');
         });
 
         Route::group(['namespace' => 'Organization'], function () {

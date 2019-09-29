@@ -144,16 +144,19 @@ class TomlService
             $this->add($asset, 'logo', 'image');
             $this->add($asset, 'fixed_number', 'fixed_number');
             $this->add($asset, 'is_unlimited', 'is_unlimited');
-            $this->add($asset, 'anchored', 'is_asset_anchored');
-            $this->add($asset, 'anchor_asset_type', 'anchor_asset_type');
-            $this->add($asset, 'anchor_asset', 'anchor_asset');
-            $this->add($asset, 'redemption_instructions', 'redemption_instructions');
-            $this->add($asset, 'collateral_addresses', 'collateral_addresses');
-            $this->add($asset, 'collateral_address_messages', 'collateral_address_messages');
-            $this->add($asset, 'collateral_address_signatures', 'collateral_address_signatures');
-            $this->add($asset, 'regulated', 'regulated');
 
-            if ($asset->regulated){
+            $this->add($asset, 'anchored', 'is_asset_anchored');
+            if ($asset->anchored) {
+                $this->add($asset, 'anchor_asset_type', 'anchor_asset_type');
+                $this->add($asset, 'anchor_asset', 'anchor_asset');
+                $this->add($asset, 'redemption_instructions', 'redemption_instructions');
+                $this->add($asset, 'collateral_addresses', 'collateral_addresses');
+                $this->add($asset, 'collateral_address_messages', 'collateral_address_messages');
+                $this->add($asset, 'collateral_address_signatures', 'collateral_address_signatures');
+            }
+
+            $this->add($asset, 'regulated', 'regulated');
+            if ($asset->regulated) {
                 $this->add($asset, 'approval_server', 'approval_server');
                 $this->add($asset, 'approval_criteria', 'approval_criteria');
             }

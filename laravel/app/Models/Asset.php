@@ -20,7 +20,6 @@ class Asset extends BaseModel implements HasMedia
     use BelongsToTeam, HasMediaTrait;
 
     protected $fillable = [
-        'display_decimals',
         'name',
         'description',
         'details',
@@ -30,7 +29,11 @@ class Asset extends BaseModel implements HasMedia
         'redemption_instructions',
         'collateral_addresses',
         'collateral_address_messages',
-        'collateral_address_signatures'
+        'collateral_address_signatures',
+        'fixed_number',
+        'max_number',
+        'is_unlimited',
+        'display_decimals',
     ];
 
     protected $casts = [

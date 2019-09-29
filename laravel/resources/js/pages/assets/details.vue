@@ -5,15 +5,13 @@
         <asset :asset="asset" action="edit" />
       </div>
     </div>
+
     <div class="py-8 mx-auto">
       <div class="flex items-baseline justify-between">
         <div>
           <h2 class="text-lg">
             Asset Metrics
           </h2>
-        </div>
-        <div class="flex-shrink-0 ml-4">
-          <span>edit button</span>
         </div>
       </div>
       <div class="mt-4">
@@ -28,7 +26,7 @@
           </h2>
           <div class="mt-1 text-sm text-gray-700">
             <div class="max-w-2xl">
-              This asset is associated with the following account.
+              This asset is issued by the following account.
             </div>
           </div>
         </div>

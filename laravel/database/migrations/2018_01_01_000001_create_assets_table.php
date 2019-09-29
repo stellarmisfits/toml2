@@ -28,8 +28,8 @@ class CreateAssetsTable extends Migration
             $table->integer('display_decimals')->default(0);
             $table->text('conditions')->nullable();
             // $table->string('image'); // obtain through media library
-            $table->string('fixed_number')->nullable();
-            $table->string('max_number')->nullable();
+            $table->bigInteger('fixed_number')->nullable();
+            $table->bigInteger('max_number')->nullable();
             $table->boolean('is_unlimited')->default(false);
             $table->boolean('anchored')->default(false);
             $table->enum('anchor_asset_type', ['fiat', 'crypto', 'stock', 'bond', 'commodity', 'realestate', 'other'])->nullable();

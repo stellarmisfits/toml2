@@ -27,6 +27,7 @@
               <select
                 v-model="form.anchor_asset_type"
                 class="form-select"
+                :class="{ 'is-invalid': form.errors.has('anchor_asset_type') }"
                 name="account_uuid"
               >
                 <option :value="null">NONE</option>
@@ -38,12 +39,14 @@
                 <option value="realestate">realestate</option>
                 <option value="other">other</option>
               </select>
+              <has-error :form="form" field="anchor_asset_type" />
             </label>
 
             <!-- anchor_asset -->
             <label class="block">
               <span class="form-label">Anchor Asset Descriptor</span>
-              <input v-model="form.anchor_asset" class="form-input">
+              <input v-model="form.anchor_asset" class="form-input" :class="{ 'is-invalid': form.errors.has('anchor_asset') }">
+              <has-error :form="form" field="anchor_asset" />
             </label>
 
             <!-- redemption_instructions -->
@@ -92,19 +95,22 @@
             <!-- collateral_addresses -->
             <label class="block">
               <span class="form-label">Collateral Addresses</span>
-              <textarea v-model="form.collateral_addresses" class="form-textarea" rows="3" />
+              <textarea v-model="form.collateral_addresses" class="form-textarea" rows="3" :class="{ 'is-invalid': form.errors.has('collateral_addresses') }" />
+              <has-error :form="form" field="collateral_addresses" />
             </label>
 
             <!-- collateral_address_messages -->
             <label class="block">
               <span class="form-label">Collateral Address Messages</span>
-              <textarea v-model="form.collateral_address_messages" class="form-textarea" rows="3" />
+              <textarea v-model="form.collateral_address_messages" class="form-textarea" rows="3" :class="{ 'is-invalid': form.errors.has('collateral_address_messages') }" />
+              <has-error :form="form" field="collateral_address_messages" />
             </label>
 
             <!-- collateral_address_signatures -->
             <label class="block">
               <span class="form-label">Collateral Address Signatures</span>
-              <textarea v-model="form.collateral_address_signatures" class="form-textarea" rows="3" />
+              <textarea v-model="form.collateral_address_signatures" class="form-textarea" rows="3" :class="{ 'is-invalid': form.errors.has('collateral_address_signatures') }" />
+              <has-error :form="form" field="collateral_address_signatures" />
             </label>
 
             <!-- Save Button -->
@@ -123,7 +129,7 @@
     </div>
   </div>
   <a-well v-else class="p-6">
-    This asset is not regulated.
+    This asset is not anchored.
   </a-well>
 </template>
 <script>
