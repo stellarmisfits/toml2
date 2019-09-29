@@ -108,12 +108,16 @@ class FixturesSeeder extends Seeder
             'fixed_number'              => null,
             'max_number'                => null,
             'is_unlimited'              => true,
-            'is_asset_anchored'         => true,
-            'anchor_asset_type'         => 'good',
+            'anchored'                  => true,
+            'anchor_asset_type'         => 'commodity',
             'anchor_asset'              => 'cold hard (soft) gelato',
             'redemption_instructions'   => 'To redeem this voucher just bring your mobile phone with your voucher app installed into the store and mention you\'re redeeming a voucher.',
             'approval_criteria'         => 'Tag our instagram account @lotto-g in a post to be eligible',
-            'approval_server'           => 'https://giveaway.lotto-gelato.com'
+            'approval_server'           => 'https://giveaway.lotto-gelato.com',
+
+            'collateral_addresses'           => 'GAAZ2NZKFM6HMGLC777PJMUVLFLUNALQLF77K3VDHLET2SJGZKCL4UNF',
+            'collateral_address_messages'    => 'funds in the collateral_addresses list are reserved to back the issued asset.',
+            'collateral_address_signatures'  => 'R0FBWjJOWktGTTZITUdMQzc3N1BKTVVWTEZMVU5BTFFMRjc3SzNWREhMRVQyU0pHWktDTDRVTkY='
         ]);
 
          // set asset1 logo
@@ -188,7 +192,7 @@ class FixturesSeeder extends Seeder
             'fixed_number'              => null,
             'max_number'                => null,
             'is_unlimited'              => true,
-            'is_asset_anchored'         => true,
+            'anchored'                  => true,
             'anchor_asset_type'         => 'service',
             'anchor_asset'              => 'semi-private vpn service',
             'redemption_instructions'   => 'To redeem this voucher head over to your account settings page and select billing. Then select redeem voucher and follow the instructions from there.',
@@ -205,7 +209,7 @@ class FixturesSeeder extends Seeder
             'fixed_number'              => null,
             'max_number'                => null,
             'is_unlimited'              => true,
-            'is_asset_anchored'         => true,
+            'anchored'                  => true,
             'anchor_asset_type'         => 'service',
             'anchor_asset'              => 'semi-private vpn service',
             'redemption_instructions'   => 'To redeem this voucher head over to your account settings page and select billing. Then select redeem voucher and follow the instructions from there.',
@@ -265,7 +269,7 @@ class FixturesSeeder extends Seeder
             'fixed_number'              => null,
             'max_number'                => null,
             'is_unlimited'              => true,
-            'is_asset_anchored'         => true,
+            'anchored'                  => true,
             'anchor_asset_type'         => 'service',
             'anchor_asset'              => 'semi-private vpn service',
             'redemption_instructions'   => 'This voucher may be redeemed for entry for one person into our Semi Annual Open House being held on ' . Carbon::today()->addMonths(6)->toDateString(),

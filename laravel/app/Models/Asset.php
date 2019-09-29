@@ -20,18 +20,23 @@ class Asset extends BaseModel implements HasMedia
     use BelongsToTeam, HasMediaTrait;
 
     protected $fillable = [
-        'code',
-        'account_id',
         'display_decimals',
         'name',
         'description',
         'details',
         'conditions',
+        'anchor_asset_type',
+        'anchor_asset',
         'redemption_instructions',
+        'collateral_addresses',
+        'collateral_address_messages',
+        'collateral_address_signatures'
     ];
 
     protected $casts = [
-        'regulated' => 'boolean'
+        'regulated' => 'boolean',
+        'anchored' => 'boolean',
+        'is_unlimited' => 'boolean',
     ];
 
     public function registerMediaCollections()

@@ -12,7 +12,7 @@
         resource-type="ASSET"
       />
     </a-breadcrumbs>
-    <div class="px-12 py-8 mx-auto max-w-4xl">
+    <div class="px-12 py-8 mx-auto max-w-5xl">
       <transition name="fade" mode="out-in">
         <router-view :asset="asset" />
       </transition>

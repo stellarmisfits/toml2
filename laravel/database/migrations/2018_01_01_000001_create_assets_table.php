@@ -30,14 +30,15 @@ class CreateAssetsTable extends Migration
             // $table->string('image'); // obtain through media library
             $table->string('fixed_number')->nullable();
             $table->string('max_number')->nullable();
-            $table->boolean('is_unlimited')->nullable()->default(false);
-            $table->boolean('is_asset_anchored')->nullable()->default(false);
-            $table->string('anchor_asset_type')->nullable();
+            $table->boolean('is_unlimited')->default(false);
+            $table->boolean('anchored')->default(false);
+            $table->enum('anchor_asset_type', ['fiat', 'crypto', 'stock', 'bond', 'commodity', 'realestate', 'other'])->nullable();
+
             $table->string('anchor_asset')->nullable();
-            $table->string('redemption_instructions')->nullable();
-            $table->string('collateral_addresses')->nullable();
-            $table->string('collateral_address_messages')->nullable();
-            $table->string('collateral_address_signatures')->nullable();
+            $table->string('redemption_instructions', 1000)->nullable();
+            $table->string('collateral_addresses', 1000)->nullable();
+            $table->string('collateral_address_messages', 1000)->nullable();
+            $table->string('collateral_address_signatures', 1000)->nullable();
             $table->boolean('regulated')->default(false);
             $table->string('approval_server')->nullable();
             $table->string('approval_criteria', 1000)->nullable();

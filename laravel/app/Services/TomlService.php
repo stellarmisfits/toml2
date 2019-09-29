@@ -144,7 +144,7 @@ class TomlService
             $this->add($asset, 'logo', 'image');
             $this->add($asset, 'fixed_number', 'fixed_number');
             $this->add($asset, 'is_unlimited', 'is_unlimited');
-            $this->add($asset, 'is_asset_anchored', 'is_asset_anchored');
+            $this->add($asset, 'anchored', 'is_asset_anchored');
             $this->add($asset, 'anchor_asset_type', 'anchor_asset_type');
             $this->add($asset, 'anchor_asset', 'anchor_asset');
             $this->add($asset, 'redemption_instructions', 'redemption_instructions');

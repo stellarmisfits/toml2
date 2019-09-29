@@ -7,27 +7,30 @@
         </h2>
         <div class="mt-1 text-sm text-gray-700">
           <div class="max-w-2xl">
-            If this asset is an anchor for another asset you can define it here.
+            If this token can be redeemed for an underlying asset you can define the details below.
           </div>
         </div>
       </div>
       <div class="flex-shrink-0 ml-4">
-        <span>anchor toggle</span>
+        <anchor-switch :key="asset.uuid + asset.anchored" :asset="asset" />
       </div>
     </div>
-    <div class="mt-4">
+    <hr class="my-10 border-b">
+    <div>
       <asset-anchor :asset="asset" />
     </div>
   </div>
 </template>
 
 <script>
+import AnchorSwitch from '~/components/assets/AnchorSwitch'
 import AssetAnchor from '~/components/assets/Anchor'
 
 export default {
   middleware: 'auth',
 
   components: {
+    AnchorSwitch,
     AssetAnchor
   },
 
