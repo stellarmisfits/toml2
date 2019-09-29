@@ -7,6 +7,8 @@ $config = [
     'githubAuth' => config('services.github.client_id'),
     'loginEnabled' => config('auth.login_enabled'),
     'registrationEnabled' => config('auth.registration_enabled'),
+    'horizonType' => config('stellar.horizon.type'),
+    'horizonHost' => config('stellar.horizon.host'),
 ];
 @endphp
 <!DOCTYPE html>

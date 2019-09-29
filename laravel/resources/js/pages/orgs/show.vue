@@ -3,7 +3,7 @@
     <a-breadcrumbs :tabs="tabs">
       <span slot="title">
         <router-link :to="{ name: 'dashboard' }">
-          Dashboard
+          Organizations
         </router-link>
         <span class="mx-3 text-gray-400 font-light text-2xl leading-none">/</span>{{ organization.name }}
       </span>

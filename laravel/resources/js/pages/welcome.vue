@@ -80,7 +80,7 @@
     </div>
 
     <!-- Open Source -->
-    <a href="https://github.com/benbjurstrom/astrify" target="_blank" class="block px-5 py-12 bg-gray-900 hover:bg-gray-700">
+    <a href="https://github.com/astrify/astrify" target="_blank" class="block px-5 py-12 bg-gray-900 hover:bg-gray-700">
       <div class="lg:max-w-xl lg:text-center lg:mx-auto  text-white">
         <div>
           <fa class="text-5xl" :icon="['fab', 'github']" />

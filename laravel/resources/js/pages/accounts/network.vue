@@ -17,8 +17,8 @@
               <div class="flex items-center">
                 Network Details
               </div>
-              <a-pill color="red">
-                TestNet
+              <a-pill class="ml-2" :color="(horizonType === 'testnet') ? 'red' : 'green'">
+                {{ horizonType }}
               </a-pill>
             </div>
             <div class="mt-2 text-xs">
@@ -300,7 +300,10 @@ export default {
     ...mapGetters({
       horizonAccount: 'horizon-account/getAccount',
       horizonAccountNotFound: 'horizon-account/getAccountNotFound'
-    })
+    }),
+    horizonType () {
+      return window.config.horizonType
+    }
   },
 
   async created () {

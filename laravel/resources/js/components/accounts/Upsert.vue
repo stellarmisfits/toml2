@@ -52,6 +52,7 @@
           </label>
           <label class="block">
             <span class="form-label">Public Key</span>
+            <span v-if="account.verified" class="form-label-subtext">Note: changing the public key of a verified account will un-publish any organizations the account is tied to.</span>
             <input
               v-model="form.public_key"
               :class="{ 'is-invalid': form.errors.has('public_key') }"
@@ -123,6 +124,7 @@ export default {
         if (this.action === 'update') {
           const { data } = await this.form.patch('/api/accounts/' + this.$route.params.uuid)
           this.$store.commit('account/SET_ACCOUNT', { account: data.data })
+          this.$store.dispatch('account/fetchLinkedOrgs', { resourceUuid: this.account.uuid, resourceType: 'accounts' })
         }
 
         this.form.reset()

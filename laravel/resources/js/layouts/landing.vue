@@ -11,7 +11,7 @@
         <router-link v-if="loginEnabled" :to="{ name: 'login' }" class="btn-flat flex items-center hover:text-gray-600">
           Login
         </router-link>
-        <!--<a href="https://github.com/benbjurstrom/astrify" target="_blank"><fa :icon="['fab', 'github']" class="ml-2 text-3xl text-blue-800 hover:text-gray-600" /></a>-->
+        <!--<a href="https://github.com/astrify/astrify" target="_blank"><fa :icon="['fab', 'github']" class="ml-2 text-3xl text-blue-800 hover:text-gray-600" /></a>-->
       </div>
     </div>
 
@@ -26,7 +26,7 @@
         <div>
           <a class="hover:text-gray-600" href="/terms" target="_blank">Terms of Service</a> -
           <a class="hover:text-gray-600" href="/privacy" target="_blank">Privacy</a> -
-          <a class="hover:text-gray-600" href="https://github.com/benbjurstrom/astrify/issues" target="_blank">Support</a>
+          <a class="hover:text-gray-600" href="https://github.com/astrify/astrify/issues" target="_blank">Support</a>
         </div>
       </div>
     </div>

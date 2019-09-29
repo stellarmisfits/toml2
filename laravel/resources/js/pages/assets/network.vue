@@ -12,8 +12,8 @@
               <div class="flex items-center">
                 Asset Details
               </div>
-              <a-pill color="red">
-                TestNet
+              <a-pill class="ml-2" :color="(horizonType === 'testnet') ? 'red' : 'green'">
+                {{ horizonType }}
               </a-pill>
             </div>
             <div class="mt-2 text-xs">
@@ -140,7 +140,10 @@ export default {
     ...mapGetters({
       horizonAsset: 'horizon-asset/getAsset',
       horizonAssetNotFound: 'horizon-asset/getAssetNotFound'
-    })
+    }),
+    horizonType () {
+      return window.config.horizonType
+    }
   },
 
   async created () {

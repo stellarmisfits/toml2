@@ -36,7 +36,7 @@ export const actions = {
         method: 'get',
         url: 'assets',
         params: { asset_issuer: asset.account_public_key, asset_code: asset.code },
-        baseURL: 'https://horizon-testnet.stellar.org/'
+        baseURL: window.config.horizonHost
       })
 
       if (data._embedded.records.length === 1) {

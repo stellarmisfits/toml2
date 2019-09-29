@@ -50,7 +50,7 @@ export const actions = {
       const { data } = await axios({
         method: 'get',
         url: 'accounts/' + publicKey,
-        baseURL: 'https://horizon-testnet.stellar.org/'
+        baseURL: window.config.horizonHost
       })
       commit('SET_ACCOUNT', { account: data })
     } catch (e) {
