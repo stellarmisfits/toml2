@@ -75,6 +75,10 @@ export default {
   }),
 
   created () {
+    if (!window.config.loginEnabled) {
+      this.$router.push('/app')
+    }
+
     // Fill the form with user data.
     let data = {}
     this.form.keys().forEach(key => {

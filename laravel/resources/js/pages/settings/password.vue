@@ -127,6 +127,12 @@ export default {
     })
   }),
 
+  created () {
+    if (!window.config.loginEnabled) {
+      this.$router.push('/app')
+    }
+  },
+
   methods: {
     async update () {
       await this.form.patch('/api/settings/password')

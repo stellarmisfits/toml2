@@ -20,17 +20,6 @@
             I Agree
           </a-button>
         </div>
-
-        <hr class="border-b block">
-
-        <h4 class="text-lg mt-4 block">
-          Public beta notice
-        </h4>
-        <div>
-          This website is currently in public beta. Though effort will be
-          made to ensure continuity of service; there is no guarantee pertaining to
-          system up-time or data integrity.
-        </div>
       </div>
     </a-well>
   </div>

@@ -11,7 +11,7 @@
         </svg>
       </span>
       <div slot="dropdown" class="py-2 w-64">
-        <router-link :to="{ name: 'settings.profile' }" class="dropdown-item">
+        <router-link v-if="showSettings" :to="{ name: 'settings.profile' }" class="dropdown-item">
           <fa class="mr-2" icon="cog" />Settings
         </router-link>
         <a href="#" class="dropdown-item" @click.prevent="logout">
@@ -29,9 +29,16 @@ export default {
   data: () => ({
     open: false
   }),
-  computed: mapGetters({
-    user: 'auth/user'
-  }),
+
+  computed: {
+    ...mapGetters({
+      user: 'auth/user'
+    }),
+    showSettings: function () {
+      return window.config.loginEnabled
+    }
+  },
+
   methods: {
     async logout () {
       // Log out the user.
