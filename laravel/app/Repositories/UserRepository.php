@@ -26,7 +26,7 @@ class UserRepository
 
             // create user
             $user = new User();
-            $user->name = $socialiteUser->getName();
+            $user->name = ($socialiteUser->getName()) ? $socialiteUser->getName() : $socialiteUser->getNickname();
             $user->email = $socialiteUser->getEmail();
             $user->email_verified_at = now();
             $user->save();

@@ -69,7 +69,7 @@
             </h2>
 
             <p class="mt-2 text-normal text-blue-900">
-              Astrify alows you to quickly define assets and link them to your organization. Online exchanges will use the metadata defined in your stellar.toml file when listing your asset.
+              Astrify allows you to quickly define assets and link them to your organization. Online exchanges will use the metadata defined in your stellar.toml file when listing your asset.
             </p>
           </div>
         </div>
